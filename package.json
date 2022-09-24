@@ -1,6 +1,6 @@
 {
-  "name": "next-ts-starter",
-  "description": "Next Typescript Starter Code",
+  "name": "shoplyst-app",
+  "description": "Shopping list application",
   "private": true,
   "license": "MIT",
   "author": "Aro Andriamaro <ni.aro.aina@gmail.com>",
