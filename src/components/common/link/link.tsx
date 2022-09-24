@@ -8,6 +8,7 @@ const StyledLink = styled("a", {
   color: theme.colors["text-vibrant-low"],
   fontFamily: theme.fonts.sans,
   textDecoration: "none",
+  lineHeight: 1,
   variants: {
     underline: {
       true: {

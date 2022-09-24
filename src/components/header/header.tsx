@@ -1,14 +1,14 @@
-import { useRouter } from "next/router"
+import { useSession, signIn } from "next-auth/react"
 import NextLink from "next/link"
-import { useSession, signIn, signOut } from "next-auth/react"
 
-import ToggleTheme from "src/components/common/toggle-theme"
-import { Container, Nav } from "./header.styles"
+import { StyledHeader, StyledNav } from "./header.styles"
 import Flex from "src/components/common/flex"
-import Text from "src/components/common/text"
 import Button from "src/components/common/button"
 import { LazyLoader } from "src/components/common/loader"
+import * as Avatar from "src/components/common/avatar"
 import Link from "src/components/common/link"
+import Text from "src/components/common/text/text"
+import { theme } from "src/styles/theme/stitches.config"
 
 const Auth = () => {
   const { data: session, status } = useSession()
@@ -24,52 +24,62 @@ const Auth = () => {
       )
     case "authenticated":
       return (
-        <Flex align="baseline" gap="xs">
-          <Text fontSize="xs">{session.user?.name || session.user?.email}</Text>
-          <Button
+        <Flex align="center" gap="xs">
+          <Avatar.Root size="sm" rounded withInsetShadow>
+            <Avatar.Image
+              src={session.user?.image as string | undefined}
+              alt={session.user?.name as string | undefined}
+            />
+            <Avatar.Fallback
+              css={{
+                textTransform: "uppercase",
+              }}
+              delayMs={500}
+            >
+              {session.user?.name?.charAt(0)}
+            </Avatar.Fallback>
+          </Avatar.Root>
+          {/*<Button
             size="small"
             colorScheme="danger"
             variant="outlined"
             onClick={() => signOut({ callbackUrl: "/" })}
           >
             Sign out
-          </Button>
+          </Button>*/}
         </Flex>
       )
   }
 }
 
 const Header = () => {
-  const { pathname } = useRouter()
-
   return (
-    <Container>
-      <Nav>
-        <Flex gap="md" align="center">
+    <StyledHeader>
+      <StyledNav>
+        <Flex align="baseline" direction="column">
           <NextLink href="/" passHref>
-            <Link variant="navlink" active={pathname === "/"}>
-              Home
+            <Link
+              css={{
+                fontFamily: theme.fonts.metropolis,
+                fontWeight: theme.fontWeights["extra-light"],
+                letterSpacing: 10,
+                color: theme.colors.solid,
+                fontSize: theme.fontSizes.lg,
+              }}
+              variant="navlink"
+            >
+              Shoply
             </Link>
           </NextLink>
-          <NextLink passHref href="/user/view">
-            <Link variant="navlink" active={pathname === "/user/view"}>
-              Protected
-            </Link>
-          </NextLink>
-          <Link
-            variant="navlink"
-            href="https://github.com/notAro14/next-ts-starter"
-            isExternal
-          >
-            Github
-          </Link>
+          <Text as="small" color="functional-low" paragraph fontSize="xs">
+            Do your shopping with style
+          </Text>
         </Flex>
         <Flex align="center" gap="sm">
           <Auth />
-          <ToggleTheme />
         </Flex>
-      </Nav>
-    </Container>
+      </StyledNav>
+    </StyledHeader>
   )
 }
 
