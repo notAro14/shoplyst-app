@@ -1,6 +1,10 @@
-import { useSession, signIn } from "next-auth/react"
+import { useSession, signIn, signOut } from "next-auth/react"
 import NextLink from "next/link"
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu"
+import { ChevronRightIcon } from "@radix-ui/react-icons"
+import { useTheme } from "next-themes"
 
+import { useIsBrowser } from "src/hooks/use-is-browser"
 import { StyledHeader, StyledNav } from "./header.styles"
 import Flex from "src/components/common/flex"
 import Button from "src/components/common/button"
@@ -8,10 +12,87 @@ import { LazyLoader } from "src/components/common/loader"
 import * as Avatar from "src/components/common/avatar"
 import Link from "src/components/common/link"
 import Text from "src/components/common/text/text"
-import { theme } from "src/styles/theme/stitches.config"
+import { styled, theme } from "src/styles/theme/stitches.config"
+
+const itemStyles = {
+  all: "unset",
+  borderRadius: theme.radii.sm,
+  position: "relative",
+  userSelect: "none",
+  height: 25,
+  display: "flex",
+  alignItems: "center",
+  fontSize: theme.fontSizes.sm,
+  color: theme.colors["text-functional"],
+  paddingLeft: theme.space.md,
+
+  "&[data-highlighted]": {
+    backgroundColor: theme.colors.ui,
+  },
+  variants: {
+    colorScheme: {
+      danger: {
+        color: theme.colors["text-danger-low"],
+        "&[data-highlighted]": {
+          backgroundColor: theme.colors["ui-danger"],
+          color: theme.colors["text-danger-low"],
+        },
+      },
+    },
+  },
+}
+const StyledArrow = styled(DropdownMenu.Arrow, {
+  fill: theme.colors["bg-alt"],
+})
+const StyledSeparator = styled(DropdownMenu.Separator, {
+  height: 1,
+  backgroundColor: theme.colors["border-gray"],
+  marginTop: theme.space.xxs,
+  marginBottom: theme.space.xxs,
+})
+const StyledLabel = styled(DropdownMenu.Label, {
+  color: theme.colors["text-functional-low"],
+  lineHeight: 1.25,
+  paddingLeft: theme.space.md,
+  fontSize: theme.fontSizes.sm,
+  fontWeight: "25px",
+  margin: `${theme.space.xxs} 0`,
+})
+const StyledRadioGroup = styled(DropdownMenu.DropdownMenuRadioGroup, {})
+const StyledRadioItem = styled(DropdownMenu.DropdownMenuRadioItem, {
+  ...itemStyles,
+})
+const StyledMenuItemIndicator = styled(DropdownMenu.ItemIndicator, {
+  position: "absolute",
+  left: 0,
+  width: theme.space.md,
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+})
+const StyledContent = styled(DropdownMenu.Content, {
+  padding: theme.space.xxs,
+  backgroundColor: theme.colors["bg-alt"],
+  borderRadius: theme.radii.md,
+  boxShadow: theme.shadows.medium,
+  border: "1px solid",
+  borderColor: theme.colors["border-gray"],
+  fontFamily: theme.fonts.sans,
+  minWidth: 125,
+  "@sm": {
+    minWidth: 200,
+  },
+})
+const StyledItem = styled(DropdownMenu.Item, {
+  ...itemStyles,
+})
 
 const Auth = () => {
   const { data: session, status } = useSession()
+  const isBrowser = useIsBrowser()
+  const { theme, setTheme } = useTheme()
+  if (isBrowser === false) return null
+
   switch (status) {
     case "loading":
       return <LazyLoader show />
@@ -25,28 +106,55 @@ const Auth = () => {
     case "authenticated":
       return (
         <Flex align="center" gap="xs">
-          <Avatar.Root size="sm" rounded withInsetShadow>
-            <Avatar.Image
-              src={session.user?.image as string | undefined}
-              alt={session.user?.name as string | undefined}
-            />
-            <Avatar.Fallback
-              css={{
-                textTransform: "uppercase",
-              }}
-              delayMs={500}
-            >
-              {session.user?.name?.charAt(0)}
-            </Avatar.Fallback>
-          </Avatar.Root>
-          {/*<Button
-            size="small"
-            colorScheme="danger"
-            variant="outlined"
-            onClick={() => signOut({ callbackUrl: "/" })}
-          >
-            Sign out
-          </Button>*/}
+          <DropdownMenu.Root>
+            <DropdownMenu.Trigger asChild>
+              <Avatar.Root size="sm" rounded withInsetShadow>
+                <Avatar.Image
+                  src={session.user?.image as string | undefined}
+                  alt={session.user?.name as string | undefined}
+                />
+                <Avatar.Fallback
+                  css={{
+                    textTransform: "uppercase",
+                  }}
+                  delayMs={500}
+                >
+                  {session.user?.name?.charAt(0)}
+                </Avatar.Fallback>
+              </Avatar.Root>
+            </DropdownMenu.Trigger>
+            <DropdownMenu.Portal>
+              <StyledContent>
+                <StyledLabel>Appearance</StyledLabel>
+                <StyledRadioGroup value={theme} onValueChange={setTheme}>
+                  <StyledRadioItem value="light">
+                    <StyledMenuItemIndicator>
+                      <ChevronRightIcon />
+                    </StyledMenuItemIndicator>
+                    Light
+                  </StyledRadioItem>
+                  <StyledRadioItem value="dark">
+                    <StyledMenuItemIndicator>
+                      <ChevronRightIcon />
+                    </StyledMenuItemIndicator>
+                    Dark
+                  </StyledRadioItem>
+                  <StyledRadioItem value="system">
+                    <StyledMenuItemIndicator>
+                      <ChevronRightIcon />
+                    </StyledMenuItemIndicator>
+                    System
+                  </StyledRadioItem>
+                </StyledRadioGroup>
+                <StyledSeparator />
+                <StyledLabel>Account</StyledLabel>
+                <StyledItem colorScheme="danger" onSelect={() => signOut()}>
+                  Logout
+                </StyledItem>
+                <StyledArrow />
+              </StyledContent>
+            </DropdownMenu.Portal>
+          </DropdownMenu.Root>
         </Flex>
       )
   }
