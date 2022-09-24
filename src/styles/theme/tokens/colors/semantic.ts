@@ -47,6 +47,7 @@ export const semanticColors = {
   "text-lo-accent": "var(--colors-accent11)",
   "text-hi-accent": "var(--colors-accent12)",
 
+  overlay: "var(--colors-black11)",
   "text-fg-white": "var(--colors-white12)",
   "text-fg-black": "var(--colors-black12)",
 } as const

@@ -1,7 +1,7 @@
 import { useSession, signIn, signOut } from "next-auth/react"
 import NextLink from "next/link"
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu"
-import { ChevronRightIcon } from "@radix-ui/react-icons"
+import { DotFilledIcon } from "@radix-ui/react-icons"
 import { useTheme } from "next-themes"
 
 import { useIsBrowser } from "src/hooks/use-is-browser"
@@ -41,9 +41,7 @@ const itemStyles = {
     },
   },
 }
-const StyledArrow = styled(DropdownMenu.Arrow, {
-  fill: theme.colors["bg-alt"],
-})
+
 const StyledSeparator = styled(DropdownMenu.Separator, {
   height: 1,
   backgroundColor: theme.colors["border-gray"],
@@ -90,7 +88,7 @@ const StyledItem = styled(DropdownMenu.Item, {
 const Auth = () => {
   const { data: session, status } = useSession()
   const isBrowser = useIsBrowser()
-  const { theme, setTheme } = useTheme()
+  const { resolvedTheme, setTheme } = useTheme()
   if (isBrowser === false) return null
 
   switch (status) {
@@ -124,34 +122,32 @@ const Auth = () => {
               </Avatar.Root>
             </DropdownMenu.Trigger>
             <DropdownMenu.Portal>
-              <StyledContent>
-                <StyledLabel>Appearance</StyledLabel>
-                <StyledRadioGroup value={theme} onValueChange={setTheme}>
+              <StyledContent sideOffset={5}>
+                <StyledLabel>
+                  {session.user?.name ?? session.user?.email}
+                </StyledLabel>
+                <StyledSeparator />
+                <StyledRadioGroup
+                  value={resolvedTheme}
+                  onValueChange={setTheme}
+                >
                   <StyledRadioItem value="light">
                     <StyledMenuItemIndicator>
-                      <ChevronRightIcon />
+                      <DotFilledIcon />
                     </StyledMenuItemIndicator>
                     Light
                   </StyledRadioItem>
                   <StyledRadioItem value="dark">
                     <StyledMenuItemIndicator>
-                      <ChevronRightIcon />
+                      <DotFilledIcon />
                     </StyledMenuItemIndicator>
                     Dark
                   </StyledRadioItem>
-                  <StyledRadioItem value="system">
-                    <StyledMenuItemIndicator>
-                      <ChevronRightIcon />
-                    </StyledMenuItemIndicator>
-                    System
-                  </StyledRadioItem>
                 </StyledRadioGroup>
                 <StyledSeparator />
-                <StyledLabel>Account</StyledLabel>
                 <StyledItem colorScheme="danger" onSelect={() => signOut()}>
                   Logout
                 </StyledItem>
-                <StyledArrow />
               </StyledContent>
             </DropdownMenu.Portal>
           </DropdownMenu.Root>
@@ -169,8 +165,7 @@ const Header = () => {
             <Link
               css={{
                 fontFamily: theme.fonts.metropolis,
-                fontWeight: theme.fontWeights["extra-light"],
-                letterSpacing: 10,
+                letterSpacing: 7,
                 color: theme.colors.solid,
                 fontSize: theme.fontSizes.lg,
               }}

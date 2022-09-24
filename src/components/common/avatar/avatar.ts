@@ -11,7 +11,6 @@ const StyledAvatar = styled(AvatarPrimitive.Root, {
   overflow: "hidden",
   userSelect: "none",
 
-  backgroundColor: theme.colors.bg,
   variants: {
     borderRadius: {
       sm: {

@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react"
+import { ReactNode, forwardRef } from "react"
 import type { CSS, VariantProps } from "@stitches/react"
 
 import { styled, theme } from "src/styles/theme/stitches.config"
@@ -42,23 +42,27 @@ interface Props extends VariantProps<typeof StyledLink> {
   href?: string
 }
 
-const Link: FC<Props> = ({ children, isExternal, css, ...rest }) => {
-  return (
-    <StyledLink
-      css={{
-        ...css,
-        display: "flex",
-        alignItems: "center",
-        gap: theme.space.xxs,
-      }}
-      target={isExternal ? "_blank" : undefined}
-      rel={isExternal ? "noreferrer" : undefined}
-      {...rest}
-    >
-      {children}
-      {isExternal && <ExternalLinkIcon />}
-    </StyledLink>
-  )
-}
+const Link = forwardRef<HTMLAnchorElement, Props>(
+  ({ children, isExternal, css, ...rest }, ref) => {
+    return (
+      <StyledLink
+        css={{
+          ...css,
+          display: "flex",
+          alignItems: "center",
+          gap: theme.space.xxs,
+        }}
+        target={isExternal ? "_blank" : undefined}
+        rel={isExternal ? "noreferrer" : undefined}
+        {...rest}
+        ref={ref}
+      >
+        {children}
+        {isExternal && <ExternalLinkIcon />}
+      </StyledLink>
+    )
+  }
+)
+Link.displayName = "Link"
 
 export default Link

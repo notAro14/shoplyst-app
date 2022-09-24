@@ -10,16 +10,13 @@ const StyledSection = styled("section", {
   flexDirection: "column",
   minHeight: "100%",
   backgroundColor: theme.colors.bg,
+  transition: "background-color 200ms ease-in-out",
 })
 
 const StyledMain = styled("main", {
   padding: theme.space.lg,
   "@sm": {
-    maxWidth: 500,
-    margin: "0 auto",
-  },
-  "@md": {
-    maxWidth: 750,
+    minWidth: 500,
     margin: "0 auto",
   },
 })
