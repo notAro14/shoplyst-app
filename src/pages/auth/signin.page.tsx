@@ -53,6 +53,14 @@ const SignIn: NextPageWithLayout = () => {
           >
             Sign in with Github
           </Button>
+          <Button
+            variant="outlined"
+            colorScheme="accent"
+            fullWidth
+            onClick={() => signIn("google", { callbackUrl })}
+          >
+            Sign in with Google
+          </Button>
         </Flex>
       </Flex>
     </>
