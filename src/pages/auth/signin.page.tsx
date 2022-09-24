@@ -35,7 +35,7 @@ const SignIn: NextPageWithLayout = () => {
             textAlign: "center",
           }}
         >
-          Shoply
+          Shoplyst
         </Heading>
         <ToggleTheme
           css={{

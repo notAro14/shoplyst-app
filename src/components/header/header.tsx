@@ -78,9 +78,9 @@ const StyledContent = styled(DropdownMenu.Content, {
   border: "1px solid",
   borderColor: theme.colors["border-gray"],
   fontFamily: theme.fonts.sans,
-  minWidth: 125,
+  minWidth: 110,
   "@sm": {
-    minWidth: 200,
+    minWidth: 150,
   },
 })
 const StyledItem = styled(DropdownMenu.Item, {
@@ -176,7 +176,7 @@ const Header = () => {
               }}
               variant="navlink"
             >
-              Shoply
+              Shoplyst
             </Link>
           </NextLink>
           <Text as="small" color="functional-low" paragraph fontSize="xs">
