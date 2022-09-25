@@ -2,6 +2,7 @@ import { signIn } from "next-auth/react"
 import { useRouter } from "next/router"
 
 import Button from "src/components/common/button"
+import GoogleButton from "src/components/common/google-btn"
 import Flex from "src/components/common/flex"
 import Heading from "src/components/common/heading"
 import SEO from "src/components/common/seo"
@@ -17,17 +18,7 @@ const SignIn: NextPageWithLayout = () => {
   return (
     <>
       <SEO title="Sign In" />
-      <Flex
-        direction="column"
-        gap="2xl"
-        css={{
-          borderRadius: theme.radii.lg,
-          padding: theme.space.xl,
-          border: "1px solid",
-          borderColor: theme.colors["border-gray"],
-          boxShadow: theme.shadows.low,
-        }}
-      >
+      <Flex direction="column" gap="2xl">
         <Heading
           variant="h1"
           vibrant
@@ -51,16 +42,9 @@ const SignIn: NextPageWithLayout = () => {
             fullWidth
             onClick={() => signIn("github", { callbackUrl })}
           >
-            Sign in with Github
+            Se connecter avec Github
           </Button>
-          <Button
-            variant="outlined"
-            colorScheme="accent"
-            fullWidth
-            onClick={() => signIn("google", { callbackUrl })}
-          >
-            Sign in with Google
-          </Button>
+          <GoogleButton onClick={() => signIn("google", { callbackUrl })} />
         </Flex>
       </Flex>
     </>
