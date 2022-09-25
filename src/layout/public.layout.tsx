@@ -2,8 +2,8 @@ import type { FC, ReactNode } from "react"
 
 import { styled, theme } from "src/styles/theme/stitches.config"
 
-import Footer from "src/components/footer"
-import Header from "src/components/header"
+import Footer from "src/layout/footer"
+import Header from "src/layout/header"
 
 const StyledSection = styled("section", {
   display: "flex",

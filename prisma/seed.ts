@@ -1,24 +1,34 @@
 import { PrismaClient, Prisma } from "@prisma/client"
 
 const prisma = new PrismaClient()
-const articles: Prisma.ArticleCreateInput[] = [
+const data: Prisma.CategoryCreateInput[] = [
   {
-    name: "Riz",
+    name: "Pâtes, Riz & Céréales",
+    products: {
+      create: [{ name: "Riz" }, { name: "Pâtes" }],
+    },
   },
   {
-    name: "Jambon de dinde",
+    name: "Fruits",
+    products: {
+      create: [{ name: "Banane" }, { name: "Pêche" }, { name: "Pomme" }],
+    },
   },
   {
-    name: "Haricots verts",
+    name: "Hygiène",
+    products: {
+      create: [{ name: "Papier toilette" }, { name: "Dentifrice" }],
+    },
   },
 ]
 
 async function main() {
-  const existingArticles = await prisma.article.findMany()
-  if (existingArticles.length === 0)
-    await prisma.article.createMany({
-      data: articles,
-    })
+  await prisma.product.deleteMany()
+  await prisma.category.deleteMany()
+
+  data.forEach(async (d) => {
+    await prisma.category.create({ data: d })
+  })
 }
 
 main()

@@ -60,13 +60,21 @@ model List {
   description String?
   ownerId     String
   owner       User              @relation(fields: [ownerId], references: [id])
-  articles    ArticlesOnLists[]
+  products    ProductsOnLists[]
 }
 
-model Article {
-  id    Int               @unique @default(autoincrement())
-  name  String
-  lists ArticlesOnLists[]
+model Category {
+  id       Int       @unique @default(autoincrement())
+  name     String
+  products Product[]
+}
+
+model Product {
+  id         Int               @unique @default(autoincrement())
+  name       String
+  lists      ProductsOnLists[]
+  categoryId Int?
+  category   Category?         @relation(fields: [categoryId], references: [id])
 }
 
 enum ArticleStatus {
@@ -74,13 +82,13 @@ enum ArticleStatus {
   READY
 }
 
-model ArticlesOnLists {
-  articleId Int
-  article   Article       @relation(fields: [articleId], references: [id])
+model ProductsOnLists {
+  productId Int
+  product   Product       @relation(fields: [productId], references: [id])
   listId    String
   list      List          @relation(fields: [listId], references: [id])
   status    ArticleStatus @default(READY)
   detail    String?
 
-  @@unique([articleId, listId])
+  @@unique([productId, listId])
 }

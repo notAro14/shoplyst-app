@@ -3,7 +3,7 @@ import type { NextApiHandler } from "next"
 import { prisma } from "src/utils/db/prisma-client"
 
 const handler: NextApiHandler = async (_req, res) => {
-  const articles = await prisma.article.findMany({
+  const articles = await prisma.product.findMany({
     orderBy: {
       name: "asc",
     },

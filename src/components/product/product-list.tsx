@@ -4,11 +4,11 @@ import Flex from "../common/flex"
 import Paper from "../common/paper"
 import Text from "../common/text"
 import { theme } from "src/styles/theme/stitches.config"
-import { useGetArticlesQuery } from "src/store/api/article.api.slice"
+import { useGetProductsQuery } from "src/components/product/product.api.slice"
 import Loader from "src/components/common/loader"
 
-const ArticleList: FC = () => {
-  const { data: articles, isError, isLoading } = useGetArticlesQuery()
+const ProductList: FC = () => {
+  const { data: products, isError, isLoading } = useGetProductsQuery()
 
   if (isError)
     return (
@@ -16,8 +16,8 @@ const ArticleList: FC = () => {
         Une erreur s&apos;est produite
       </Text>
     )
-  if (typeof articles === "undefined" || isLoading) return <Loader />
-  if (articles.length === 0) return <Text>Il n&apos;y a pas de produits.</Text>
+  if (typeof products === "undefined" || isLoading) return <Loader />
+  if (products.length === 0) return <Text>Il n&apos;y a pas de produits.</Text>
   return (
     <Flex
       as="ul"
@@ -27,8 +27,8 @@ const ArticleList: FC = () => {
         listStyleType: "none",
       }}
     >
-      {articles
-        ? articles.map(({ id, name }) => {
+      {products
+        ? products.map(({ id, name }) => {
             return (
               <Paper
                 bordered={false}
@@ -61,4 +61,4 @@ const ArticleList: FC = () => {
   )
 }
 
-export default ArticleList
+export default ProductList

@@ -4,7 +4,7 @@ import SEO from "src/components/common/seo"
 import Heading from "src/components/common/heading"
 import Text from "src/components/common/text"
 import { styled, theme } from "src/styles/theme/stitches.config"
-import ArticleList from "src/components/article/articles-list"
+import ProductList from "src/components/product/product-list"
 
 const Spacer = styled("div", {
   display: "block",
@@ -39,7 +39,7 @@ const IndexPage: FC = () => {
       <Spacer size="xs" />
       <Text>Prépare tes courses en ajoutant des produits à ta liste.</Text>
       <Spacer />
-      <ArticleList />
+      <ProductList />
       <Spacer />
     </>
   )
