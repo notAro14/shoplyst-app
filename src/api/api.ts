@@ -1,9 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios"
 
-//const axiosParams: AxiosRequestConfig = {
-//  baseURL: process.env.NODE_ENV === "development" ? "http:localhost:8080" : "/",
-//}
-//const axiosInstance = axios.create(axiosParams)
 const axiosInstance = axios.create()
 
 function api(axios: AxiosInstance) {

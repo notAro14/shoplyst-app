@@ -1,15 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit"
 // Or from '@reduxjs/toolkit/query/react'
 import { setupListeners } from "@reduxjs/toolkit/query/react"
-import { userSliceApi } from "src/components/user/user.slice.api"
+import { apiSlice } from "src/store/api"
 
 export const store = configureStore({
   reducer: {
-    [userSliceApi.reducerPath]: userSliceApi.reducer,
+    [apiSlice.reducerPath]: apiSlice.reducer,
   },
   devTools: process.env.NODE_ENV === "development",
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(userSliceApi.middleware),
+    getDefaultMiddleware().concat(apiSlice.middleware),
 })
 
 setupListeners(store.dispatch)

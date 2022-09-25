@@ -1,12 +1,11 @@
 import "src/styles/reset.css"
 import "src/styles/fonts.css"
 
-import type { AppPropsWithLayout } from "src/types/next"
-import { SessionProvider } from "next-auth/react"
-
-import { PublicLayout } from "src/layout/public.layout"
-import Providers from "src/context"
 import { Session } from "next-auth"
+
+import type { AppPropsWithLayout } from "src/types/next"
+import { PublicLayout } from "src/layout/public.layout"
+import Providers from "src/providers"
 
 const getPublicLayout = (page: JSX.Element) => (
   <PublicLayout>{page}</PublicLayout>
@@ -18,9 +17,9 @@ const MyApp = ({
 }: AppPropsWithLayout<{ session: Session }>) => {
   const getLayout = Component.getLayout ?? getPublicLayout
   return (
-    <SessionProvider session={session}>
-      <Providers>{getLayout(<Component {...pageProps} />)}</Providers>
-    </SessionProvider>
+    <Providers session={session}>
+      {getLayout(<Component {...pageProps} />)}
+    </Providers>
   )
 }
 

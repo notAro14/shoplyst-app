@@ -43,6 +43,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  list          List[]
 }
 
 model VerificationToken {
@@ -51,4 +52,35 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model List {
+  id          String            @unique @default(cuid())
+  name        String
+  description String?
+  ownerId     String
+  owner       User              @relation(fields: [ownerId], references: [id])
+  articles    ArticlesOnLists[]
+}
+
+model Article {
+  id    Int               @unique @default(autoincrement())
+  name  String
+  lists ArticlesOnLists[]
+}
+
+enum ArticleStatus {
+  PURCHASED
+  READY
+}
+
+model ArticlesOnLists {
+  articleId Int
+  article   Article       @relation(fields: [articleId], references: [id])
+  listId    String
+  list      List          @relation(fields: [listId], references: [id])
+  status    ArticleStatus @default(READY)
+  detail    String?
+
+  @@unique([articleId, listId])
 }

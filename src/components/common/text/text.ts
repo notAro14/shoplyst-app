@@ -4,7 +4,6 @@ const Text = styled("p", {
   color: theme.colors["text-functional"],
   fontFamily: theme.fonts.sans,
   fontWeight: theme.fontWeights.light,
-  lineHeight: 1,
   variants: {
     fontSize: {
       xxs: {
@@ -58,6 +57,12 @@ const Text = styled("p", {
       },
       "accent-low": {
         color: theme.colors["text-accent-low"],
+      },
+      danger: {
+        color: theme.colors["text-danger"],
+      },
+      "danger-low": {
+        color: theme.colors["text-danger-low"],
       },
     },
     fontWeight: {

@@ -18,7 +18,14 @@
     "format": "prettier --write --ignore-unknown .",
     "prepare": "husky install",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "db:push": "prisma db push",
+    "db:migrate": "prisma migrate dev",
+    "studio": "prisma studio",
+    "generate": "prisma generate"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,css,scss,sass,md,mdx,html,json}": [

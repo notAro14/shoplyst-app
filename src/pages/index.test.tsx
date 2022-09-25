@@ -1,9 +1,15 @@
 import { render } from "@testing-library/react"
+import { Provider } from "react-redux"
 
-import Index from "./index.page"
+import Index from "src/pages/index.page"
+import { store } from "src/store"
 
 test("Index page renders without throwing", () => {
   expect(() => {
-    render(<Index />)
+    render(
+      <Provider store={store}>
+        <Index />
+      </Provider>
+    )
   }).not.toThrow()
 })
