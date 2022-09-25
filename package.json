@@ -21,11 +21,12 @@
     "test:watch": "jest --watch",
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate dev",
+    "db:seed": "prisma db seed",
     "studio": "prisma studio",
     "generate": "prisma generate"
   },
   "prisma": {
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,css,scss,sass,md,mdx,html,json}": [
