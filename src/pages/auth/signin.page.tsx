@@ -1,8 +1,8 @@
 import { signIn } from "next-auth/react"
 import { useRouter } from "next/router"
 
-import Button from "src/components/common/button"
 import GoogleButton from "src/components/common/google-btn"
+import GithubButton from "src/components/common/github-btn"
 import Flex from "src/components/common/flex"
 import Heading from "src/components/common/heading"
 import SEO from "src/components/common/seo"
@@ -36,14 +36,7 @@ const SignIn: NextPageWithLayout = () => {
           }}
         />
         <Flex direction="column" gap="xl">
-          <Button
-            variant="outlined"
-            colorScheme="accent"
-            fullWidth
-            onClick={() => signIn("github", { callbackUrl })}
-          >
-            Se connecter avec Github
-          </Button>
+          <GithubButton onClick={() => signIn("github", { callbackUrl })} />
           <GoogleButton onClick={() => signIn("google", { callbackUrl })} />
         </Flex>
       </Flex>
