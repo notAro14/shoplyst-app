@@ -2,32 +2,9 @@ import type { FC } from "react"
 
 import SEO from "src/components/common/seo"
 import Heading from "src/components/common/heading"
+import Spacer from "src/components/common/spacer"
 import Text from "src/components/common/text"
-import { styled, theme } from "src/styles/theme/stitches.config"
 import ProductList from "src/components/product/product-list"
-
-const Spacer = styled("div", {
-  display: "block",
-  variants: {
-    size: {
-      xxs: {
-        height: theme.space.xxs,
-      },
-      xs: {
-        height: theme.space.xs,
-      },
-      sm: {
-        height: theme.space.sm,
-      },
-      md: {
-        height: theme.space.md,
-      },
-    },
-  },
-  defaultVariants: {
-    size: "md",
-  },
-})
 
 const IndexPage: FC = () => {
   return (
