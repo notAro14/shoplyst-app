@@ -127,7 +127,7 @@ const StyledFallback = styled(AvatarPrimitive.Fallback, {
   color: theme.colors.solid,
   fontSize: 15,
   lineHeight: 1,
-  fontWeight: 500,
+  fontWeight: theme.fontWeights.regular,
   fontFamily: theme.fonts.sans,
   textTransform: "uppercase",
   borderRadius: "inherit",

@@ -21,6 +21,7 @@ const itemStyles = {
   height: 25,
   display: "flex",
   alignItems: "center",
+  fontWeight: theme.fontWeights["extra-light"],
   fontSize: theme.fontSizes.md,
   "@sm": {
     fontSize: theme.fontSizes.sm,
@@ -55,7 +56,7 @@ const StyledLabel = styled(DropdownMenu.Label, {
   lineHeight: 1.25,
   paddingLeft: theme.space.md,
   fontSize: theme.fontSizes.sm,
-  fontWeight: "25px",
+  fontWeight: theme.fontWeights.thin,
   margin: `${theme.space.xxs} 0`,
 })
 const StyledRadioGroup = styled(DropdownMenu.DropdownMenuRadioGroup, {})
@@ -166,17 +167,25 @@ const Header = () => {
           <NextLink href="/" passHref>
             <Link
               css={{
-                fontFamily: theme.fonts.metropolis,
                 letterSpacing: 7,
                 color: theme.colors.solid,
                 fontSize: theme.fontSizes.lg,
+                fontWeight: theme.fontWeights.medium,
               }}
               variant="navlink"
             >
               Shoplyst
             </Link>
           </NextLink>
-          <Text as="small" color="functional-low" paragraph fontSize="xs">
+          <Text
+            as="small"
+            color="functional-low"
+            paragraph
+            fontSize="sm"
+            css={{
+              fontWeight: theme.fontWeights["extra-light"],
+            }}
+          >
             Do your shopping with style
           </Text>
         </Flex>

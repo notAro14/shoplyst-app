@@ -27,7 +27,7 @@ export const StyledTrigger = styled(Trigger, {
   color: theme.colors["text-functional-low"],
   textTransform: "uppercase",
   fontSize: theme.fontSizes.sm,
-  fontWeight: theme.fontWeights.medium,
+  fontWeight: theme.fontWeights.regular,
 })
 export const StyledItem = styled(Item, {
   overflow: "hidden",

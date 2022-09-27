@@ -7,9 +7,10 @@ const Button = styled("button", {
   fontFamily: theme.fonts.sans,
   fontSize: theme.fontSizes.md,
   padding: `${theme.space.xs} ${theme.space.lg}`,
-  fontWeight: theme.fontWeights.medium,
+  fontWeight: theme.fontWeights.light,
   border: "1px solid",
   boxShadow: theme.shadows.low,
+  textTransform: "uppercase",
 
   compoundVariants: [
     {
@@ -61,7 +62,7 @@ const Button = styled("button", {
         backgroundColor: "transparent",
         borderColor: theme.colors.border,
         color: theme.colors["text-vibrant-low"],
-        fontWeight: theme.fontWeights["semi-bold"],
+        fontWeight: theme.fontWeights.medium,
         "&:hover": {
           borderColor: theme.colors["border-hovered"],
           cursor: "pointer",
@@ -75,7 +76,7 @@ const Button = styled("button", {
         backgroundColor: "transparent",
         borderColor: theme.colors["border-danger"],
         color: theme.colors["text-danger-low"],
-        fontWeight: theme.fontWeights["semi-bold"],
+        fontWeight: theme.fontWeights.medium,
         "&:hover": {
           borderColor: theme.colors["border-hovered-danger"],
           cursor: "pointer",
@@ -89,7 +90,7 @@ const Button = styled("button", {
         backgroundColor: "transparent",
         borderColor: theme.colors["border-accent"],
         color: theme.colors["text-accent-low"],
-        fontWeight: theme.fontWeights["semi-bold"],
+        fontWeight: theme.fontWeights.medium,
         "&:hover": {
           borderColor: theme.colors["border-hovered-accent"],
           cursor: "pointer",

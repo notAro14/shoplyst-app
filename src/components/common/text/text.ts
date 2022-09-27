@@ -3,7 +3,7 @@ import { styled, theme } from "src/styles/theme/stitches.config"
 const Text = styled("p", {
   color: theme.colors["text-functional"],
   fontFamily: theme.fonts.sans,
-  fontWeight: theme.fontWeights.light,
+  fontWeight: theme.fontWeights["extra-light"],
   variants: {
     fontSize: {
       xxs: {
@@ -72,7 +72,7 @@ const Text = styled("p", {
     },
   },
   defaultVariants: {
-    fontSize: "md",
+    fontSize: "lg",
     color: "functional",
   },
 })

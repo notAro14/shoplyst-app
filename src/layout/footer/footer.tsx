@@ -17,8 +17,21 @@ const Footer: FC = () => {
           alignItems: "baseline",
         }}
       >
-        <Text as="span">Made by</Text>
-        <Link href="https://github.com/notAro14" isExternal>
+        <Text
+          css={{
+            fontSize: "inherit",
+          }}
+          as="span"
+        >
+          Made by
+        </Text>
+        <Link
+          css={{
+            fontSize: "inherit",
+          }}
+          href="https://github.com/notAro14"
+          isExternal
+        >
           Aro Andriamaro
         </Link>
       </Text>
