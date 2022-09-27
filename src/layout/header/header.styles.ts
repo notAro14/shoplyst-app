@@ -17,7 +17,7 @@ export const StyledHeader = styled("header", {
 export const StyledNav = styled("nav", {
   backgroundColor: theme.colors["bg-transparent"],
   backdropFilter: "blur(10px)",
-  borderRadius: theme.radii.lg,
+  borderRadius: theme.radii.sm,
   border: "1px solid",
   borderColor: theme.colors["border-gray"],
   display: "flex",

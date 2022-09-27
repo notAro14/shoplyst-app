@@ -16,7 +16,6 @@ import { styled, theme } from "src/styles/theme/stitches.config"
 
 const itemStyles = {
   all: "unset",
-  borderRadius: theme.radii.sm,
   position: "relative",
   userSelect: "none",
   height: 25,
@@ -74,7 +73,7 @@ const StyledMenuItemIndicator = styled(DropdownMenu.ItemIndicator, {
 const StyledContent = styled(DropdownMenu.Content, {
   padding: theme.space.xxs,
   backgroundColor: theme.colors["bg-alt"],
-  borderRadius: theme.radii.md,
+  borderRadius: theme.radii.sm,
   boxShadow: theme.shadows.medium,
   border: "1px solid",
   borderColor: theme.colors["border-gray"],

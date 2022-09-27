@@ -3,7 +3,7 @@ import type * as Stitches from "@stitches/react"
 import { styled, theme } from "src/styles/theme/stitches.config"
 
 const Button = styled("button", {
-  borderRadius: 9999,
+  borderRadius: theme.radii.sm,
   fontFamily: theme.fonts.sans,
   fontSize: theme.fontSizes.md,
   padding: `${theme.space.xs} ${theme.space.lg}`,

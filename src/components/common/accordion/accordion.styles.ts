@@ -14,7 +14,7 @@ const slideUp = keyframes({
 
 export const StyledTrigger = styled(Trigger, {
   backgroundColor: theme.colors.bg,
-  borderRadius: theme.radii.md,
+  borderRadius: theme.radii.sm,
   border: "1px solid",
   borderColor: theme.colors["border-gray"],
   display: "flex",
@@ -23,15 +23,17 @@ export const StyledTrigger = styled(Trigger, {
   flex: 1,
   lineHeight: 1,
   fontFamily: theme.fonts.sans,
-  fontWeight: theme.fontWeights.thin,
   padding: `${theme.space.sm} ${theme.space.md}`,
+  color: theme.colors["text-functional-low"],
+  textTransform: "uppercase",
+  fontSize: theme.fontSizes.sm,
+  fontWeight: theme.fontWeights.medium,
 })
 export const StyledItem = styled(Item, {
   overflow: "hidden",
   "& [data-state=open]": {
     [`& ${StyledTrigger}`]: {
-      borderLeft: "4px solid",
-      borderLeftColor: theme.colors.solid,
+      borderColor: theme.colors.border,
     },
   },
 })
@@ -45,14 +47,14 @@ export const StyledAccordion = styled(Root, {
 })
 export const StyledContent = styled(Content, {
   '&[data-state="open"]': {
-    animation: `${slideDown} 200ms cubic-bezier(0.87, 0, 0.13, 1)`,
+    animation: `${slideDown} 175ms ease-in-out`,
   },
   '&[data-state="closed"]': {
-    animation: `${slideUp} 200ms cubic-bezier(0.87, 0, 0.13, 1)`,
+    animation: `${slideUp} 175ms ease-in-out`,
   },
 })
 export const StyledChevron = styled(ChevronDownIcon, {
-  transition: "transform 200ms cubic-bezier(0.87, 0, 0.13, 1)",
+  transition: "transform 175ms ease-in-out",
   "[data-state=open] &": { transform: "rotate(-180deg)" },
   color: "inherit",
 })
