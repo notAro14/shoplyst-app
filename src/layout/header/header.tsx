@@ -22,7 +22,10 @@ const itemStyles = {
   height: 25,
   display: "flex",
   alignItems: "center",
-  fontSize: theme.fontSizes.sm,
+  fontSize: theme.fontSizes.md,
+  "@sm": {
+    fontSize: theme.fontSizes.sm,
+  },
   color: theme.colors["text-functional"],
   paddingLeft: theme.space.md,
 

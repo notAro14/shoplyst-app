@@ -1,5 +1,5 @@
 export const radii = {
-  sm: "2px",
-  md: "6px",
+  sm: "4px",
+  md: "8px",
   lg: "20px",
 }

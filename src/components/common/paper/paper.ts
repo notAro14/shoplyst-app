@@ -1,7 +1,6 @@
 import { styled, theme } from "src/styles/theme/stitches.config"
 
 const Paper = styled("div", {
-  padding: theme.space.md,
   variants: {
     elevation: {
       low: {
@@ -34,8 +33,6 @@ const Paper = styled("div", {
   },
   defaultVariants: {
     elevation: "low",
-    bordered: true,
-    borderRadius: "lg",
   },
 })
 

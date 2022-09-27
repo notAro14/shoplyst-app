@@ -4,7 +4,7 @@ import SEO from "src/components/common/seo"
 import Heading from "src/components/common/heading"
 import Spacer from "src/components/common/spacer"
 import Text from "src/components/common/text"
-import ProductList from "src/components/product/product-list"
+import CategoryAndProduct from "src/components/category-and-product"
 
 const IndexPage: FC = () => {
   return (
@@ -16,7 +16,7 @@ const IndexPage: FC = () => {
       <Spacer size="xs" />
       <Text>Prépare tes courses en ajoutant des produits à ta liste.</Text>
       <Spacer />
-      <ProductList />
+      <CategoryAndProduct />
       <Spacer />
     </>
   )
