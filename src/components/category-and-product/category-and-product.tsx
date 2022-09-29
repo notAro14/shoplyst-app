@@ -3,7 +3,6 @@ import type { FC } from "react"
 import Paper from "../common/paper"
 import Text from "../common/text"
 import { theme } from "src/styles/theme/stitches.config"
-import { useGetCategoriesAndProductsQuery } from "src/components/category-and-product/category-and-product.api.slice"
 import Loader from "src/components/common/loader"
 import {
   Accordion,
@@ -13,6 +12,7 @@ import {
 } from "src/components/common/accordion"
 import Flex from "src/components/common/flex"
 import Button from "src/components/common/button"
+import { trpc } from "src/utils/trpc"
 
 const CategoryAndProduct: FC = () => {
   const {
@@ -20,7 +20,7 @@ const CategoryAndProduct: FC = () => {
     isError,
     isLoading,
     refetch,
-  } = useGetCategoriesAndProductsQuery()
+  } = trpc.category.list.useQuery()
 
   if (isError)
     return (
@@ -41,7 +41,7 @@ const CategoryAndProduct: FC = () => {
           variant="outlined"
           size="small"
           colorScheme="accent"
-          onClick={refetch}
+          onClick={() => refetch()}
         >
           Réessayer
         </Button>
