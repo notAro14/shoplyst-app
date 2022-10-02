@@ -39,6 +39,11 @@ const Text = styled("p", {
         lineHeight: 1.65,
       },
     },
+    noLineHeight: {
+      true: {
+        lineHeight: 1,
+      },
+    },
     color: {
       "functional-low": {
         color: theme.colors["text-functional-low"],

@@ -186,7 +186,7 @@ const Header = () => {
               fontWeight: theme.fontWeights["extra-light"],
             }}
           >
-            Do your shopping with style
+            Fais tes courses avec style
           </Text>
         </Flex>
         <Flex align="center" gap="sm">
