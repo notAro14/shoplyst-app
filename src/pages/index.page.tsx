@@ -83,6 +83,9 @@ function useProductStatusMutation() {
       toast.error("Oups, une erreur s'est produite")
       utils.list.first.setData(ctx?.previous)
     },
+    onSettled() {
+      utils.list.first.invalidate()
+    },
   })
 }
 
@@ -91,7 +94,7 @@ const ProductInsideList: FC<{
   status: ProductsOnLists["status"]
   listId: string
 }> = ({ p, status, listId }) => {
-  const { mutate, isLoading } = useProductStatusMutation()
+  const { mutate } = useProductStatusMutation()
   const onClick = async () => {
     return mutate({
       listId: listId,
@@ -103,10 +106,8 @@ const ProductInsideList: FC<{
     <button
       style={{
         all: "unset",
-        cursor: isLoading ? "not-allowed" : undefined,
       }}
       onClick={onClick}
-      disabled={isLoading}
     >
       <Paper
         borderRadius="sm"
