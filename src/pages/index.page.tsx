@@ -1,5 +1,7 @@
-import { FC, Fragment } from "react"
+import { FC } from "react"
 import { Pencil1Icon, CheckIcon } from "@radix-ui/react-icons"
+import toast from "react-hot-toast"
+import produce from "immer"
 
 import type { ProductsOnLists, Product } from "@prisma/client"
 import SEO from "src/components/common/seo"
@@ -11,75 +13,99 @@ import Flex from "src/components/common/flex"
 import { theme } from "src/styles/theme/stitches.config"
 import IconButton from "src/components/common/icon-button"
 import Paper from "src/components/common/paper"
+import Loader from "src/components/common/loader"
 
 const IndexPage: FC = () => {
-  const { data: lists } = trpc.list.all.useQuery()
+  const { data } = trpc.list.first.useQuery()
 
   return (
     <>
       <SEO title="Shoplyst | Fais tes courses avec style" />
-      {lists?.map((l) => {
-        return (
-          <Fragment key={l.id}>
-            <Flex gap="md" align="center">
-              <Heading as="h2" variant="h2">
-                {l.name}
-              </Heading>
-              <IconButton
-                rounded
-                aria-label="Modifier la liste"
-                variant="ghost"
-              >
-                <Pencil1Icon />
-              </IconButton>
-            </Flex>
-            <Spacer />
-            <Flex as="ul" gap="md" direction="column">
-              {l.products?.map(({ product: p, status }) => {
-                return (
-                  <ProductInsideList
-                    p={p}
-                    status={status}
-                    key={p.id}
-                    listId={l.id}
-                  />
-                )
-              })}
-            </Flex>
-            <Spacer />
-          </Fragment>
-        )
-      })}
+      {data ? (
+        <>
+          <Flex gap="md" align="center">
+            <Heading as="h2" variant="h2">
+              {data.name}
+            </Heading>
+            <IconButton rounded aria-label="Modifier la liste" variant="ghost">
+              <Pencil1Icon />
+            </IconButton>
+          </Flex>
+          <Spacer />
+          <Flex as="ul" gap="md" direction="column">
+            {data.products?.map(({ product: p, status }) => {
+              return (
+                <ProductInsideList
+                  p={p}
+                  status={status}
+                  key={p.id}
+                  listId={data.id}
+                />
+              )
+            })}
+          </Flex>
+          <Spacer />
+        </>
+      ) : (
+        <Loader />
+      )}
     </>
   )
 }
 
 export default IndexPage
 
+function useProductStatusMutation() {
+  const utils = trpc.useContext()
+  return trpc.list.updateProductStatus.useMutation({
+    //onSuccess() {
+    //  return utils.list.first.invalidate()
+    //},
+    onMutate: async (updated) => {
+      await utils.list.first.cancel()
+      const previous = utils.list.first.getData()
+      utils.list.first.setData((prev) => {
+        return produce(prev, (draft) => {
+          if (typeof draft === "undefined" || draft === null) return
+          const products = produce(prev?.products, (innerDraft) => {
+            if (typeof innerDraft === "undefined") return
+            const idx = innerDraft.findIndex(
+              (p) => p.product.id === updated.productId
+            )
+            innerDraft[idx].status = updated.status
+          })
+          if (products) draft.products = products
+        })
+      })
+      return { previous }
+    },
+    onError(_error, _updated, ctx) {
+      toast.error("Oups, une erreur s'est produite")
+      utils.list.first.setData(ctx?.previous)
+    },
+  })
+}
+
 const ProductInsideList: FC<{
   p: Product
   status: ProductsOnLists["status"]
   listId: string
 }> = ({ p, status, listId }) => {
-  const utils = trpc.useContext()
-  const { mutate, isLoading } = trpc.list.updateProductStatus.useMutation({
-    onSuccess() {
-      utils.list.all.invalidate()
-    },
-  })
+  const { mutate, isLoading } = useProductStatusMutation()
+  const onClick = async () => {
+    return mutate({
+      listId: listId,
+      productId: p.id,
+      status: status === "PURCHASED" ? "READY" : "PURCHASED",
+    })
+  }
   return (
     <button
       style={{
         all: "unset",
         cursor: isLoading ? "not-allowed" : undefined,
       }}
-      onClick={() => {
-        mutate({
-          listId: listId,
-          productId: p.id,
-          status: status === "PURCHASED" ? "READY" : "PURCHASED",
-        })
-      }}
+      onClick={onClick}
       disabled={isLoading}
     >
       <Paper

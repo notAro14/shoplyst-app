@@ -29,6 +29,24 @@ export const listRouter = t.router({
     })
     return lists
   }),
+  first: t.procedure.query(async function () {
+    const list = await prisma.list.findFirst({
+      include: {
+        products: {
+          select: {
+            status: true,
+            product: true,
+          },
+          orderBy: {
+            product: {
+              name: "asc",
+            },
+          },
+        },
+      },
+    })
+    return list
+  }),
   create: t.procedure
     .input(
       z.object({

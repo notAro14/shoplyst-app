@@ -1,5 +1,4 @@
 import type { FC, ReactNode } from "react"
-
 import { styled, theme } from "src/styles/theme/stitches.config"
 
 import Footer from "src/layout/footer"
