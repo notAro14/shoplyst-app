@@ -4,7 +4,6 @@ import { Toaster } from "react-hot-toast"
 
 import "src/styles/reset.css"
 import "src/styles/fonts.css"
-import { trpc } from "src/utils/trpc"
 import type { AppPropsWithLayout } from "src/types/next"
 import { PublicLayout } from "src/layout/public.layout"
 import Providers from "src/providers"
@@ -36,4 +35,4 @@ const MyApp = ({
   )
 }
 
-export default trpc.withTRPC(MyApp)
+export default MyApp
