@@ -16,12 +16,14 @@ import Paper from "src/components/common/paper"
 import Loader from "src/components/common/loader"
 
 const IndexPage: FC = () => {
-  const { data } = trpc.list.first.useQuery()
+  const { data, isLoading, isFetching } = trpc.list.first.useQuery()
 
   return (
     <>
       <SEO title="Shoplyst | Fais tes courses avec style" />
-      {data ? (
+      {isLoading && isFetching ? (
+        <Loader />
+      ) : data ? (
         <>
           <Flex gap="md" align="center">
             <Heading as="h2" variant="h2">
@@ -47,7 +49,7 @@ const IndexPage: FC = () => {
           <Spacer />
         </>
       ) : (
-        <Loader />
+        <Text>Such empty. Create a list here.</Text>
       )}
     </>
   )
