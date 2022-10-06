@@ -1,4 +1,5 @@
 import * as RadixDialog from "@radix-ui/react-dialog"
+import { Cross1Icon } from "@radix-ui/react-icons"
 import { FC, ReactNode } from "react"
 import { styled, theme, keyframes } from "src/styles/theme/stitches.config"
 
@@ -29,8 +30,9 @@ export const StyledDialogContent = styled(RadixDialog.Content, {
   animation: `${contentShow} 150ms ease-in-out forwards`,
   minHeight: 500,
   borderRadius: theme.radii.md,
-  padding: theme.space.md,
+  padding: `${theme.space.xl} ${theme.space.xl}`,
   width: "90%",
+  position: "relative",
   "@sm": {
     maxWidth: 400,
   },
@@ -43,6 +45,27 @@ const StyledOverlay = styled(RadixDialog.Overlay, {
   placeItems: "center",
   animation: `${overlayShow} 150ms ease-in-out forwards`,
 })
+export const StyledCloseBtn = styled(RadixDialog.DialogClose, {
+  borderRadius: "50%",
+  border: "none",
+  padding: theme.space.xxs,
+  boxShadow: theme.shadows.low,
+  backgroundColor: theme.colors.ui,
+  position: "fixed",
+  top: 10,
+  right: 10,
+  "&:hover": {
+    cursor: "pointer",
+    backgroundColor: theme.colors["ui-hovered"],
+  },
+})
+export const CloseBtn = () => {
+  return (
+    <StyledCloseBtn aria-label="Fermer">
+      <Cross1Icon />
+    </StyledCloseBtn>
+  )
+}
 
 export const Dialog: FC<{
   children: ReactNode

@@ -3,6 +3,10 @@ import { styled, theme } from "src/styles/theme/stitches.config"
 const IconButton = styled("button", {
   padding: theme.space.xs,
   borderRadius: theme.radii.md,
+  "&:focus": {
+    outline: "1px solid",
+    outlineColor: theme.colors.solid,
+  },
   variants: {
     variant: {
       filled: {

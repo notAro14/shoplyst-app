@@ -5,7 +5,7 @@ import { prisma } from "src/utils/db/prisma-client"
 
 export const listRouter = t.router({
   all: t.procedure.query(async function () {
-    // TODO: return only lists belonging to current user
+    // TODO: return  the lists belonging to current user
     const lists = await prisma.list.findMany({
       orderBy: {
         name: "asc",
@@ -29,8 +29,32 @@ export const listRouter = t.router({
     })
     return lists
   }),
+  // TODO: return main list
   first: t.procedure.query(async function () {
+    // TODO: return  a list belonging to current user
     const list = await prisma.list.findFirst({
+      include: {
+        products: {
+          select: {
+            status: true,
+            product: true,
+          },
+          orderBy: {
+            product: {
+              name: "asc",
+            },
+          },
+        },
+      },
+    })
+    return list
+  }),
+  find: t.procedure.input(z.string()).query(async function ({ input: listId }) {
+    // TODO: return a list belonging to current user
+    const list = await prisma.list.findFirst({
+      where: {
+        id: listId,
+      },
       include: {
         products: {
           select: {

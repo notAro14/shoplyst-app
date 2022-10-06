@@ -1,5 +1,9 @@
 import { FC } from "react"
-import { Pencil1Icon, CheckIcon } from "@radix-ui/react-icons"
+import {
+  Pencil1Icon,
+  Cross1Icon,
+  DrawingPinFilledIcon,
+} from "@radix-ui/react-icons"
 import toast from "react-hot-toast"
 import produce from "immer"
 
@@ -10,14 +14,32 @@ import Spacer from "src/components/common/spacer"
 import Text from "src/components/common/text"
 import { trpc } from "src/utils/trpc"
 import Flex from "src/components/common/flex"
-import { theme } from "src/styles/theme/stitches.config"
+import { theme, styled } from "src/styles/theme/stitches.config"
 import IconButton from "src/components/common/icon-button"
 import Paper from "src/components/common/paper"
 import Loader from "src/components/common/loader"
+import {
+  Dialog,
+  StyledDialogTitle,
+  StyledDialogContent,
+  StyledCloseBtn,
+} from "src/components/common/dialog"
+import Categories from "src/components/categories"
+import useDisclosure from "src/hooks/use-disclosure"
+
+const ProductButton = styled("button", {
+  all: "unset",
+  borderRadius: theme.radii.sm,
+  "&:focus": {
+    outline: "1px solid",
+    outlineColor: theme.colors.solid,
+  },
+})
 
 const IndexPage: FC = () => {
+  // TODO: temporary
   const { data, isLoading, isFetching } = trpc.list.first.useQuery()
-
+  const { isOpen, onClose, onOpen } = useDisclosure()
   return (
     <>
       <SEO title="Shoplyst | Fais tes courses avec style" />
@@ -25,11 +47,30 @@ const IndexPage: FC = () => {
         <Loader />
       ) : data ? (
         <>
+          <Dialog isOpen={isOpen} onDismiss={onClose}>
+            <StyledDialogContent>
+              <StyledDialogTitle asChild>
+                <Heading variant="h2" as="h2">
+                  {data.name}
+                </Heading>
+              </StyledDialogTitle>
+              <StyledCloseBtn>
+                <Cross1Icon />
+              </StyledCloseBtn>
+              <Spacer />
+              <Categories listId={data.id} />
+            </StyledDialogContent>
+          </Dialog>
           <Flex gap="md" align="center">
             <Heading as="h2" variant="h2">
               {data.name}
             </Heading>
-            <IconButton rounded aria-label="Modifier la liste" variant="ghost">
+            <IconButton
+              onClick={onOpen}
+              rounded
+              aria-label="Modifier la liste"
+              variant="ghost"
+            >
               <Pencil1Icon />
             </IconButton>
           </Flex>
@@ -60,9 +101,6 @@ export default IndexPage
 function useProductStatusMutation() {
   const utils = trpc.useContext()
   return trpc.list.updateProductStatus.useMutation({
-    //onSuccess() {
-    //  return utils.list.first.invalidate()
-    //},
     onMutate: async (updated) => {
       await utils.list.first.cancel()
       const previous = utils.list.first.getData()
@@ -105,12 +143,7 @@ const ProductInsideList: FC<{
     })
   }
   return (
-    <button
-      style={{
-        all: "unset",
-      }}
-      onClick={onClick}
-    >
+    <ProductButton onClick={onClick}>
       <Paper
         borderRadius="sm"
         css={{
@@ -130,7 +163,8 @@ const ProductInsideList: FC<{
             : undefined),
         }}
       >
-        {status === "PURCHASED" && <CheckIcon />}
+        {status === "PURCHASED" && <DrawingPinFilledIcon />}
+        {/*{status === "READY" && <DrawingPinIcon />}*/}
         <Text
           noLineHeight
           color="functional"
@@ -140,6 +174,6 @@ const ProductInsideList: FC<{
           {p.name}
         </Text>
       </Paper>
-    </button>
+    </ProductButton>
   )
 }
