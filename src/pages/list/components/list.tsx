@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react"
+import { FC } from "react"
 import { Pencil1Icon, Cross1Icon } from "@radix-ui/react-icons"
 import produce from "immer"
 import toast from "react-hot-toast"
@@ -26,6 +26,7 @@ import { theme, css } from "src/styles/theme/stitches.config"
 import { trpc } from "src/utils/trpc"
 import { ShoppingBagIcon } from "src/components/common/icons"
 import Categories from "src/components/categories"
+import { useIsRestoring } from "@tanstack/react-query"
 
 interface Props {
   list: IList & {
@@ -38,13 +39,12 @@ interface Props {
 
 const List: FC<Props> = ({ list: { name, products, id } }) => {
   const { isOpen, onClose, onOpen } = useDisclosure()
-  const prefetchCategories = trpc.useContext().category.all.prefetch
-  useEffect(() => {
-    const prefetch = async () => {
-      await prefetchCategories()
-    }
-    prefetch()
-  }, [prefetchCategories])
+  const {
+    data: categories,
+    isLoading,
+    isFetching,
+  } = trpc.category.all.useQuery()
+  const isRestoring = useIsRestoring()
 
   return (
     <>
@@ -59,10 +59,13 @@ const List: FC<Props> = ({ list: { name, products, id } }) => {
             <Cross1Icon />
           </StyledCloseBtn>
           <Spacer />
-          <Categories
-            productsInCurrentList={products.map(({ product: { id } }) => id)}
-            listId={id}
-          />
+          {categories ? (
+            <Categories
+              productsInCurrentList={products.map(({ product: { id } }) => id)}
+              listId={id}
+              categories={categories}
+            />
+          ) : null}
         </StyledDialogContent>
       </Dialog>
       <Flex gap="md" align="center">
@@ -74,6 +77,7 @@ const List: FC<Props> = ({ list: { name, products, id } }) => {
           rounded
           aria-label="Modifier la liste"
           variant="ghost"
+          disabled={(isLoading && isFetching) || isRestoring}
         >
           <Pencil1Icon />
         </IconButton>

@@ -7,6 +7,10 @@ const IconButton = styled("button", {
     outline: "1px solid",
     outlineColor: theme.colors.solid,
   },
+  "&:disabled": {
+    opacity: 0.5,
+    cursor: "not-allowed",
+  },
   variants: {
     variant: {
       filled: {
