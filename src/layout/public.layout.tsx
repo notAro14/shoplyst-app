@@ -21,6 +21,7 @@ const StyledMain = styled("main", {
   padding: theme.space.lg,
   "@sm": {
     minWidth: 500,
+    maxWidth: 768,
     margin: "0 auto",
   },
 })

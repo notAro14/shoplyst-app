@@ -13,7 +13,7 @@ import { media } from "src/styles/theme/breakpoints"
 
 export type Color = keyof typeof theme.colors
 
-export const { styled, getCssText, theme, createTheme, keyframes } =
+export const { styled, getCssText, theme, createTheme, keyframes, css } =
   createStitches({
     theme: {
       colors,
@@ -25,4 +25,10 @@ export const { styled, getCssText, theme, createTheme, keyframes } =
       shadows,
     },
     media,
+    utils: {
+      maxLine: (value: string | number) => ({
+        lineClamp: typeof value === "number" ? String(value) : value,
+        "-webkit-line-clamp": typeof value === "number" ? String(value) : value,
+      }),
+    },
   })

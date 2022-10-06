@@ -99,6 +99,11 @@ const Button = styled("button", {
     },
   ],
   variants: {
+    unstyled: {
+      true: {
+        all: "unset",
+      },
+    },
     colorScheme: {
       danger: {},
       brand: {},
