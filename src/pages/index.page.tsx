@@ -1,3 +1,4 @@
+import { useIsRestoring } from "@tanstack/react-query"
 import Head from "next/head"
 
 import Heading from "src/components/common/heading"
@@ -10,6 +11,7 @@ import { trpc } from "src/utils/trpc"
 import MyLists from "./components/my-lists"
 
 const IndexPage: NextPageWithLayout = () => {
+  const isRestoring = useIsRestoring()
   const {
     data: lists,
     isLoading,
@@ -32,7 +34,7 @@ const IndexPage: NextPageWithLayout = () => {
       </>
     )
 
-  if (isLoading && isFetching)
+  if ((isLoading && isFetching) || isRestoring)
     return (
       <>
         <Head>

@@ -8,9 +8,10 @@ import Text from "src/components/common/text"
 import { NextPageWithLayout } from "src/types/next"
 import { trpc } from "src/utils/trpc"
 import List from "./components/list"
+import { useIsRestoring } from "@tanstack/react-query"
 
 const ListPage: NextPageWithLayout = () => {
-  const { query } = useRouter()
+  const { query, isReady } = useRouter()
   const listId = query.id as string
   const {
     data: list,
@@ -18,8 +19,9 @@ const ListPage: NextPageWithLayout = () => {
     isFetching,
     isError,
   } = trpc.list.find.useQuery(listId, { enabled: typeof listId === "string" })
+  const isRestoring = useIsRestoring()
 
-  if (list)
+  if (list && isReady)
     return (
       <>
         <Head>
@@ -29,7 +31,7 @@ const ListPage: NextPageWithLayout = () => {
       </>
     )
 
-  if (isLoading && isFetching)
+  if ((isLoading && isFetching) || isReady === false || isRestoring)
     return (
       <>
         <Head>

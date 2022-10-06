@@ -1,23 +1,15 @@
 //import { DotPulse, Ping, DotSpinner } from "@uiball/loaders"
 import { FC, useEffect, useState } from "react"
 
-import { Color } from "src/styles/theme/stitches.config"
 import Box from "src/components/common/box"
 import { DotPulse } from "./dotpulse"
+import { DotSpinner } from "./dot-spinner"
+import { Ping } from "./ping"
 
 interface Props {
-  size?: number
-  speed?: number
-  type?: "dotpulse"
-  color?: Color
+  type?: "dotpulse" | "dotspinner" | "ping"
 }
-export const Loader: FC<Props> = ({
-  type = "dotpulse",
-  //size,
-  //speed,
-  //color: colorKey,
-}) => {
-  //const { value: colorValue } = theme.colors[colorKey ?? "solid"]
+export const Loader: FC<Props> = ({ type = "dotpulse" }) => {
   switch (type) {
     case "dotpulse":
       return (
@@ -25,22 +17,18 @@ export const Loader: FC<Props> = ({
           <DotPulse />
         </Box>
       )
-    //case "dotspinner":
-    //  return (
-    //    <Box role="progressbar">
-    //      <DotSpinner
-    //        color={colorValue}
-    //        size={size ?? 40}
-    //        speed={speed ?? 0.9}
-    //      />
-    //    </Box>
-    //  )
-    //case "ping":
-    //  return (
-    //    <Box role="progressbar">
-    //      <Ping color={colorValue} size={size ?? 45} speed={speed ?? 2} />
-    //    </Box>
-    //  )
+    case "dotspinner":
+      return (
+        <Box role="progressbar">
+          <DotSpinner />
+        </Box>
+      )
+    case "ping":
+      return (
+        <Box role="progressbar">
+          <Ping />
+        </Box>
+      )
     default:
       throw new Error("Unknown loader type")
   }

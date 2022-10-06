@@ -10,7 +10,6 @@ import Box from "src/components/common/box"
 
 const StyledSection = styled("section", {
   display: "flex",
-  position: "relative",
   flexDirection: "column",
   minHeight: "100%",
   backgroundColor: theme.colors.bg,
@@ -26,6 +25,21 @@ const StyledMain = styled("main", {
   },
 })
 
+const GlobalLoader = () => {
+  return (
+    <Box
+      css={{
+        position: "absolute",
+        bottom: 25,
+        right: 25,
+        zIndex: 9999,
+      }}
+    >
+      <Loader type="dotspinner" />
+    </Box>
+  )
+}
+
 interface Props {
   children: ReactNode
 }
@@ -33,17 +47,7 @@ export const PublicLayout: FC<Props> = ({ children }) => {
   const isFetching = useIsFetching()
   return (
     <StyledSection>
-      {isFetching ? (
-        <Box
-          css={{
-            position: "absolute",
-            top: 15,
-            left: 15,
-          }}
-        >
-          <Loader />
-        </Box>
-      ) : null}
+      {isFetching ? <GlobalLoader /> : null}
       <Header />
       <StyledMain>{children}</StyledMain>
       <Footer />
