@@ -13,6 +13,7 @@ import * as Avatar from "src/components/common/avatar"
 import Link from "src/components/common/link"
 import Text from "src/components/common/text/text"
 import { styled, theme } from "src/styles/theme/stitches.config"
+import { useThemeSwitcherShortcut } from "src/hooks/use-theme-switcher-shortcut"
 
 const itemStyles = {
   all: "unset",
@@ -134,22 +135,25 @@ const Auth = () => {
                   value={resolvedTheme}
                   onValueChange={setTheme}
                 >
+                  <StyledLabel>
+                    Apparence (<kbd>cmd+j</kbd>)
+                  </StyledLabel>
                   <StyledRadioItem value="light">
                     <StyledMenuItemIndicator>
                       <DotFilledIcon />
                     </StyledMenuItemIndicator>
-                    Light
+                    Clair
                   </StyledRadioItem>
                   <StyledRadioItem value="dark">
                     <StyledMenuItemIndicator>
                       <DotFilledIcon />
                     </StyledMenuItemIndicator>
-                    Dark
+                    Sombre
                   </StyledRadioItem>
                 </StyledRadioGroup>
                 <StyledSeparator />
                 <StyledItem colorScheme="danger" onSelect={() => signOut()}>
-                  Logout
+                  Se déconnecter
                 </StyledItem>
               </StyledContent>
             </DropdownMenu.Portal>
@@ -160,6 +164,7 @@ const Auth = () => {
 }
 
 const Header = () => {
+  useThemeSwitcherShortcut()
   return (
     <StyledHeader>
       <StyledNav>

@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@heroicons/react': ^2.0.12
+  '@mantine/hooks': ^5.5.4
   '@next-auth/prisma-adapter': ^1.0.4
   '@prisma/client': ^4.4.0
   '@radix-ui/colors': ^0.1.8
@@ -60,6 +61,7 @@ specifiers:
 
 dependencies:
   '@heroicons/react': 2.0.12_react@18.2.0
+  '@mantine/hooks': 5.5.4_react@18.2.0
   '@next-auth/prisma-adapter': 1.0.4_4bqc7sjuy2gevu243pkbxbqbye
   '@prisma/client': 4.4.0_prisma@4.4.0
   '@radix-ui/colors': 0.1.8
@@ -837,6 +839,14 @@ packages:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
+
+  /@mantine/hooks/5.5.4_react@18.2.0:
+    resolution: {integrity: sha512-4lPIcZgoMkq+GCILN8CDTVxYzsE/Gfi6ICjHhPZU1Ufmw0mftpjTQhLx3+TFMtBlqnamgBia2ZS1o2BpvTLazA==}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /@mswjs/cookies/0.2.2:
     resolution: {integrity: sha512-mlN83YSrcFgk7Dm1Mys40DLssI1KdJji2CMKN8eOlBqsTADYzj2+jWzsANsUTFbxDMWPD5e9bfA1RGqBpS3O1g==}

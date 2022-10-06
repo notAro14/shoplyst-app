@@ -1,23 +1,21 @@
+import { useCallback } from "react"
 import { useTheme } from "next-themes"
 
 export default function useThemeSwitcher() {
   const { theme, setTheme, resolvedTheme } = useTheme()
-  const switchTheme = () => {
+  const switchTheme = useCallback(() => {
     let nextTheme = ""
-    switch (theme) {
+    switch (resolvedTheme) {
       case "dark":
         nextTheme = "light"
         break
       case "light":
         nextTheme = "dark"
         break
-      case "system":
-        nextTheme = "light"
-        break
       default:
-        nextTheme = "system"
+        nextTheme = resolvedTheme ?? "light"
     }
     setTheme(nextTheme)
-  }
+  }, [setTheme, resolvedTheme])
   return { switchTheme, theme, resolvedTheme }
 }
