@@ -155,6 +155,7 @@ const ProductInsideList: FC<{
           display: "flex",
           alignItems: "center",
           border: "none",
+          minHeight: 50,
           gap: theme.space.sm,
           ...(status === "PURCHASED"
             ? {
