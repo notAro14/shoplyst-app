@@ -39,6 +39,7 @@ const ProductButton = styled("button", {
 const IndexPage: FC = () => {
   // TODO: temporary
   const { data, isLoading, isFetching } = trpc.list.first.useQuery()
+  const { data: categories } = trpc.category.all.useQuery()
   const { isOpen, onClose, onOpen } = useDisclosure()
   return (
     <>
@@ -58,7 +59,9 @@ const IndexPage: FC = () => {
                 <Cross1Icon />
               </StyledCloseBtn>
               <Spacer />
-              <Categories listId={data.id} />
+              {categories ? (
+                <Categories categories={categories} listId={data.id} />
+              ) : null}
             </StyledDialogContent>
           </Dialog>
           <Flex gap="md" align="center">

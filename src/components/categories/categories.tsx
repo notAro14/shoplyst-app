@@ -3,7 +3,7 @@ import type { FC } from "react"
 import Paper from "../common/paper"
 import Text from "../common/text"
 import { theme, styled } from "src/styles/theme/stitches.config"
-import Loader from "src/components/common/loader"
+//import Loader from "src/components/common/loader"
 import {
   Accordion,
   AccordionContent,
@@ -11,9 +11,11 @@ import {
   AccordionItem,
 } from "src/components/common/accordion"
 import Flex from "src/components/common/flex"
-import Button from "src/components/common/button"
+//import Button from "src/components/common/button"
 import { trpc } from "src/utils/trpc"
 import Box from "src/components/common/box"
+import { Category, Product } from "@prisma/client"
+import produce from "immer"
 
 const ProductButton = styled("button", {
   all: "unset",
@@ -44,35 +46,55 @@ const CartIcon = () => {
   )
 }
 
-const Categories: FC<{ listId: string }> = ({ listId }) => {
-  const {
-    data: categories,
-    isError,
-    isLoading,
-    refetch,
-  } = trpc.category.all.useQuery()
+const Categories: FC<{
+  listId: string
+  categories: (Category & { products: Product[] })[]
+}> = ({ listId, categories }) => {
+  //const {
+  //  data: categories,
+  //  isError,
+  //  isLoading,
+  //  refetch,
+  //} = trpc.category.all.useQuery()
 
-  const { data: list } = trpc.list.find.useQuery(listId)
+  // TODO: use find(listId) instead
+  const { data: list } = trpc.list.first.useQuery()
   const productsInList = list?.products.map(({ product }) => product.id)
 
   const utils = trpc.useContext()
   const { mutate: addProduct } = trpc.list.addProduct.useMutation({
-    async onSuccess(_data, variables) {
-      await utils.list.find.invalidate(variables.listId)
+    async onSuccess() {
       // TODO: temporary
-      return utils.list.first.invalidate()
+      await utils.list.first.invalidate()
     },
   })
   const { mutate: removeProduct } = trpc.list.removeProduct.useMutation({
-    async onSuccess(_data, variables) {
-      await utils.list.find.invalidate(variables.listId)
+    async onMutate(updated) {
       // TODO: temporary
-      return utils.list.first.invalidate()
+      await utils.list.first.cancel()
+      const previous = utils.list.first.getData()
+      utils.list.first.setData((prev) =>
+        produce(prev, (draft) => {
+          if (!draft || !previous === null) return
+          draft.products = draft.products.filter(
+            (p) => p.product.id !== updated.productId
+          )
+        })
+      )
+      return { previous }
+    },
+    onError(_error, _updated, ctx) {
+      // TODO: temporary
+      utils.list.first.setData(ctx?.previous)
+    },
+    onSettled() {
+      // TODO: temporary
+      utils.list.first.invalidate()
     },
   })
 
-  if (isError) return <Failure onRetry={refetch} />
-  if (typeof categories === "undefined" || isLoading) return <Loader />
+  //if (isError) return <Failure onRetry={refetch} />
+  //if (typeof categories === "undefined" || isLoading) return <Loader />
   if (categories.length === 0) return <Empty />
   const [def] = categories
   return (
@@ -146,32 +168,32 @@ const Categories: FC<{ listId: string }> = ({ listId }) => {
   )
 }
 
-const Failure: FC<{ onRetry(): void }> = ({ onRetry }) => {
-  return (
-    <Paper
-      borderRadius="sm"
-      css={{
-        backgroundColor: theme.colors["ui-danger"],
-        padding: theme.space.md,
-        display: "flex",
-        flexDirection: "column",
-        gap: theme.space.sm,
-      }}
-    >
-      <Text color="danger-low" role="alert">
-        Une erreur s&apos;est produite
-      </Text>
-      <Button
-        variant="outlined"
-        size="small"
-        colorScheme="accent"
-        onClick={onRetry}
-      >
-        Réessayer
-      </Button>
-    </Paper>
-  )
-}
+//const Failure: FC<{ onRetry(): void }> = ({ onRetry }) => {
+//  return (
+//    <Paper
+//      borderRadius="sm"
+//      css={{
+//        backgroundColor: theme.colors["ui-danger"],
+//        padding: theme.space.md,
+//        display: "flex",
+//        flexDirection: "column",
+//        gap: theme.space.sm,
+//      }}
+//    >
+//      <Text color="danger-low" role="alert">
+//        Une erreur s&apos;est produite
+//      </Text>
+//      <Button
+//        variant="outlined"
+//        size="small"
+//        colorScheme="accent"
+//        onClick={onRetry}
+//      >
+//        Réessayer
+//      </Button>
+//    </Paper>
+//  )
+//}
 
 const Empty = () => {
   return <Text>Il n&apos;y a pas de produits.</Text>
