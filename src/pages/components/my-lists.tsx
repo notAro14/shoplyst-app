@@ -28,7 +28,7 @@ const MyLists: FC<Props> = ({ lists }) => {
               <Paper
                 as="span"
                 css={{
-                  padding: `${theme.space.sm} ${theme.space.xl}`,
+                  padding: `${theme.space.sm} ${theme.space.sm}`,
                   width: "100%",
                   transition: "box-shadow 150ms ease-in-out",
                   "&:hover": {

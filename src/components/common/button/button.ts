@@ -11,6 +11,10 @@ const Button = styled("button", {
   border: "1px solid",
   boxShadow: theme.shadows.low,
   textTransform: "uppercase",
+  "&:disabled": {
+    opacity: 0.5,
+    cursor: "not-allowed",
+  },
 
   compoundVariants: [
     {
@@ -33,7 +37,7 @@ const Button = styled("button", {
       css: {
         backgroundColor: theme.colors["solid-danger"],
         borderColor: theme.colors["solid-danger"],
-        color: theme.colors["text-fg-black"],
+        color: theme.colors["text-fg-white"],
         "&:hover": {
           backgroundColor: theme.colors["solid-hovered-danger"],
           borderColor: theme.colors["solid-hovered-danger"],

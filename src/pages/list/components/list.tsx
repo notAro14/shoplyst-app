@@ -1,5 +1,4 @@
 import { FC } from "react"
-import { Pencil1Icon, Cross1Icon } from "@radix-ui/react-icons"
 import produce from "immer"
 import toast from "react-hot-toast"
 import type {
@@ -11,22 +10,23 @@ import type {
 
 import {
   Dialog,
-  StyledCloseBtn,
   StyledDialogContent,
   StyledDialogTitle,
 } from "src/components/common/dialog"
 import Flex from "src/components/common/flex"
-import IconButton from "src/components/common/icon-button"
 import Heading from "src/components/common/heading"
 import Spacer from "src/components/common/spacer"
 import Text from "src/components/common/text"
 import Paper from "src/components/common/paper"
+import Button from "src/components/common/button"
 import { useDisclosure } from "src/hooks/use-disclosure"
 import { theme, css } from "src/styles/theme/stitches.config"
 import { trpc } from "src/utils/trpc"
 import { ShoppingBagIcon } from "src/components/common/icons"
 import Categories from "src/components/categories"
 import { useIsRestoring } from "@tanstack/react-query"
+import { CartIcon } from "src/components/common/icons"
+import Box from "src/components/common/box"
 
 interface Props {
   list: IList & {
@@ -49,15 +49,17 @@ const List: FC<Props> = ({ list: { name, products, id } }) => {
   return (
     <>
       <Dialog isOpen={isOpen} onDismiss={onClose}>
-        <StyledDialogContent>
+        <StyledDialogContent
+          css={{
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
           <StyledDialogTitle asChild>
             <Heading variant="h2" as="h2">
               {name}
             </Heading>
           </StyledDialogTitle>
-          <StyledCloseBtn>
-            <Cross1Icon />
-          </StyledCloseBtn>
           <Spacer />
           {categories ? (
             <Categories
@@ -66,30 +68,76 @@ const List: FC<Props> = ({ list: { name, products, id } }) => {
               categories={categories}
             />
           ) : null}
+          <Button
+            fullWidth
+            size="small"
+            onClick={onClose}
+            colorScheme="danger"
+            disabled={(isLoading && isFetching) || isRestoring}
+            css={{ marginTop: "auto" }}
+          >
+            Fermer
+          </Button>
         </StyledDialogContent>
       </Dialog>
-      <Flex gap="md" align="center">
-        <Heading as="h2" variant="h2">
-          {name}
-        </Heading>
-        <IconButton
-          onClick={onOpen}
-          rounded
-          aria-label="Modifier la liste"
-          variant="ghost"
-          disabled={(isLoading && isFetching) || isRestoring}
+      <Heading
+        as="h2"
+        variant="h2"
+        css={{ display: "flex", alignItems: "center", gap: theme.space.xs }}
+      >
+        <Box
+          css={{
+            // to have pixel perfect alignment with text
+            transform: "translateY(-2px)",
+          }}
+          as="span"
         >
-          <Pencil1Icon />
-        </IconButton>
-      </Flex>
+          <CartIcon />
+        </Box>
+        <span>{name}</span>
+      </Heading>
       <Spacer />
-      <Flex as="ul" gap="md" direction="column">
-        {products?.map(({ product: p, status }) => {
-          return (
-            <ProductInsideList p={p} status={status} key={p.id} listId={id} />
-          )
-        })}
-      </Flex>
+      {products?.length ? (
+        <>
+          <Flex as="ul" gap="md" direction="column">
+            {products.map(({ product: p, status }) => {
+              return (
+                <ProductInsideList
+                  p={p}
+                  status={status}
+                  key={p.id}
+                  listId={id}
+                />
+              )
+            })}
+          </Flex>
+          <Spacer />
+          <Button
+            fullWidth
+            size="small"
+            onClick={onOpen}
+            colorScheme="accent"
+            disabled={(isLoading && isFetching) || isRestoring}
+          >
+            Modifier
+          </Button>
+        </>
+      ) : null}
+      {products?.length === 0 ? (
+        <>
+          <Text>Ta liste est vide</Text>
+          <Spacer />
+          <Button
+            fullWidth
+            size="small"
+            onClick={onOpen}
+            colorScheme="accent"
+            disabled={(isLoading && isFetching) || isRestoring}
+          >
+            Ajouter des produits
+          </Button>
+        </>
+      ) : null}
       <Spacer />
     </>
   )

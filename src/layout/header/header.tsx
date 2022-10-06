@@ -12,7 +12,7 @@ import { LazyLoader } from "src/components/common/loader"
 import * as Avatar from "src/components/common/avatar"
 import Link from "src/components/common/link"
 import Text from "src/components/common/text/text"
-import { styled, theme } from "src/styles/theme/stitches.config"
+import { styled, theme, css } from "src/styles/theme/stitches.config"
 import { useThemeSwitcherShortcut } from "src/hooks/use-theme-switcher-shortcut"
 
 const itemStyles = {
@@ -23,10 +23,7 @@ const itemStyles = {
   display: "flex",
   alignItems: "center",
   fontWeight: theme.fontWeights["extra-light"],
-  fontSize: theme.fontSizes.md,
-  "@sm": {
-    fontSize: theme.fontSizes.sm,
-  },
+  fontSize: theme.fontSizes.sm,
   color: theme.colors["text-functional"],
   paddingLeft: theme.space.md,
 
@@ -127,16 +124,28 @@ const Auth = () => {
             </DropdownMenu.Trigger>
             <DropdownMenu.Portal>
               <StyledContent sideOffset={5}>
-                <StyledLabel>
-                  {session.user?.name ?? session.user?.email}
-                </StyledLabel>
-                <StyledSeparator />
                 <StyledRadioGroup
                   value={resolvedTheme}
                   onValueChange={setTheme}
                 >
-                  <StyledLabel>
-                    Apparence (<kbd>cmd+j</kbd>)
+                  <StyledLabel
+                    css={{
+                      display: "flex",
+                      alignItems: "baseline",
+                      gap: theme.space.xxs,
+                    }}
+                  >
+                    <span>Apparence</span>
+                    <span>-</span>
+                    <kbd
+                      className={css({
+                        fontSize: theme.fontSizes.xs,
+                        textTransform: "uppercase",
+                        fontFamily: theme.fonts.mono,
+                      }).toString()}
+                    >
+                      cmd+j
+                    </kbd>
                   </StyledLabel>
                   <StyledRadioItem value="light">
                     <StyledMenuItemIndicator>
@@ -152,6 +161,9 @@ const Auth = () => {
                   </StyledRadioItem>
                 </StyledRadioGroup>
                 <StyledSeparator />
+                <StyledLabel>
+                  {session.user?.name ?? session.user?.email}
+                </StyledLabel>
                 <StyledItem colorScheme="danger" onSelect={() => signOut()}>
                   Se déconnecter
                 </StyledItem>

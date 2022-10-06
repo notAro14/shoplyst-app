@@ -7,8 +7,10 @@ import Spacer from "src/components/common/spacer"
 import Text from "src/components/common/text"
 import type { NextPageWithLayout } from "src/types/next"
 import { trpc } from "src/utils/trpc"
+import { ListIcon } from "src/components/common/icons"
 
 import MyLists from "./components/my-lists"
+import { theme } from "src/styles/theme/stitches.config"
 
 const IndexPage: NextPageWithLayout = () => {
   const isRestoring = useIsRestoring()
@@ -26,8 +28,13 @@ const IndexPage: NextPageWithLayout = () => {
           <title>Mes listes</title>
         </Head>
 
-        <Heading as="h1" variant="h1">
-          Mes listes
+        <Heading
+          as="h1"
+          variant="h1"
+          css={{ display: "flex", alignItems: "center", gap: theme.space.xs }}
+        >
+          <ListIcon />
+          <span>Mes listes</span>
         </Heading>
         <Spacer />
         <MyLists lists={lists} />
