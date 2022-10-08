@@ -1,12 +1,10 @@
 import type { FC, ReactNode } from "react"
-import { useIsFetching } from "@tanstack/react-query"
 
 import { styled, theme } from "src/styles/theme/stitches.config"
 
 import Footer from "src/layout/footer"
 import Header from "src/layout/header"
-import Loader from "src/components/common/loader"
-import Box from "src/components/common/box"
+import { GlobalLazyLoader } from "src/components/common/loader"
 
 const StyledSection = styled("section", {
   display: "flex",
@@ -25,29 +23,13 @@ const StyledMain = styled("main", {
   },
 })
 
-const GlobalLoader = () => {
-  return (
-    <Box
-      css={{
-        position: "absolute",
-        bottom: 25,
-        right: 25,
-        zIndex: 9999,
-      }}
-    >
-      <Loader type="dotspinner" />
-    </Box>
-  )
-}
-
 interface Props {
   children: ReactNode
 }
 export const PublicLayout: FC<Props> = ({ children }) => {
-  const isFetching = useIsFetching()
   return (
     <StyledSection>
-      {isFetching ? <GlobalLoader /> : null}
+      <GlobalLazyLoader />
       <Header />
       <StyledMain>{children}</StyledMain>
       <Footer />

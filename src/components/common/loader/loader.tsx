@@ -34,13 +34,7 @@ export const Loader: FC<Props> = ({ type = "dotpulse" }) => {
   }
 }
 
-export const LazyLoader: FC<
-  Props & {
-    show: boolean
-    delay?: number
-  }
-> = (props) => {
-  const { show, delay = 400 } = props
+export const useLazyLoader = (show: boolean, delay = 400) => {
   const [showLoader, setShowLoader] = useState(false)
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>
@@ -58,6 +52,17 @@ export const LazyLoader: FC<
     }
   }, [show, delay])
 
+  return showLoader
+}
+
+export const LazyLoader: FC<
+  Props & {
+    show: boolean
+    delay?: number
+  }
+> = (props) => {
+  const { show, delay } = props
+  const showLoader = useLazyLoader(show, delay)
   return showLoader ? <Loader {...props} /> : null
 }
 

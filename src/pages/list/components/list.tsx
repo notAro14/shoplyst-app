@@ -1,4 +1,4 @@
-import { FC } from "react"
+import { FC, useEffect, useRef } from "react"
 import produce from "immer"
 import toast from "react-hot-toast"
 import type {
@@ -7,6 +7,7 @@ import type {
   ArticleStatus,
   ProductsOnLists,
 } from "@prisma/client"
+import autoAnimate from "@formkit/auto-animate"
 
 import {
   Dialog,
@@ -45,6 +46,11 @@ const List: FC<Props> = ({ list: { name, products, id } }) => {
     isFetching,
   } = trpc.category.all.useQuery()
   const isRestoring = useIsRestoring()
+
+  const parent = useRef<HTMLUListElement | null>(null)
+  useEffect(() => {
+    parent.current && autoAnimate(parent.current)
+  }, [parent])
 
   return (
     <>
@@ -106,17 +112,37 @@ const List: FC<Props> = ({ list: { name, products, id } }) => {
       <Spacer />
       {products?.length ? (
         <>
-          <Flex as="ul" gap="md" direction="column">
-            {products.map(({ product: p, status }) => {
-              return (
-                <ProductInsideList
-                  p={p}
-                  status={status}
-                  key={p.id}
-                  listId={id}
-                />
-              )
-            })}
+          <Flex
+            ref={parent}
+            as="ul"
+            gap="sm"
+            direction="column"
+            css={{ listStyleType: "none", alignItems: "stretch" }}
+          >
+            {products
+              .filter(({ status }) => status === "READY")
+              .map(({ product: p, status }) => {
+                return (
+                  <ProductInsideList
+                    p={p}
+                    status={status}
+                    key={p.id}
+                    listId={id}
+                  />
+                )
+              })}
+            {products
+              .filter(({ status }) => status === "PURCHASED")
+              .map(({ product: p, status }) => {
+                return (
+                  <ProductInsideList
+                    p={p}
+                    status={status}
+                    key={p.id}
+                    listId={id}
+                  />
+                )
+              })}
           </Flex>
           <Spacer />
           <Button
@@ -195,48 +221,53 @@ const ProductInsideList: FC<{
     })
   }
   return (
-    <button
-      className={css({
-        all: "unset",
-        borderRadius: theme.radii.sm,
-        "&:focus": {
-          outline: "1px solid",
-          outlineColor: theme.colors.solid,
-        },
-      }).toString()}
-      onClick={onClick}
-    >
-      <Paper
-        borderRadius="sm"
-        css={{
-          padding: theme.space.md,
-          backgroundColor: theme.colors.ui,
-          display: "flex",
-          alignItems: "center",
-          border: "none",
-          minHeight: 50,
-          gap: theme.space.sm,
-          ...(status === "PURCHASED"
-            ? {
-                boxShadow: "unset",
-                backgroundColor: theme.colors["bg-alt"],
-                color: theme.colors["text-functional-low"],
-                fontSize: theme.fontSizes.sm,
-              }
-            : undefined),
-        }}
+    <li>
+      <button
+        className={css({
+          all: "unset",
+          borderRadius: theme.radii.sm,
+          width: "100%",
+          "&:focus": {
+            outline: "1px solid",
+            outlineColor: theme.colors.solid,
+          },
+        }).toString()}
+        onClick={onClick}
       >
-        {status === "PURCHASED" && <ShoppingBagIcon />}
-        <Text
-          noLineHeight
-          color="functional"
-          fontSize="lg"
-          css={{ color: "inherit", fontSize: "inherit" }}
+        <Paper
+          borderRadius="sm"
+          as="span"
+          css={{
+            padding: theme.space.md,
+            backgroundColor: theme.colors.ui,
+            display: "flex",
+            alignItems: "center",
+            border: "none",
+            minHeight: 50,
+            gap: theme.space.sm,
+            ...(status === "PURCHASED"
+              ? {
+                  boxShadow: "unset",
+                  backgroundColor: theme.colors["bg-alt"],
+                  color: theme.colors["text-functional-low"],
+                  fontSize: theme.fontSizes.sm,
+                }
+              : undefined),
+          }}
         >
-          {p.name}
-        </Text>
-      </Paper>
-    </button>
+          {status === "PURCHASED" && <ShoppingBagIcon />}
+          <Text
+            noLineHeight
+            as="span"
+            color="functional"
+            fontSize="lg"
+            css={{ color: "inherit", fontSize: "inherit" }}
+          >
+            {p.name}
+          </Text>
+        </Paper>
+      </button>
+    </li>
   )
 }
 

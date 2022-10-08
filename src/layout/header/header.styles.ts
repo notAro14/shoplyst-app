@@ -7,6 +7,8 @@ export const StyledHeader = styled("header", {
   padding: `0 ${theme.space.lg}`,
   position: "sticky",
   top: theme.space.xs,
+  isolation: "isolate",
+  zIndex: 1,
   "@sm": {
     margin: "0 auto",
     width: 500,
