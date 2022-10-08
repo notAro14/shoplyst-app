@@ -55,6 +55,6 @@ export const StyledContent = styled(Content, {
 })
 export const StyledChevron = styled(ChevronDownIcon, {
   transition: "transform 175ms ease-in-out",
-  "[data-state=open] &": { transform: "rotate(-180deg)" },
+  "[data-state=open] > &": { transform: "rotate(-180deg)" },
   color: "inherit",
 })
