@@ -43,7 +43,7 @@ export const StyledHeader = styled(Header, {
 export const StyledAccordion = styled(Root, {
   display: "flex",
   flexDirection: "column",
-  gap: theme.space.sm,
+  gap: theme.space.md,
 })
 export const StyledContent = styled(Content, {
   '&[data-state="open"]': {

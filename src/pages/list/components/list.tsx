@@ -51,8 +51,10 @@ const List: FC<Props> = ({ list: { name, products, id } }) => {
       <Dialog isOpen={isOpen} onDismiss={onClose}>
         <StyledDialogContent
           css={{
-            display: "flex",
-            flexDirection: "column",
+            maxHeight: 500,
+            overflow: "auto",
+            overscrollBehaviorY: "contain",
+            scrollbarGutter: "stable",
           }}
         >
           <StyledDialogTitle asChild>
@@ -60,6 +62,10 @@ const List: FC<Props> = ({ list: { name, products, id } }) => {
               {name}
             </Heading>
           </StyledDialogTitle>
+          <Spacer size="xxs" />
+          <Text fontSize="sm">
+            Clique sur les produits pour les ajouter à ta liste
+          </Text>
           <Spacer />
           {categories ? (
             <Categories
@@ -68,6 +74,7 @@ const List: FC<Props> = ({ list: { name, products, id } }) => {
               categories={categories}
             />
           ) : null}
+          <Spacer />
           <Button
             fullWidth
             size="small"
