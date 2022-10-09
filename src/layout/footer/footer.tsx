@@ -23,13 +23,13 @@ const Footer: FC = () => {
           }}
           as="span"
         >
-          Made by
+          Fait par
         </Text>
         <Link
           css={{
             fontSize: "inherit",
           }}
-          href="https://github.com/notAro14"
+          href="https://www.aroandriamaro.com"
           isExternal
         >
           Aro Andriamaro
