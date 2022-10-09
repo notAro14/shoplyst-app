@@ -184,7 +184,7 @@ const Header = () => {
           <NextLink href="/" passHref>
             <Link
               css={{
-                letterSpacing: 7,
+                textTransform: "uppercase",
                 color: theme.colors["solid-accent"],
                 fontSize: theme.fontSizes.lg,
                 fontWeight: theme.fontWeights.medium,
