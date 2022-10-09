@@ -11,6 +11,7 @@ import List from "./components/list"
 import { useIsRestoring } from "@tanstack/react-query"
 import SEO from "src/components/common/seo"
 import { theme } from "src/styles/theme/stitches.config"
+import Spacer from "src/components/common/spacer"
 
 const ListPage: NextPageWithLayout = () => {
   const { query, isReady } = useRouter()
@@ -52,9 +53,6 @@ const ListPage: NextPageWithLayout = () => {
   return (
     <>
       <SEO title="Cette liste n'existe pas" />
-      <Text role="alert" color="danger-low">
-        Oups cette liste n&apos;existe pas
-      </Text>
       <NextLink passHref href="/">
         <Link
           css={{
@@ -63,9 +61,13 @@ const ListPage: NextPageWithLayout = () => {
             gap: theme.space.sm,
           }}
         >
-          <ArrowLeftIcon /> Retourner à toutes mes listes
+          <ArrowLeftIcon /> Mes listes de courses
         </Link>
       </NextLink>
+      <Spacer />
+      <Text role="alert" color="danger-low">
+        Oups cette liste n&apos;existe pas
+      </Text>
     </>
   )
 }
