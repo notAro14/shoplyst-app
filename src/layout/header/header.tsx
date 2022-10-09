@@ -99,7 +99,7 @@ const Auth = () => {
     case "unauthenticated":
       return (
         <Button size="small" colorScheme="accent" onClick={() => signIn()}>
-          Sign In
+          Se connecter
         </Button>
       )
     case "authenticated":
@@ -185,7 +185,7 @@ const Header = () => {
             <Link
               css={{
                 letterSpacing: 7,
-                color: theme.colors.solid,
+                color: theme.colors["solid-accent"],
                 fontSize: theme.fontSizes.lg,
                 fontWeight: theme.fontWeights.medium,
               }}

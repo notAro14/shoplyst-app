@@ -8,6 +8,8 @@ import type {
   ProductsOnLists,
 } from "@prisma/client"
 import autoAnimate from "@formkit/auto-animate"
+import NextLink from "next/link"
+import { ArrowLeftIcon } from "@radix-ui/react-icons"
 
 import {
   Dialog,
@@ -28,6 +30,7 @@ import Categories from "src/components/categories"
 import { useIsRestoring } from "@tanstack/react-query"
 import { CartIcon } from "src/components/common/icons"
 import Box from "src/components/common/box"
+import Link from "src/components/common/link"
 
 interface Props {
   list: IList & {
@@ -65,13 +68,10 @@ const List: FC<Props> = ({ list: { name, products, id } }) => {
         >
           <StyledDialogTitle asChild>
             <Heading variant="h2" as="h2">
-              {name}
+              Ajouter/Retirer un produit
             </Heading>
           </StyledDialogTitle>
-          <Spacer size="xxs" />
-          <Text fontSize="sm">
-            Clique sur les produits pour les ajouter à ta liste
-          </Text>
+          <Spacer />
           <Spacer />
           {categories ? (
             <Categories
@@ -85,14 +85,27 @@ const List: FC<Props> = ({ list: { name, products, id } }) => {
             fullWidth
             size="small"
             onClick={onClose}
-            colorScheme="danger"
+            colorScheme="accent"
             disabled={(isLoading && isFetching) || isRestoring}
             css={{ marginTop: "auto" }}
           >
-            Fermer
+            Revenir à la liste
           </Button>
         </StyledDialogContent>
       </Dialog>
+      <NextLink passHref href="/">
+        <Link
+          css={{
+            display: "flex",
+            alignItems: "center",
+            gap: theme.space.sm,
+          }}
+        >
+          <ArrowLeftIcon /> Mes listes de course
+        </Link>
+      </NextLink>
+      <Spacer />
+      <Spacer />
       <Heading
         as="h2"
         variant="h2"
@@ -145,14 +158,16 @@ const List: FC<Props> = ({ list: { name, products, id } }) => {
               })}
           </Flex>
           <Spacer />
+          <Spacer />
           <Button
             fullWidth
             size="small"
             onClick={onOpen}
             colorScheme="accent"
+            variant="outlined"
             disabled={(isLoading && isFetching) || isRestoring}
           >
-            Modifier
+            Modifier la liste
           </Button>
         </>
       ) : null}

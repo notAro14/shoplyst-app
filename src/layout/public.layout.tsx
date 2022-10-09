@@ -5,6 +5,7 @@ import { styled, theme } from "src/styles/theme/stitches.config"
 import Footer from "src/layout/footer"
 import Header from "src/layout/header"
 import { GlobalLazyLoader } from "src/components/common/loader"
+import Spacer from "src/components/common/spacer"
 
 const StyledSection = styled("section", {
   display: "flex",
@@ -15,7 +16,7 @@ const StyledSection = styled("section", {
 })
 
 const StyledMain = styled("main", {
-  padding: theme.space.lg,
+  padding: theme.space.md,
   "@sm": {
     minWidth: 500,
     maxWidth: 768,
@@ -28,12 +29,15 @@ interface Props {
 }
 export const PublicLayout: FC<Props> = ({ children }) => {
   return (
-    <StyledSection>
+    <>
       <GlobalLazyLoader />
-      <Header />
-      <StyledMain>{children}</StyledMain>
-      <Footer />
-    </StyledSection>
+      <StyledSection>
+        <Header />
+        <Spacer size="sm" />
+        <StyledMain>{children}</StyledMain>
+        <Footer />
+      </StyledSection>
+    </>
   )
 }
 

@@ -17,7 +17,7 @@ const SignIn: NextPageWithLayout = () => {
 
   return (
     <>
-      <SEO title="Sign In" />
+      <SEO title="Shoplyst | Se connecter" />
       <Flex direction="column" gap="2xl">
         <Heading
           variant="h1"

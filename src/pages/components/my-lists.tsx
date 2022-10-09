@@ -31,12 +31,14 @@ const MyLists: FC<Props> = ({ lists }) => {
                   padding: `${theme.space.sm} ${theme.space.sm}`,
                   width: "100%",
                   transition: "box-shadow 150ms ease-in-out",
+                  backgroundColor: theme.colors.ui,
                   "&:hover": {
                     cursor: "pointer",
+                    backgroundColor: theme.colors["ui-hovered"],
                     boxShadow: theme.shadows.medium,
                   },
                 }}
-                bordered
+                //bordered
                 borderRadius="sm"
                 elevation="low"
               >

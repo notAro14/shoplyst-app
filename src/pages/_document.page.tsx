@@ -6,7 +6,7 @@ import { getCssText } from "src/styles/theme/stitches.config"
 export default class Document extends NextDocument {
   render() {
     return (
-      <Html lang="en">
+      <Html lang="fr">
         <Head>
           <style
             id="stitches"
