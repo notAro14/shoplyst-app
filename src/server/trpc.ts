@@ -1,3 +1,5 @@
 import { initTRPC } from "@trpc/server"
 
-export const t = initTRPC.create()
+import { Context } from "./context"
+
+export const t = initTRPC.context<Context>().create()

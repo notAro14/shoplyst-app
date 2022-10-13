@@ -21,6 +21,7 @@ const ListPage: NextPageWithLayout = () => {
     isLoading,
     isFetching,
     isError,
+    error,
   } = trpc.list.find.useQuery(listId, { enabled: typeof listId === "string" })
   const isRestoring = useIsRestoring()
 
@@ -40,33 +41,33 @@ const ListPage: NextPageWithLayout = () => {
       </>
     )
 
-  if (isError)
+  if (isError && error.data?.code === "NOT_FOUND")
     return (
       <>
-        <SEO title="Liste | Erreur de chargement" />
+        <SEO title="Cette liste n'existe pas" />
+        <NextLink passHref href="/">
+          <Link
+            css={{
+              display: "flex",
+              alignItems: "center",
+              gap: theme.space.sm,
+            }}
+          >
+            <ArrowLeftIcon /> Mes listes de courses
+          </Link>
+        </NextLink>
+        <Spacer />
         <Text role="alert" color="danger-low">
-          Oups ta liste ne s&apos;est pas chargée correctement
+          Oups cette liste n&apos;existe pas
         </Text>
       </>
     )
 
   return (
     <>
-      <SEO title="Cette liste n'existe pas" />
-      <NextLink passHref href="/">
-        <Link
-          css={{
-            display: "flex",
-            alignItems: "center",
-            gap: theme.space.sm,
-          }}
-        >
-          <ArrowLeftIcon /> Mes listes de courses
-        </Link>
-      </NextLink>
-      <Spacer />
+      <SEO title="Liste | Erreur de chargement" />
       <Text role="alert" color="danger-low">
-        Oups cette liste n&apos;existe pas
+        Oups ta liste ne s&apos;est pas chargée correctement
       </Text>
     </>
   )
