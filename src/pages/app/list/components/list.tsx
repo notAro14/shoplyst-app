@@ -89,7 +89,7 @@ const List: FC<Props> = ({ list: { name, products, id } }) => {
             disabled={(isLoading && isFetching) || isRestoring}
             css={{ marginTop: "auto" }}
           >
-            Revenir à la liste
+            Fermer
           </Button>
         </StyledDialogContent>
       </Dialog>
@@ -122,6 +122,14 @@ const List: FC<Props> = ({ list: { name, products, id } }) => {
         </Box>
         <span>{name}</span>
       </Heading>
+      {products?.length ? (
+        <>
+          <Spacer size="xs" />
+          <Text fontSize="sm">
+            Clique sur un produit pour le mettre dans ton caddie
+          </Text>
+        </>
+      ) : null}
       <Spacer />
       {products?.length ? (
         <>
@@ -167,13 +175,13 @@ const List: FC<Props> = ({ list: { name, products, id } }) => {
             variant="outlined"
             disabled={(isLoading && isFetching) || isRestoring}
           >
-            Modifier la liste
+            Ajouter / Retirer
           </Button>
         </>
       ) : null}
       {products?.length === 0 ? (
         <>
-          <Text>Ta liste est vide</Text>
+          <Text fontSize="md">Ta liste est vide</Text>
           <Spacer />
           <Button
             fullWidth

@@ -20,29 +20,42 @@ const Categories: FC<{
 }> = ({ productsInCurrentList, listId, categories }) => {
   return (
     <Accordion collapsible type="single" defaultValue={categories[0].name}>
-      {categories?.map(({ id, name, products }) => (
-        <AccordionItem key={id} value={name}>
-          <AccordionTrigger>{name}</AccordionTrigger>
-          <AccordionContent>
-            <Flex
-              wrap
-              gap="sm"
+      {categories?.map(({ id, name, products }) => {
+        const containsProductInList = products.some((p) => {
+          return productsInCurrentList?.includes(p.id)
+        })
+        return (
+          <AccordionItem key={id} value={name}>
+            <AccordionTrigger
               css={{
-                padding: `${theme.space.md} ${theme.space.xxs}`,
+                borderColor: containsProductInList
+                  ? theme.colors["solid-accent"]
+                  : undefined,
               }}
             >
-              {products.map((p) => (
-                <ProductInsideCategory
-                  key={p.id}
-                  product={p}
-                  listId={listId}
-                  inList={productsInCurrentList?.includes(p.id)}
-                />
-              ))}
-            </Flex>
-          </AccordionContent>
-        </AccordionItem>
-      ))}
+              {name}
+            </AccordionTrigger>
+            <AccordionContent>
+              <Flex
+                wrap
+                gap="sm"
+                css={{
+                  padding: `${theme.space.md} ${theme.space.xxs}`,
+                }}
+              >
+                {products.map((p) => (
+                  <ProductInsideCategory
+                    key={p.id}
+                    product={p}
+                    listId={listId}
+                    inList={productsInCurrentList?.includes(p.id)}
+                  />
+                ))}
+              </Flex>
+            </AccordionContent>
+          </AccordionItem>
+        )
+      })}
     </Accordion>
   )
 }

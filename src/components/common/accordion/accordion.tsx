@@ -1,3 +1,4 @@
+import { CSS } from "@stitches/react"
 import { forwardRef, ReactNode } from "react"
 
 import {
@@ -13,11 +14,11 @@ export const Accordion = StyledAccordion
 export const AccordionItem = StyledItem
 export const AccordionTrigger = forwardRef<
   HTMLButtonElement,
-  { children: ReactNode }
+  { children: ReactNode; css?: CSS }
 >((props, ref) => {
   return (
     <StyledHeader>
-      <StyledTrigger ref={ref}>
+      <StyledTrigger css={props.css} ref={ref}>
         {props.children}
         <StyledChevron aria-hidden />
       </StyledTrigger>
