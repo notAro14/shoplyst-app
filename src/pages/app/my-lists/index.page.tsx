@@ -1,5 +1,6 @@
 import { useIsRestoring } from "@tanstack/react-query"
 
+import Box from "src/components/common/box"
 import Heading from "src/components/common/heading"
 import Loader from "src/components/common/loader"
 import Spacer from "src/components/common/spacer"
@@ -33,7 +34,15 @@ const MyListsPage: NextPageWithLayout = () => {
           variant="h1"
           css={{ display: "flex", alignItems: "center", gap: theme.space.xs }}
         >
-          <ListIcon />
+          <Box
+            css={{
+              // to have pixel perfect alignment with text
+              transform: "translateY(-2px)",
+            }}
+            as="span"
+          >
+            <ListIcon />
+          </Box>
           <span>Mes listes de courses</span>
         </Heading>
         <Spacer />

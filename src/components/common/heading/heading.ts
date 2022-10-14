@@ -2,8 +2,8 @@ import { styled, theme } from "src/styles/theme/stitches.config"
 
 const Heading = styled("h1", {
   color: theme.colors["text-functional"],
-  fontFamily: theme.fonts.sans,
-  fontWeight: theme.fontWeights.medium,
+  fontFamily: theme.fonts.fun,
+  letterSpacing: 2,
   lineHeight: 1,
   variants: {
     variant: {

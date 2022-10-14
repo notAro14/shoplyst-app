@@ -5,6 +5,14 @@
   font-weight: 400;
   font-display: fallback;
 }
+/* Luckiest Guy */
+@font-face {
+  font-family: "Luckiest Guy";
+  src: local("Luckiest Guy"),
+    url("/fonts/luckiest-guy/luckiest-guy.regular.ttf");
+  font-weight: 400;
+  font-display: fallback;
+}
 /* Metropolis */
 @font-face {
   font-family: "Metropolis";

@@ -143,6 +143,8 @@ const Header = () => {
                 color: theme.colors["solid-accent"],
                 fontSize: theme.fontSizes.lg,
                 fontWeight: theme.fontWeights.medium,
+                fontFamily: theme.fonts.fun,
+                letterSpacing: 2,
               }}
               variant="navlink"
             >
