@@ -25,7 +25,10 @@ const ProductInsideCategory: FC<Props> = ({ product: p, inList, listId }) => {
         (prev) =>
           produce(prev, (draft) => {
             if (!draft || !previous === null) return
-            draft.products.push({ product: p, status: "READY" })
+            draft.products.push({
+              product: p,
+              status: "READY",
+            })
             draft.products.sort((pA, pB) => {
               const {
                 product: { name: A },

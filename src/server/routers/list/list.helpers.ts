@@ -56,17 +56,26 @@ export async function findById(ownerId: string, id: string) {
       id,
       ownerId,
     },
-    include: {
+    select: {
+      name: true,
+      id: true,
+      description: true,
+      ownerId: true,
+
       products: {
-        include: {
-          product: true,
-        },
         orderBy: {
           product: {
             name: "asc",
           },
         },
+        select: {
+          status: true,
+          product: true,
+        },
       },
+    },
+    orderBy: {
+      name: "asc",
     },
   })
 }
