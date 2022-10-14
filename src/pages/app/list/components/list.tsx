@@ -33,13 +33,45 @@ import { CartIcon } from "src/components/common/icons"
 import Box from "src/components/common/box"
 import Link from "src/components/common/link"
 
+type Products = {
+  product: Product
+  status: ArticleStatus
+}[]
+
 interface Props {
   list: IList & {
-    products: {
-      product: Product
-      status: ArticleStatus
-    }[]
+    products: Products
   }
+}
+
+const ProductList: FC<{ products: Products; listId: string }> = ({
+  products,
+  listId: id,
+}) => {
+  return (
+    <Flex
+      ref={useAutoanimate<HTMLUListElement>()}
+      as="ul"
+      gap="sm"
+      direction="column"
+      css={{ listStyleType: "none", alignItems: "stretch" }}
+    >
+      {products
+        .filter(({ status }) => status === "READY")
+        .map(({ product: p, status }) => {
+          return (
+            <ProductInsideList p={p} status={status} key={p.id} listId={id} />
+          )
+        })}
+      {products
+        .filter(({ status }) => status === "PURCHASED")
+        .map(({ product: p, status }) => {
+          return (
+            <ProductInsideList p={p} status={status} key={p.id} listId={id} />
+          )
+        })}
+    </Flex>
+  )
 }
 
 const List: FC<Props> = ({ list: { name, products, id } }) => {
@@ -50,8 +82,6 @@ const List: FC<Props> = ({ list: { name, products, id } }) => {
     isFetching,
   } = trpc.category.all.useQuery()
   const isRestoring = useIsRestoring()
-
-  const autoanimatedListRef = useAutoanimate<HTMLUListElement>()
 
   return (
     <>
@@ -131,38 +161,7 @@ const List: FC<Props> = ({ list: { name, products, id } }) => {
       <Spacer />
       {products?.length ? (
         <>
-          <Flex
-            ref={autoanimatedListRef}
-            as="ul"
-            gap="sm"
-            direction="column"
-            css={{ listStyleType: "none", alignItems: "stretch" }}
-          >
-            {products
-              .filter(({ status }) => status === "READY")
-              .map(({ product: p, status }) => {
-                return (
-                  <ProductInsideList
-                    p={p}
-                    status={status}
-                    key={p.id}
-                    listId={id}
-                  />
-                )
-              })}
-            {products
-              .filter(({ status }) => status === "PURCHASED")
-              .map(({ product: p, status }) => {
-                return (
-                  <ProductInsideList
-                    p={p}
-                    status={status}
-                    key={p.id}
-                    listId={id}
-                  />
-                )
-              })}
-          </Flex>
+          <ProductList listId={id} products={products} />
           <Spacer />
           <Spacer />
           <Button
