@@ -28,11 +28,11 @@ export const StyledDialogDesc = styled(RadixDialog.Description, {})
 export const StyledDialogContent = styled(RadixDialog.Content, {
   backgroundColor: theme.colors["bg-alt"],
   animation: `${contentShow} 150ms ease-in-out forwards`,
-  minHeight: 500,
   borderRadius: theme.radii.md,
   padding: `${theme.space.xl} ${theme.space.xl}`,
   width: "90%",
   position: "relative",
+
   "@sm": {
     maxWidth: 400,
   },

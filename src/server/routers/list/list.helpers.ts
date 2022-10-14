@@ -31,6 +31,7 @@ export async function findAll(ownerId: string) {
     },
     select: {
       name: true,
+      description: true,
       id: true,
 
       products: {

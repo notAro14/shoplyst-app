@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef } from "react"
+import { FC } from "react"
 import produce from "immer"
 import toast from "react-hot-toast"
 import type {
@@ -7,10 +7,11 @@ import type {
   ArticleStatus,
   ProductsOnLists,
 } from "@prisma/client"
-import autoAnimate from "@formkit/auto-animate"
+//import autoAnimate from "@formkit/auto-animate"
 import NextLink from "next/link"
 import { ArrowLeftIcon } from "@radix-ui/react-icons"
 
+import useAutoanimate from "src/hooks/use-autoanimate"
 import {
   Dialog,
   StyledDialogContent,
@@ -50,17 +51,14 @@ const List: FC<Props> = ({ list: { name, products, id } }) => {
   } = trpc.category.all.useQuery()
   const isRestoring = useIsRestoring()
 
-  const parent = useRef<HTMLUListElement | null>(null)
-  useEffect(() => {
-    parent.current && autoAnimate(parent.current)
-  }, [parent])
+  const autoanimatedListRef = useAutoanimate<HTMLUListElement>()
 
   return (
     <>
       <Dialog isOpen={isOpen} onDismiss={onClose}>
         <StyledDialogContent
           css={{
-            maxHeight: 500,
+            height: 500,
             overflow: "auto",
             overscrollBehaviorY: "contain",
             scrollbarGutter: "stable",
@@ -134,7 +132,7 @@ const List: FC<Props> = ({ list: { name, products, id } }) => {
       {products?.length ? (
         <>
           <Flex
-            ref={parent}
+            ref={autoanimatedListRef}
             as="ul"
             gap="sm"
             direction="column"
