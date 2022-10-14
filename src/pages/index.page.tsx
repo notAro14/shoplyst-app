@@ -31,6 +31,8 @@ const IndexPage: NextPageWithLayout = () => {
   return (
     <>
       <SEO title="Shoplyst | Application de listes de courses" />
+      <Spacer />
+      <Spacer />
       <Box css={{ margin: "0 auto", width: "fit-content" }}>
         <Flex
           direction="column"
