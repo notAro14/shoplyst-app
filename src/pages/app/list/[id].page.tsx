@@ -12,6 +12,8 @@ import { useIsRestoring } from "@tanstack/react-query"
 import SEO from "src/components/common/seo"
 import { theme } from "src/styles/theme/stitches.config"
 import Spacer from "src/components/common/spacer"
+import PublicLayout from "src/layout/public.layout"
+import AppShell from "src/components/app-shell"
 
 const ListPage: NextPageWithLayout = () => {
   const { query, isReady } = useRouter()
@@ -45,7 +47,7 @@ const ListPage: NextPageWithLayout = () => {
     return (
       <>
         <SEO title="Cette liste n'existe pas" />
-        <NextLink passHref href="/">
+        <NextLink passHref href="/app/my-lists">
           <Link
             css={{
               display: "flex",
@@ -72,5 +74,11 @@ const ListPage: NextPageWithLayout = () => {
     </>
   )
 }
+
+ListPage.getLayout = (page) => (
+  <PublicLayout>
+    <AppShell>{page}</AppShell>
+  </PublicLayout>
+)
 
 export default ListPage

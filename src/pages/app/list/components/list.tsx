@@ -93,7 +93,7 @@ const List: FC<Props> = ({ list: { name, products, id } }) => {
           </Button>
         </StyledDialogContent>
       </Dialog>
-      <NextLink passHref href="/">
+      <NextLink passHref href="/app/my-lists">
         <Link
           css={{
             display: "flex",

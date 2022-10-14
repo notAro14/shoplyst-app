@@ -164,7 +164,10 @@ const Auth = () => {
                 <StyledLabel>
                   {session.user?.name ?? session.user?.email}
                 </StyledLabel>
-                <StyledItem colorScheme="danger" onSelect={() => signOut()}>
+                <StyledItem
+                  colorScheme="danger"
+                  onSelect={() => signOut({ callbackUrl: "/" })}
+                >
                   Se déconnecter
                 </StyledItem>
               </StyledContent>
@@ -181,7 +184,7 @@ const Header = () => {
     <StyledHeader>
       <StyledNav>
         <Flex align="baseline" direction="column">
-          <NextLink href="/" passHref>
+          <NextLink href="/app/my-lists" passHref>
             <Link
               css={{
                 textTransform: "uppercase",

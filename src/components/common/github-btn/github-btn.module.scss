@@ -16,6 +16,9 @@
   width: 100%;
   height: 42px;
   color: var(--colors-text-fg-white);
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .divider {

@@ -23,7 +23,7 @@ const MyLists: FC<Props> = ({ lists }) => {
     <>
       {lists?.map((l) => {
         return (
-          <NextLink href={`/list/${l.id}`} key={l.id} passHref>
+          <NextLink href={`/app/list/${l.id}`} key={l.id} passHref>
             <Link>
               <Paper
                 as="span"
