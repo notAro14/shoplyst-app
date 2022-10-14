@@ -1,8 +1,6 @@
 import { useSession, signIn, signOut } from "next-auth/react"
 import NextLink from "next/link"
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu"
-import { DotFilledIcon } from "@radix-ui/react-icons"
-import { useTheme } from "next-themes"
 
 import { useIsBrowser } from "src/hooks/use-is-browser"
 import { StyledHeader, StyledNav } from "./header.styles"
@@ -12,7 +10,8 @@ import { LazyLoader } from "src/components/common/loader"
 import * as Avatar from "src/components/common/avatar"
 import Link from "src/components/common/link"
 import Text from "src/components/common/text/text"
-import { styled, theme, css } from "src/styles/theme/stitches.config"
+import ToggleTheme from "src/components/common/toggle-theme"
+import { styled, theme } from "src/styles/theme/stitches.config"
 import { useThemeSwitcherShortcut } from "src/hooks/use-theme-switcher-shortcut"
 
 const itemStyles = {
@@ -57,18 +56,7 @@ const StyledLabel = styled(DropdownMenu.Label, {
   fontWeight: theme.fontWeights.thin,
   margin: `${theme.space.xxs} 0`,
 })
-const StyledRadioGroup = styled(DropdownMenu.DropdownMenuRadioGroup, {})
-const StyledRadioItem = styled(DropdownMenu.DropdownMenuRadioItem, {
-  ...itemStyles,
-})
-const StyledMenuItemIndicator = styled(DropdownMenu.ItemIndicator, {
-  position: "absolute",
-  left: 0,
-  width: theme.space.md,
-  display: "inline-flex",
-  alignItems: "center",
-  justifyContent: "center",
-})
+
 const StyledContent = styled(DropdownMenu.Content, {
   padding: theme.space.xxs,
   backgroundColor: theme.colors["bg-alt"],
@@ -89,7 +77,6 @@ const StyledItem = styled(DropdownMenu.Item, {
 const Auth = () => {
   const { data: session, status } = useSession()
   const isBrowser = useIsBrowser()
-  const { resolvedTheme, setTheme } = useTheme()
   if (isBrowser === false) return null
 
   switch (status) {
@@ -105,6 +92,7 @@ const Auth = () => {
     case "authenticated":
       return (
         <Flex align="center" gap="xs">
+          <ToggleTheme />
           <DropdownMenu.Root>
             <DropdownMenu.Trigger asChild>
               <Avatar.Root size="sm" rounded withInsetShadow>
@@ -124,46 +112,10 @@ const Auth = () => {
             </DropdownMenu.Trigger>
             <DropdownMenu.Portal>
               <StyledContent sideOffset={5}>
-                <StyledRadioGroup
-                  value={resolvedTheme}
-                  onValueChange={setTheme}
-                >
-                  <StyledLabel
-                    css={{
-                      display: "flex",
-                      alignItems: "baseline",
-                      gap: theme.space.xxs,
-                    }}
-                  >
-                    <span>Apparence</span>
-                    <span>-</span>
-                    <kbd
-                      className={css({
-                        fontSize: theme.fontSizes.xs,
-                        textTransform: "uppercase",
-                        fontFamily: theme.fonts.mono,
-                      }).toString()}
-                    >
-                      cmd+j
-                    </kbd>
-                  </StyledLabel>
-                  <StyledRadioItem value="light">
-                    <StyledMenuItemIndicator>
-                      <DotFilledIcon />
-                    </StyledMenuItemIndicator>
-                    Clair
-                  </StyledRadioItem>
-                  <StyledRadioItem value="dark">
-                    <StyledMenuItemIndicator>
-                      <DotFilledIcon />
-                    </StyledMenuItemIndicator>
-                    Sombre
-                  </StyledRadioItem>
-                </StyledRadioGroup>
-                <StyledSeparator />
                 <StyledLabel>
                   {session.user?.name ?? session.user?.email}
                 </StyledLabel>
+                <StyledSeparator />
                 <StyledItem
                   colorScheme="danger"
                   onSelect={() => signOut({ callbackUrl: "/" })}
@@ -209,9 +161,7 @@ const Header = () => {
             Fais tes courses avec style
           </Text>
         </Flex>
-        <Flex align="center" gap="sm">
-          <Auth />
-        </Flex>
+        <Auth />
       </StyledNav>
     </StyledHeader>
   )
