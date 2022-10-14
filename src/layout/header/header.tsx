@@ -86,7 +86,7 @@ const Auth = () => {
     case "unauthenticated":
       return (
         <Button size="small" colorScheme="accent" onClick={() => signIn()}>
-          Se connecter
+          Commencer
         </Button>
       )
     case "authenticated":
@@ -136,7 +136,7 @@ const Header = () => {
     <StyledHeader>
       <StyledNav>
         <Flex align="baseline" direction="column">
-          <NextLink href="/app/my-lists" passHref>
+          <NextLink href="/" passHref>
             <Link
               css={{
                 textTransform: "uppercase",

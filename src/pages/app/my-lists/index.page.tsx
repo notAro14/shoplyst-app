@@ -75,7 +75,11 @@ const MyListsPage: NextPageWithLayout = () => {
   return (
     <>
       <SEO title="Shoplyst | Mes listes de courses" />
-      <Text>Crée ta première liste de courses.</Text>
+      <Box css={{ margin: "0 auto" }}>
+        <Text>Commence par ajouter une liste.</Text>
+        <Spacer />
+        <Button>Ajouter une liste</Button>
+      </Box>
     </>
   )
 }
