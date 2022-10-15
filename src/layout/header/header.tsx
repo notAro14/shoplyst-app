@@ -1,11 +1,10 @@
-import { useSession, signIn, signOut } from "next-auth/react"
+import { useSession, signOut } from "next-auth/react"
 import NextLink from "next/link"
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu"
 
 import { useIsBrowser } from "src/hooks/use-is-browser"
 import { StyledHeader, StyledNav } from "./header.styles"
 import Flex from "src/components/common/flex"
-import Button from "src/components/common/button"
 import { LazyLoader } from "src/components/common/loader"
 import * as Avatar from "src/components/common/avatar"
 import Link from "src/components/common/link"
@@ -84,11 +83,7 @@ const Auth = () => {
       return <LazyLoader show />
 
     case "unauthenticated":
-      return (
-        <Button size="small" colorScheme="accent" onClick={() => signIn()}>
-          Commencer
-        </Button>
-      )
+      return <ToggleTheme />
     case "authenticated":
       return (
         <Flex align="center" gap="xs">
