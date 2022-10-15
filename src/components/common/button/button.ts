@@ -11,6 +11,12 @@ const Button = styled("button", {
   border: "1px solid",
   boxShadow: theme.shadows.low,
   textTransform: "uppercase",
+
+  transition: "box-shadow 200ms ease-in-out",
+  "&:hover": {
+    boxShadow: theme.shadows.medium,
+  },
+
   "&:disabled": {
     opacity: 0.5,
     cursor: "not-allowed",
