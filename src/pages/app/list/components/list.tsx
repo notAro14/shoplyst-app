@@ -13,6 +13,7 @@ import { ArrowLeftIcon } from "@radix-ui/react-icons"
 
 import useAutoanimate from "src/hooks/use-autoanimate"
 import {
+  CloseBtn,
   Dialog,
   StyledDialogContent,
   StyledDialogTitle,
@@ -92,6 +93,7 @@ const AddRemoveDialog: FC<{
           scrollbarGutter: "stable",
         }}
       >
+        <CloseBtn />
         <StyledDialogTitle asChild>
           <Heading variant="h2" as="h2">
             Ajouter/Retirer un produit
