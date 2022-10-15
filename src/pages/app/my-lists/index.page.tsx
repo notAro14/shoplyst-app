@@ -178,7 +178,7 @@ const MyListsPage: NextPageWithLayout = () => {
         <Spacer />
         <MyLists lists={lists} />
         <Spacer />
-        <CreateList title="Créer une liste" />
+        <CreateList title="Créer une nouvelle liste" />
       </>
     )
 
