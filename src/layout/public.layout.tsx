@@ -18,8 +18,7 @@ const StyledSection = styled("section", {
 const StyledMain = styled("main", {
   padding: theme.space.md,
   "@sm": {
-    minWidth: 500,
-    maxWidth: 768,
+    width: 500,
     margin: "0 auto",
   },
 })
