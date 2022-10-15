@@ -265,12 +265,22 @@ const ProductInsideList: FC<{
             border: "none",
             minHeight: 50,
             gap: theme.space.sm,
+            boxShadow: theme.shadows.low,
+            transition: "box-shadow 200ms ease-in-out",
+            "&:hover": {
+              boxShadow: theme.shadows.medium,
+              cursor: "pointer",
+            },
             ...(status === "PURCHASED"
               ? {
                   boxShadow: "unset",
                   backgroundColor: theme.colors["bg-alt"],
                   color: theme.colors["text-functional-low"],
                   fontSize: theme.fontSizes.sm,
+                  "&:hover": {
+                    boxShadow: theme.shadows.low,
+                    cursor: "pointer",
+                  },
                 }
               : undefined),
           }}
