@@ -19,6 +19,7 @@ interface Props {
     }[]
     name: string
     id: string
+    description: string | null
   }[]
 }
 
@@ -31,7 +32,7 @@ const MyLists: FC<Props> = ({ lists }) => {
       as="ul"
       css={{ listStyleType: "none" }}
     >
-      {lists?.map(({ id, name, products }) => {
+      {lists?.map(({ id, name, products, description }) => {
         const { length } = products
         return (
           <li key={id}>
@@ -52,15 +53,24 @@ const MyLists: FC<Props> = ({ lists }) => {
                   borderRadius="sm"
                   elevation="low"
                 >
-                  <TextEllipsed as="span" fontSize="lg">
+                  <Text
+                    as="small"
+                    noLineHeight
+                    fontSize="xs"
+                    color="functional-low"
+                  >
+                    {length > 0 &&
+                      (length > 1 ? `${length} produits` : `${length} produit`)}
+                    {length === 0 && "Liste vide"}
+                  </Text>
+                  <Spacer />
+                  <TextEllipsed as="p" fontSize="lg">
                     {name}
                   </TextEllipsed>
                   <Spacer size="xxs" />
-                  <Text as="small" fontSize="sm" color="functional-low">
-                    {length > 0 &&
-                      (length > 1 ? `${length} produits` : `${length} produit`)}
-                    {length === 0 && "Vide"}
-                  </Text>
+                  <TextEllipsed as="em" fontSize="sm" color="functional-low">
+                    {description || "Aucune description"}
+                  </TextEllipsed>
                 </Paper>
               </Link>
             </NextLink>
