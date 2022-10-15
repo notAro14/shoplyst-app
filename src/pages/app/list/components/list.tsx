@@ -6,8 +6,8 @@ import type {
   Product,
   ArticleStatus,
   ProductsOnLists,
+  Category,
 } from "@prisma/client"
-//import autoAnimate from "@formkit/auto-animate"
 import NextLink from "next/link"
 import { ArrowLeftIcon } from "@radix-ui/react-icons"
 
@@ -74,6 +74,54 @@ const ProductList: FC<{ products: Products; listId: string }> = ({
   )
 }
 
+const AddRemoveDialog: FC<{
+  isOpen: boolean
+  onClose(): void
+  products: Products
+  listId: string
+  categories?: (Category & {
+    products: Product[]
+  })[]
+}> = ({ isOpen, onClose, products, listId: id, categories }) => {
+  return (
+    <Dialog isOpen={isOpen} onDismiss={onClose}>
+      <StyledDialogContent
+        css={{
+          height: 500,
+          overflow: "auto",
+          overscrollBehaviorY: "contain",
+          scrollbarGutter: "stable",
+        }}
+      >
+        <StyledDialogTitle asChild>
+          <Heading variant="h2" as="h2">
+            Ajouter/Retirer un produit
+          </Heading>
+        </StyledDialogTitle>
+        <Spacer />
+        <Spacer />
+        {categories ? (
+          <Categories
+            productsInCurrentList={products.map(({ product: { id } }) => id)}
+            listId={id}
+            categories={categories}
+          />
+        ) : null}
+        <Spacer />
+        <Button
+          fullWidth
+          size="small"
+          onClick={onClose}
+          colorScheme="accent"
+          css={{ marginTop: "auto" }}
+        >
+          Fermer
+        </Button>
+      </StyledDialogContent>
+    </Dialog>
+  )
+}
+
 const List: FC<Props> = ({ list: { name, products, id } }) => {
   const { isOpen, onClose, onOpen } = useDisclosure()
   const {
@@ -85,42 +133,13 @@ const List: FC<Props> = ({ list: { name, products, id } }) => {
 
   return (
     <>
-      <Dialog isOpen={isOpen} onDismiss={onClose}>
-        <StyledDialogContent
-          css={{
-            height: 500,
-            overflow: "auto",
-            overscrollBehaviorY: "contain",
-            scrollbarGutter: "stable",
-          }}
-        >
-          <StyledDialogTitle asChild>
-            <Heading variant="h2" as="h2">
-              Ajouter/Retirer un produit
-            </Heading>
-          </StyledDialogTitle>
-          <Spacer />
-          <Spacer />
-          {categories ? (
-            <Categories
-              productsInCurrentList={products.map(({ product: { id } }) => id)}
-              listId={id}
-              categories={categories}
-            />
-          ) : null}
-          <Spacer />
-          <Button
-            fullWidth
-            size="small"
-            onClick={onClose}
-            colorScheme="accent"
-            disabled={(isLoading && isFetching) || isRestoring}
-            css={{ marginTop: "auto" }}
-          >
-            Fermer
-          </Button>
-        </StyledDialogContent>
-      </Dialog>
+      <AddRemoveDialog
+        categories={categories}
+        isOpen={isOpen}
+        onClose={onClose}
+        listId={id}
+        products={products}
+      />
       <NextLink passHref href="/app/my-lists">
         <Link
           css={{
