@@ -4,7 +4,7 @@ import type { Product, ArticleStatus } from "@prisma/client"
 
 import { theme } from "src/styles/theme/stitches.config"
 import Paper from "src/components/common/paper"
-import TextEllipsed from "src/components/common/text-ellipsed"
+import { TextEllipsed } from "src/components/common/ellipsed"
 import Text from "src/components/common/text"
 import Link from "src/components/common/link"
 import Spacer from "src/components/common/spacer"
@@ -28,6 +28,7 @@ const MyLists: FC<Props> = ({ lists }) => {
     <Flex
       ref={useAutoanimate<HTMLUListElement>()}
       direction="column"
+      justify="space-around"
       gap="lg"
       as="ul"
       css={{ listStyleType: "none" }}
@@ -45,6 +46,7 @@ const MyLists: FC<Props> = ({ lists }) => {
                     padding: `${theme.space.sm} ${theme.space.sm}`,
                     width: "100%",
                     transition: "box-shadow 150ms ease-in-out",
+                    userSelect: "none",
                     "&:hover": {
                       cursor: "pointer",
                       boxShadow: theme.shadows.medium,
@@ -67,8 +69,16 @@ const MyLists: FC<Props> = ({ lists }) => {
                   <TextEllipsed as="p" fontSize="lg">
                     {name}
                   </TextEllipsed>
-                  <Spacer size="xxs" />
-                  <TextEllipsed as="em" fontSize="sm" color="functional-low">
+                  <Spacer size="sm" />
+                  <TextEllipsed
+                    css={{
+                      maxLine: 2,
+                      lineHeight: 1.65,
+                    }}
+                    as="em"
+                    fontSize="sm"
+                    color="functional-low"
+                  >
                     {description || "Aucune description"}
                   </TextEllipsed>
                 </Paper>

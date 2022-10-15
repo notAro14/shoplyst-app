@@ -36,9 +36,14 @@ const fieldStyles = {
   borderColor: theme.colors["border-gray"],
   fontFamily: theme.fonts.sans,
   backgroundColor: "transparent",
+  fontSize: theme.fontSizes.sm,
   "&:focus": {
     borderColor: theme.colors.solid,
     outline: "none",
+  },
+  "&::placeholder": {
+    color: theme.colors["text-functional-low"],
+    fontStyle: "italic",
   },
 }
 const StyledInput = styled("input", fieldStyles)
@@ -89,21 +94,29 @@ const CreateListDialog: FC<{ isOpen: boolean; onClose(): void }> = ({
           <Flex direction="column" gap="xxs">
             <StyledLabel htmlFor="list.name">Titre</StyledLabel>
             <StyledInput
+              type="text"
               required
-              placeholder="Pour la semaine"
+              placeholder="Donne un petit nom à ta liste"
               ref={listNameRef}
+              autoComplete="off"
               id="list.name"
             />
           </Flex>
           <Spacer />
+          <Spacer />
           <Flex direction="column" gap="xxs">
-            <StyledLabel htmlFor="list.description">Description</StyledLabel>
+            <StyledLabel htmlFor="list.description">
+              Description (optionnelle)
+            </StyledLabel>
             <StyledTextarea
-              placeholder="Les courses hebdomadaires"
+              placeholder="Ajoute une petite description de ta liste si tu veux"
               ref={listDescRef}
               id="list.description"
+              rows={4}
             />
           </Flex>
+          <Spacer />
+          <Spacer />
           <Spacer />
           <Spacer />
           <Button
@@ -177,8 +190,6 @@ const MyListsPage: NextPageWithLayout = () => {
         </Heading>
         <Spacer />
         <MyLists lists={lists} />
-        <Spacer />
-        <Spacer />
         <Spacer />
         <Spacer />
         <CreateList title="Créer une nouvelle liste" />

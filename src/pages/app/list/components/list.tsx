@@ -29,9 +29,8 @@ import { trpc } from "src/utils/trpc"
 import { ShoppingBagIcon } from "src/components/common/icons"
 import Categories from "src/components/categories"
 import { useIsRestoring } from "@tanstack/react-query"
-import { CartIcon } from "src/components/common/icons"
-import Box from "src/components/common/box"
 import Link from "src/components/common/link"
+import { TextEllipsed } from "src/components/common/ellipsed"
 
 type Products = {
   product: Product
@@ -122,7 +121,7 @@ const AddRemoveDialog: FC<{
   )
 }
 
-const List: FC<Props> = ({ list: { name, products, id } }) => {
+const List: FC<Props> = ({ list: { name, products, id, description } }) => {
   const { isOpen, onClose, onOpen } = useDisclosure()
   const {
     data: categories,
@@ -154,34 +153,35 @@ const List: FC<Props> = ({ list: { name, products, id } }) => {
       <Spacer />
       <Spacer />
       <Heading
+        css={{
+          textOverflow: "ellipsis",
+          overflow: "hidden",
+          whiteSpace: "nowrap",
+        }}
+        title={name}
         as="h2"
         variant="h2"
-        css={{ display: "flex", alignItems: "center", gap: theme.space.xs }}
       >
-        <Box
-          css={{
-            // to have pixel perfect alignment with text
-            transform: "translateY(-2px)",
-          }}
-          as="span"
-        >
-          <CartIcon />
-        </Box>
-        <span>{name}</span>
+        {name}
       </Heading>
-      {products?.length ? (
-        <>
-          <Spacer size="xs" />
-          <Text fontSize="sm">
-            Clique sur un produit pour le mettre dans ton caddie
-          </Text>
-        </>
-      ) : null}
+      <Spacer size="xxs" />
+      <TextEllipsed
+        title={description || undefined}
+        color="functional-low"
+        css={{ maxLine: 3, lineHeight: 1.65, userSelect: "none" }}
+        fontSize="md"
+      >
+        {description || "Aucune description"}
+      </TextEllipsed>
       <Spacer />
       {products?.length ? (
         <>
           <ProductList listId={id} products={products} />
           <Spacer />
+          <Spacer />
+          <Text fontSize="sm" as="em" css={{ userSelect: "none" }}>
+            Clique sur un produit pour le mettre dans ton caddie
+          </Text>
           <Spacer />
           <Button
             fullWidth
@@ -197,7 +197,9 @@ const List: FC<Props> = ({ list: { name, products, id } }) => {
       ) : null}
       {products?.length === 0 ? (
         <>
-          <Text fontSize="md">Ta liste est vide</Text>
+          <Text fontSize="sm" as="em">
+            Ta liste est vide
+          </Text>
           <Spacer />
           <Button
             fullWidth

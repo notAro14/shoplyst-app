@@ -4,7 +4,6 @@ const Heading = styled("h1", {
   color: theme.colors["text-functional"],
   fontFamily: theme.fonts.fun,
   letterSpacing: 2,
-  lineHeight: 1,
   variants: {
     variant: {
       h1: {
