@@ -6,7 +6,7 @@ const PageHeading: FC<{ heading: string; icon?: ReactNode }> = ({
   icon,
 }) => {
   return (
-    <StyledHeading as="h1" variant="h1">
+    <StyledHeading as="h2" variant="h1">
       <StyledIconContainer as="span">{icon}</StyledIconContainer>
       <span>{heading}</span>
     </StyledHeading>

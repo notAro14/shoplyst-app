@@ -16,7 +16,11 @@ export const createListSchema = z.object({
     )
     .nullable(),
 })
-
+export const updateProductStatusSchema = z.object({
+  status: z.enum(["PURCHASED", "READY"]),
+  listId: z.string(),
+  productId: z.number(),
+})
 export const addRemoveProductInputSchema = z.object({
   listId: z.string(),
   productId: z.number(),
@@ -48,6 +52,33 @@ export async function findAll(ownerId: string) {
     },
     orderBy: {
       name: "asc",
+    },
+  })
+}
+export async function findAllShared(userId: string) {
+  return db.listOnUser.findMany({
+    where: {
+      userId: userId,
+    },
+    select: {
+      list: {
+        select: {
+          name: true,
+          description: true,
+          id: true,
+          products: {
+            orderBy: {
+              product: {
+                name: "asc",
+              },
+            },
+            select: {
+              status: true,
+              product: true,
+            },
+          },
+        },
+      },
     },
   })
 }
@@ -154,6 +185,18 @@ export async function createList(
           productId: p.id,
         })),
       },
+    },
+  })
+}
+export async function shareList(userId: string, listId: string) {
+  return db.listOnUser.create({
+    data: {
+      userId,
+      listId,
+    },
+    select: {
+      userId: true,
+      list: true,
     },
   })
 }

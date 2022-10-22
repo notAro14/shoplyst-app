@@ -21,6 +21,7 @@
     "test:watch": "jest --watch",
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate dev",
+    "db:migrate:deploy": "prisma migrate deploy",
     "db:seed": "prisma db seed",
     "studio": "prisma studio",
     "generate": "prisma generate"

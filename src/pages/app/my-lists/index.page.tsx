@@ -1,3 +1,4 @@
+import { Share1Icon } from "@radix-ui/react-icons"
 import { useIsRestoring } from "@tanstack/react-query"
 import { FC } from "react"
 import NextLink from "next/link"
@@ -22,8 +23,67 @@ import {
   StyledQuantityIndication,
   StyledUList,
 } from "./index.styles"
+import Flex from "src/components/common/flex"
+import Heading from "src/components/common/heading"
+import { theme } from "src/styles/theme/stitches.config"
 
-const MyListsPage: NextPageWithLayout = () => {
+const SharedList = () => {
+  const { data: sharedLists } = trpc.list.allShared.useQuery()
+
+  return (
+    <>
+      <PageHeading icon={<Share1Icon />} heading="Partagées avec moi" />
+      <Spacer size="xxs" />
+      {sharedLists?.length === 0 ? (
+        <Text>Tu n&apos;as pas encore de listes partagées</Text>
+      ) : null}
+      {sharedLists?.length ? (
+        <Flex direction="column" css={{ userSelect: "none" }}>
+          {sharedLists.map(({ list: l }) => {
+            return (
+              <Box
+                key={l.id}
+                css={{
+                  border: "1px solid",
+                  borderColor: theme.colors["border-gray"],
+                  borderRadius: theme.radii.sm,
+                  padding: theme.space.md,
+                }}
+              >
+                <Heading as="h3" variant="h3">
+                  {l.name}
+                </Heading>
+                <Flex
+                  direction="column"
+                  as="ul"
+                  css={{ listStyleType: "none" }}
+                >
+                  {l.products.map(({ product: p, status }) => {
+                    return (
+                      <Box key={p.id} as="li">
+                        <Text
+                          css={{
+                            textDecoration:
+                              status === "PURCHASED" ? "line-through" : "none",
+                          }}
+                        >
+                          {p.name}
+                        </Text>
+                      </Box>
+                    )
+                  })}
+                </Flex>
+              </Box>
+            )
+          })}
+        </Flex>
+      ) : null}
+      <Spacer size="xl" />
+    </>
+  )
+}
+
+const MyLists = () => {
   const isRestoring = useIsRestoring()
   const {
     data: lists,
@@ -35,8 +95,7 @@ const MyListsPage: NextPageWithLayout = () => {
   if (lists?.length)
     return (
       <>
-        <SEO title="Shoplyst | Mes listes de courses" />
-        <PageHeading icon={<ListIcon />} heading="Mes listes de course" />
+        <PageHeading icon={<ListIcon />} heading="Mes listes" />
         <Spacer />
         <StyledUList>
           {lists?.map(({ id, name, products, description }) => {
@@ -76,43 +135,45 @@ const MyListsPage: NextPageWithLayout = () => {
   return <Empty />
 }
 
-const Loading: FC = () => {
+const MyListsPage: NextPageWithLayout = () => {
   return (
     <>
-      <SEO title="Shoplyst | Chargement..." />
-      <Loader />
+      <SharedList />
+      <MyLists />
     </>
   )
 }
 
+const Loading: FC = () => {
+  return <Loader />
+}
+
 const Failure: FC = () => {
   return (
-    <>
-      <SEO title="Shoplyst | Erreur de chargement" />
-      <Text color="danger-low">
-        Oups, tes listes de courses n&apos;ont pas été chargées
-      </Text>
-    </>
+    <Text role="alert" color="danger-low">
+      Oups, tes listes de courses n&apos;ont pas été chargées
+    </Text>
   )
 }
 
 const Empty: FC = () => {
   return (
-    <>
-      <SEO title="Shoplyst | Mes listes de courses" />
-      <Box css={{ margin: "0 auto", width: "fit-content" }}>
-        <Text fontSize="md">Commence par créer une liste</Text>
-        <Spacer />
-        <CreateList title="Créer" />
-      </Box>
-    </>
+    <Box>
+      <PageHeading icon={<Share1Icon />} heading="Mes listes" />
+      <Text fontSize="md">Commence par créer une liste</Text>
+      <Spacer />
+      <CreateList title="Créer" />
+    </Box>
   )
 }
 
 MyListsPage.getLayout = (page) => (
-  <PublicLayout>
-    <AppShell>{page}</AppShell>
-  </PublicLayout>
+  <>
+    <SEO title="Shoplyst | Listes" />
+    <PublicLayout>
+      <AppShell>{page}</AppShell>
+    </PublicLayout>
+  </>
 )
 
 export default MyListsPage

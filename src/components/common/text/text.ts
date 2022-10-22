@@ -77,7 +77,7 @@ const Text = styled("p", {
     },
   },
   defaultVariants: {
-    fontSize: "lg",
+    fontSize: "md",
     color: "functional",
   },
 })

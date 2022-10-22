@@ -10,4 +10,5 @@ export const StyledHeading = styled(Heading, {
   display: "flex",
   alignItems: "center",
   gap: theme.space.xs,
+  userSelect: "none",
 })
