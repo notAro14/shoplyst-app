@@ -6,18 +6,17 @@ import type {
   Product,
   ArticleStatus,
   ProductsOnLists,
-  Category,
 } from "@prisma/client"
 import NextLink from "next/link"
-import { ArrowLeftIcon, InfoCircledIcon } from "@radix-ui/react-icons"
+import {
+  ArrowLeftIcon,
+  InfoCircledIcon,
+  Pencil1Icon,
+  Share1Icon,
+  TrashIcon,
+} from "@radix-ui/react-icons"
 
 import useAutoanimate from "src/hooks/use-autoanimate"
-import {
-  CloseBtn,
-  Dialog,
-  StyledDialogContent,
-  StyledDialogTitle,
-} from "src/components/common/dialog"
 import Flex from "src/components/common/flex"
 import Heading from "src/components/common/heading"
 import Spacer from "src/components/common/spacer"
@@ -28,10 +27,12 @@ import { useDisclosure } from "src/hooks/use-disclosure"
 import { theme, css } from "src/styles/theme/stitches.config"
 import { trpc } from "src/utils/trpc"
 import { ShoppingBagIcon } from "src/components/common/icons"
-import Categories from "src/components/categories"
 import { useIsRestoring } from "@tanstack/react-query"
 import Link from "src/components/common/link"
 import { TextEllipsed } from "src/components/common/ellipsed"
+import IconButton from "src/components/common/icon-button"
+
+import AddRemoveDialog from "../add-remove-dialog"
 
 type Products = {
   product: Product
@@ -71,55 +72,6 @@ const ProductList: FC<{ products: Products; listId: string }> = ({
           )
         })}
     </Flex>
-  )
-}
-
-const AddRemoveDialog: FC<{
-  isOpen: boolean
-  onClose(): void
-  products: Products
-  listId: string
-  categories?: (Category & {
-    products: Product[]
-  })[]
-}> = ({ isOpen, onClose, products, listId: id, categories }) => {
-  return (
-    <Dialog isOpen={isOpen} onDismiss={onClose}>
-      <StyledDialogContent
-        css={{
-          height: 500,
-          overflow: "auto",
-          overscrollBehaviorY: "contain",
-          scrollbarGutter: "stable",
-        }}
-      >
-        <CloseBtn />
-        <StyledDialogTitle asChild>
-          <Heading variant="h2" as="h2">
-            Ajouter/Retirer un produit
-          </Heading>
-        </StyledDialogTitle>
-        <Spacer />
-        <Spacer />
-        {categories ? (
-          <Categories
-            productsInCurrentList={products.map(({ product: { id } }) => id)}
-            listId={id}
-            categories={categories}
-          />
-        ) : null}
-        <Spacer />
-        <Button
-          fullWidth
-          size="small"
-          onClick={onClose}
-          colorScheme="accent"
-          css={{ marginTop: "auto" }}
-        >
-          Fermer
-        </Button>
-      </StyledDialogContent>
-    </Dialog>
   )
 }
 
@@ -177,7 +129,18 @@ const List: FC<Props> = ({ list: { name, products, id, description } }) => {
         {description || "Aucune description"}
       </TextEllipsed>
       <Spacer />
-
+      <Flex gap="xs">
+        <IconButton title="Bientôt disponible" disabled rounded variant="ghost">
+          <Share1Icon />
+        </IconButton>
+        <IconButton title="Bientôt disponible" disabled rounded variant="ghost">
+          <Pencil1Icon />
+        </IconButton>
+        <IconButton title="Bientôt disponible" disabled rounded variant="ghost">
+          <TrashIcon />
+        </IconButton>
+      </Flex>
+      <Spacer />
       {products?.length !== 0 && (
         <Text
           fontSize="sm"

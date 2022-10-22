@@ -1,4 +1,4 @@
-import { Share1Icon } from "@radix-ui/react-icons"
+import { InfoCircledIcon, Share1Icon } from "@radix-ui/react-icons"
 import { useIsRestoring } from "@tanstack/react-query"
 import { FC } from "react"
 import NextLink from "next/link"
@@ -24,7 +24,6 @@ import {
   StyledUList,
 } from "./index.styles"
 import Flex from "src/components/common/flex"
-import Heading from "src/components/common/heading"
 import { theme } from "src/styles/theme/stitches.config"
 
 const SharedList = () => {
@@ -33,10 +32,25 @@ const SharedList = () => {
   return (
     <>
       <PageHeading icon={<Share1Icon />} heading="Partagées avec moi" />
-      <Spacer size="xxs" />
-      {sharedLists?.length === 0 ? (
-        <Text>Tu n&apos;as pas encore de listes partagées</Text>
+      {sharedLists?.length ? (
+        <Text
+          color="functional-low"
+          css={{
+            display: "flex",
+            alignItems: "center",
+            gap: theme.space.sm,
+            userSelect: "none",
+          }}
+        >
+          <InfoCircledIcon /> Les listes partagées sont en lecture seule.
+        </Text>
       ) : null}
+      {sharedLists?.length === 0 ? (
+        <Text color="functional-low" css={{ userSelect: "none" }}>
+          Tu n&apos;as pas encore de listes partagées
+        </Text>
+      ) : null}
+      <Spacer />
       {sharedLists?.length ? (
         <Flex direction="column" css={{ userSelect: "none" }}>
           {sharedLists.map(({ list: l }) => {
@@ -50,26 +64,43 @@ const SharedList = () => {
                   padding: theme.space.md,
                 }}
               >
-                <Heading as="h3" variant="h3">
+                <TextEllipsed as="p" fontSize="lg">
                   {l.name}
-                </Heading>
+                </TextEllipsed>
+                <StyledDescription
+                  desc={l.description || "Aucune description"}
+                />
+                <Spacer
+                  css={{
+                    borderBottom: "1px solid",
+                    borderBottomColor: theme.colors["border-gray"],
+                  }}
+                />
+                <Spacer />
                 <Flex
                   direction="column"
                   as="ul"
                   css={{ listStyleType: "none" }}
+                  gap="xxs"
                 >
                   {l.products.map(({ product: p, status }) => {
                     return (
-                      <Box key={p.id} as="li">
+                      <Flex key={p.id} as="li" align="center" gap="xs">
                         <Text
-                          css={{
-                            textDecoration:
-                              status === "PURCHASED" ? "line-through" : "none",
-                          }}
+                          fontSize="md"
+                          css={
+                            status === "PURCHASED"
+                              ? {
+                                  textDecoration: "line-through",
+                                  color: theme.colors["text-functional-low"],
+                                  fontSize: theme.fontSizes.sm,
+                                }
+                              : undefined
+                          }
                         >
                           {p.name}
                         </Text>
-                      </Box>
+                      </Flex>
                     )
                   })}
                 </Flex>

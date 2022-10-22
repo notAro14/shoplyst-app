@@ -7,10 +7,6 @@ const IconButton = styled("button", {
     outline: "1px solid",
     outlineColor: theme.colors.solid,
   },
-  "&:disabled": {
-    opacity: 0.5,
-    cursor: "not-allowed",
-  },
   variants: {
     variant: {
       filled: {
@@ -20,6 +16,10 @@ const IconButton = styled("button", {
         "&:hover": {
           backgroundColor: theme.colors["solid-hovered"],
           cursor: "pointer",
+        },
+        "&:disabled": {
+          opacity: 0.5,
+          cursor: "unset",
         },
       },
       outline: {
@@ -31,6 +31,10 @@ const IconButton = styled("button", {
           border: `1px solid ${theme.colors["solid-hovered"]}`,
           backgroundColor: "transparent",
         },
+        "&:disabled": {
+          opacity: 0.5,
+          cursor: "unset",
+        },
       },
       ghost: {
         border: "none",
@@ -39,6 +43,10 @@ const IconButton = styled("button", {
         "&:hover": {
           backgroundColor: theme.colors["ui-hovered"],
           cursor: "pointer",
+        },
+        "&:disabled": {
+          opacity: 0.5,
+          cursor: "unset",
         },
       },
     },

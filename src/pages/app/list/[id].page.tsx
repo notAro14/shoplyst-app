@@ -1,21 +1,22 @@
 import { useRouter } from "next/router"
 import NextLink from "next/link"
 import { ArrowLeftIcon } from "@radix-ui/react-icons"
+import { useIsRestoring } from "@tanstack/react-query"
 
 import Link from "src/components/common/link"
 import Loader from "src/components/common/loader"
 import Text from "src/components/common/text"
 import { NextPageWithLayout } from "src/types/next"
 import { trpc } from "src/utils/trpc"
-import List from "./components/list"
-import { useIsRestoring } from "@tanstack/react-query"
 import SEO from "src/components/common/seo"
 import { theme } from "src/styles/theme/stitches.config"
 import Spacer from "src/components/common/spacer"
 import PublicLayout from "src/layout/public.layout"
 import AppShell from "src/components/app-shell"
 
-const ListPage: NextPageWithLayout = () => {
+import ViewList from "./components/view-list"
+
+const ListIdPage: NextPageWithLayout = () => {
   const { query, isReady } = useRouter()
   const listId = query.id as string
   const {
@@ -31,7 +32,7 @@ const ListPage: NextPageWithLayout = () => {
     return (
       <>
         <SEO title={`Shoplyst | ${list.name}`} />
-        <List list={list} />
+        <ViewList list={list} />
       </>
     )
 
@@ -75,10 +76,10 @@ const ListPage: NextPageWithLayout = () => {
   )
 }
 
-ListPage.getLayout = (page) => (
+ListIdPage.getLayout = (page) => (
   <PublicLayout>
     <AppShell>{page}</AppShell>
   </PublicLayout>
 )
 
-export default ListPage
+export default ListIdPage
