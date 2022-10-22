@@ -84,7 +84,7 @@ const ProductInsideCategory: FC<Props> = ({ product: p, inList, listId }) => {
           outline: "1px solid",
           outlineColor: theme.colors.solid,
         },
-      }).toString()}
+      })()}
       key={p.id}
       onClick={() => {
         if (inList)

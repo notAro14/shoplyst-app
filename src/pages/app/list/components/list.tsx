@@ -274,7 +274,7 @@ const ProductInsideList: FC<{
             outline: "1px solid",
             outlineColor: theme.colors.solid,
           },
-        }).toString()}
+        })()}
         onClick={onClick}
       >
         <Paper

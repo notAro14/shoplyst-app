@@ -16,6 +16,24 @@ const Spacer = styled("div", {
       md: {
         height: theme.space.md,
       },
+      lg: {
+        height: theme.space.lg,
+      },
+      xl: {
+        height: theme.space.xl,
+      },
+      "2xl": {
+        height: theme.space["2xl"],
+      },
+      "3xl": {
+        height: theme.space["3xl"],
+      },
+      "4xl": {
+        height: theme.space["4xl"],
+      },
+      "5xl": {
+        height: theme.space["5xl"],
+      },
     },
   },
   defaultVariants: {

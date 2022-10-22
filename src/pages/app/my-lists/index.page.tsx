@@ -1,147 +1,97 @@
 import { useIsRestoring } from "@tanstack/react-query"
-import { FC, useRef } from "react"
+import { FC } from "react"
+import NextLink from "next/link"
 
 import Box from "src/components/common/box"
-import Heading from "src/components/common/heading"
 import Loader from "src/components/common/loader"
-import Spacer from "src/components/common/spacer"
-import Text from "src/components/common/text"
 import type { NextPageWithLayout } from "src/types/next"
 import { trpc } from "src/utils/trpc"
 import { ListIcon } from "src/components/common/icons"
 import SEO from "src/components/common/seo"
-import MyLists from "./components/my-lists"
-import Button from "src/components/common/button"
 import PublicLayout from "src/layout/public.layout"
 import AppShell from "src/components/app-shell"
-import useDisclosure from "src/hooks/use-disclosure"
+import CreateList from "./components/create-list/create-list"
+import PageHeading from "./components/page-heading"
+import { TextEllipsed } from "src/components/common/ellipsed"
+import Text from "src/components/common/text"
+import Link from "src/components/common/link"
+import Spacer from "src/components/common/spacer"
 import {
-  Dialog,
-  StyledDialogContent,
-  StyledDialogTitle,
-  CloseBtn,
-} from "src/components/common/dialog"
-import Flex from "src/components/common/flex"
-import { styled, theme } from "src/styles/theme/stitches.config"
+  StyledPaper,
+  StyledDescription,
+  StyledQuantityIndication,
+  StyledUList,
+} from "./index.styles"
 
-const StyledLabel = styled("label", {
-  fontFamily: theme.fonts.sans,
-  fontSize: theme.fontSizes.sm,
-  color: theme.colors["text-functional-low"],
-})
-const fieldStyles = {
-  padding: theme.space.sm,
-  borderRadius: theme.radii.sm,
-  border: "1px solid",
-  borderColor: theme.colors["border-gray"],
-  fontFamily: theme.fonts.sans,
-  backgroundColor: "transparent",
-  fontSize: theme.fontSizes.sm,
-  "&:focus": {
-    borderColor: theme.colors.solid,
-    outline: "none",
-  },
-  "&::placeholder": {
-    color: theme.colors["text-functional-low"],
-    fontStyle: "italic",
-  },
-}
-const StyledInput = styled("input", fieldStyles)
-const StyledTextarea = styled("textarea", fieldStyles)
+const MyListsPage: NextPageWithLayout = () => {
+  const isRestoring = useIsRestoring()
+  const {
+    data: lists,
+    isLoading,
+    isFetching,
+    isError,
+  } = trpc.list.all.useQuery()
 
-const CreateListDialog: FC<{ isOpen: boolean; onClose(): void }> = ({
-  isOpen,
-  onClose,
-}) => {
-  const utils = trpc.useContext()
-  const { mutate: createList, isLoading } = trpc.list.create.useMutation({
-    async onSuccess() {
-      await utils.list.all.invalidate()
-      onClose()
-    },
-  })
-  const listNameRef = useRef<HTMLInputElement | null>(null)
-  const listDescRef = useRef<HTMLTextAreaElement | null>(null)
-  return (
-    <Dialog isOpen={isOpen} onDismiss={onClose}>
-      <StyledDialogContent
-        css={{
-          height: "fit-content",
-        }}
-      >
-        <CloseBtn />
-        <StyledDialogTitle asChild>
-          <Heading as="h2" variant="h2">
-            Nouvelle liste
-          </Heading>
-        </StyledDialogTitle>
+  if (lists?.length)
+    return (
+      <>
+        <SEO title="Shoplyst | Mes listes de courses" />
+        <PageHeading icon={<ListIcon />} heading="Mes listes de course" />
         <Spacer />
-        <form
-          onSubmit={(evt) => {
-            evt.preventDefault()
-            if (
-              typeof listNameRef.current?.value === "undefined" ||
-              typeof listDescRef.current?.value === "undefined"
+        <StyledUList>
+          {lists?.map(({ id, name, products, description }) => {
+            const { length } = products
+            return (
+              <li key={id}>
+                <NextLink href={`/app/list/${id}`} passHref>
+                  <Link>
+                    <StyledPaper>
+                      <StyledQuantityIndication>
+                        {length === 0 && "Liste vide"}
+                        {length === 1 && "1 produit"}
+                        {length > 1 && `${length} produits`}
+                      </StyledQuantityIndication>
+                      <Spacer />
+                      <TextEllipsed as="p" fontSize="lg">
+                        {name}
+                      </TextEllipsed>
+                      <Spacer size="sm" />
+                      <StyledDescription
+                        desc={description || "Aucune description"}
+                      />
+                    </StyledPaper>
+                  </Link>
+                </NextLink>
+              </li>
             )
-              return
-            createList({
-              name: listNameRef.current.value,
-              description: listDescRef.current.value,
-              products: [],
-            })
-          }}
-        >
-          <Flex direction="column" gap="xxs">
-            <StyledLabel htmlFor="list.name">Titre</StyledLabel>
-            <StyledInput
-              type="text"
-              required
-              placeholder="Donne un petit nom à ta liste"
-              ref={listNameRef}
-              autoComplete="off"
-              id="list.name"
-            />
-          </Flex>
-          <Spacer />
-          <Spacer />
-          <Flex direction="column" gap="xxs">
-            <StyledLabel htmlFor="list.description">
-              Description (optionnelle)
-            </StyledLabel>
-            <StyledTextarea
-              placeholder="Ajoute une petite description de ta liste si tu veux"
-              ref={listDescRef}
-              id="list.description"
-              rows={4}
-            />
-          </Flex>
-          <Spacer />
-          <Spacer />
-          <Spacer />
-          <Spacer />
-          <Button
-            colorScheme="accent"
-            size="small"
-            fullWidth
-            type="submit"
-            disabled={isLoading}
-          >
-            Créer
-          </Button>
-        </form>
-      </StyledDialogContent>
-    </Dialog>
+          })}
+        </StyledUList>
+        <Spacer size="lg" />
+        <CreateList title="Créer une nouvelle liste" />
+      </>
+    )
+
+  if ((isLoading && isFetching) || isRestoring) return <Loading />
+  if (isError) return <Failure />
+  return <Empty />
+}
+
+const Loading: FC = () => {
+  return (
+    <>
+      <SEO title="Shoplyst | Chargement..." />
+      <Loader />
+    </>
   )
 }
 
-const CreateList: FC<{ title: string }> = ({ title }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+const Failure: FC = () => {
   return (
     <>
-      <CreateListDialog isOpen={isOpen} onClose={onClose} />
-      <Button onClick={onOpen} size="small" colorScheme="accent" fullWidth>
-        {title}
-      </Button>
+      <SEO title="Shoplyst | Erreur de chargement" />
+      <Text color="danger-low">
+        Oups, tes listes de courses n&apos;ont pas été chargées
+      </Text>
     </>
   )
 }
@@ -157,64 +107,6 @@ const Empty: FC = () => {
       </Box>
     </>
   )
-}
-
-const MyListsPage: NextPageWithLayout = () => {
-  const isRestoring = useIsRestoring()
-  const {
-    data: lists,
-    isLoading,
-    isFetching,
-    isError,
-  } = trpc.list.all.useQuery()
-
-  if (lists?.length)
-    return (
-      <>
-        <SEO title="Shoplyst | Mes listes de courses" />
-        <Heading
-          as="h1"
-          variant="h1"
-          css={{ display: "flex", alignItems: "center", gap: theme.space.xs }}
-        >
-          <Box
-            css={{
-              // to have pixel perfect alignment with text
-              transform: "translateY(-2px)",
-            }}
-            as="span"
-          >
-            <ListIcon />
-          </Box>
-          <span>Mes listes de courses</span>
-        </Heading>
-        <Spacer />
-        <MyLists lists={lists} />
-        <Spacer />
-        <Spacer />
-        <CreateList title="Créer une nouvelle liste" />
-      </>
-    )
-
-  if ((isLoading && isFetching) || isRestoring)
-    return (
-      <>
-        <SEO title="Shoplyst | Chargement..." />
-        <Loader />
-      </>
-    )
-
-  if (isError)
-    return (
-      <>
-        <SEO title="Shoplyst | Erreur de chargement" />
-        <Text color="danger-low">
-          Oups, tes listes de courses n&apos;ont pas été chargées
-        </Text>
-      </>
-    )
-
-  return <Empty />
 }
 
 MyListsPage.getLayout = (page) => (
