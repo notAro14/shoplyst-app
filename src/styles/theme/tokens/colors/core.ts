@@ -5,10 +5,8 @@ import {
   blackA,
   red,
   redDark,
-  mint,
-  mintDark,
-  crimson,
-  crimsonDark,
+  blue,
+  blueDark,
 } from "@radix-ui/colors"
 
 type SEMANTIC =
@@ -26,16 +24,16 @@ const renameColors = (colors: Record<string, string>, key: SEMANTIC) =>
     return acc
   }, {} as Record<string, string>)
 
-const brandColor = renameColors(mint, "brand")
-const brandDarkColor = renameColors(mintDark, "brand")
+const brandColor = renameColors(blue, "brand")
+const brandDarkColor = renameColors(blueDark, "brand")
 const grayColor = renameColors(slate, "gray")
 const grayDarkColor = renameColors(slateDark, "gray")
 const whiteColor = renameColors(whiteA, "white")
 const blackColor = renameColors(blackA, "black")
 const redColor = renameColors(red, "danger")
 const redDarkColor = renameColors(redDark, "danger")
-const accentColor = renameColors(crimson, "accent")
-const accentDarkColor = renameColors(crimsonDark, "accent")
+const accentColor = renameColors(blue, "accent")
+const accentDarkColor = renameColors(blueDark, "accent")
 
 export const coreColors = {
   brand: brandColor,
