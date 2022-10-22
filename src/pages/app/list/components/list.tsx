@@ -9,7 +9,7 @@ import type {
   Category,
 } from "@prisma/client"
 import NextLink from "next/link"
-import { ArrowLeftIcon } from "@radix-ui/react-icons"
+import { ArrowLeftIcon, InfoCircledIcon } from "@radix-ui/react-icons"
 
 import useAutoanimate from "src/hooks/use-autoanimate"
 import {
@@ -141,6 +141,7 @@ const List: FC<Props> = ({ list: { name, products, id, description } }) => {
         listId={id}
         products={products}
       />
+
       <NextLink passHref href="/app/my-lists">
         <Link
           css={{
@@ -152,13 +153,13 @@ const List: FC<Props> = ({ list: { name, products, id, description } }) => {
           <ArrowLeftIcon /> Mes listes de course
         </Link>
       </NextLink>
-      <Spacer />
-      <Spacer />
+      <Spacer size="lg" />
       <Heading
         css={{
           textOverflow: "ellipsis",
           overflow: "hidden",
           whiteSpace: "nowrap",
+          userSelect: "none",
         }}
         title={name}
         as="h2"
@@ -176,15 +177,27 @@ const List: FC<Props> = ({ list: { name, products, id, description } }) => {
         {description || "Aucune description"}
       </TextEllipsed>
       <Spacer />
+
+      {products?.length !== 0 && (
+        <Text
+          fontSize="sm"
+          as="em"
+          css={{
+            userSelect: "none",
+            display: "flex",
+            alignItems: "center",
+            gap: theme.space.xs,
+          }}
+        >
+          <InfoCircledIcon />
+          Clique sur un produit pour le mettre dans ton caddie
+        </Text>
+      )}
+      <Spacer />
       {products?.length ? (
         <>
           <ProductList listId={id} products={products} />
-          <Spacer />
-          <Spacer />
-          <Text fontSize="sm" as="em" css={{ userSelect: "none" }}>
-            Clique sur un produit pour le mettre dans ton caddie
-          </Text>
-          <Spacer />
+          <Spacer size="xl" />
           <Button
             fullWidth
             size="small"
