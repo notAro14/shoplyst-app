@@ -12,7 +12,7 @@ import Button from "src/components/common/button"
 import Flex from "src/components/common/flex"
 import Spacer from "src/components/common/spacer"
 import Heading from "src/components/common/heading"
-import { StyledInput, StyledLabel, StyledTextarea } from "./create-list.styles"
+import { StyledInput, StyledLabel } from "./create-list.styles"
 
 const CreateListDialog: FC<{ isOpen: boolean; onClose(): void }> = ({
   isOpen,
@@ -26,7 +26,7 @@ const CreateListDialog: FC<{ isOpen: boolean; onClose(): void }> = ({
     },
   })
   const listNameRef = useRef<HTMLInputElement | null>(null)
-  const listDescRef = useRef<HTMLTextAreaElement | null>(null)
+  const listDescRef = useRef<HTMLInputElement | null>(null)
   return (
     <Dialog isOpen={isOpen} onDismiss={onClose}>
       <StyledDialogContent
@@ -61,7 +61,7 @@ const CreateListDialog: FC<{ isOpen: boolean; onClose(): void }> = ({
             <StyledInput
               type="text"
               required
-              placeholder="Donne un petit nom à ta liste"
+              placeholder="ex : Aujourd'hui"
               ref={listNameRef}
               autoComplete="off"
               id="list.name"
@@ -73,17 +73,13 @@ const CreateListDialog: FC<{ isOpen: boolean; onClose(): void }> = ({
             <StyledLabel htmlFor="list.description">
               Description (optionnelle)
             </StyledLabel>
-            <StyledTextarea
-              placeholder="Ajoute une petite description de ta liste si tu veux"
+            <StyledInput
+              placeholder="ex : Les courses hebdomadaires"
               ref={listDescRef}
               id="list.description"
-              rows={4}
             />
           </Flex>
-          <Spacer />
-          <Spacer />
-          <Spacer />
-          <Spacer />
+          <Spacer size="xl" />
           <Button
             colorScheme="accent"
             size="small"
