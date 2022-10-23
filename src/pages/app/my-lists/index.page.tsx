@@ -3,6 +3,7 @@ import {
   Share1Icon,
   ArchiveIcon,
   FileTextIcon,
+  ExclamationTriangleIcon,
 } from "@radix-ui/react-icons"
 import { useIsRestoring } from "@tanstack/react-query"
 import { FC } from "react"
@@ -74,6 +75,21 @@ const SharedList = () => {
                     {l.owner?.name ?? l.owner?.email}
                   </Text>
                 </Text>
+                <Spacer size="xxs" />
+                {l.isArchived && (
+                  <Text
+                    fontSize="sm"
+                    role="alert"
+                    css={{
+                      display: "flex",
+                      gap: theme.space.sm,
+                      alignItems: "center",
+                    }}
+                    color="warning-low"
+                  >
+                    <ExclamationTriangleIcon /> Archivée
+                  </Text>
+                )}
                 <Spacer size="xxs" />
                 <TextEllipsed as="p" fontSize="lg">
                   {l.name}

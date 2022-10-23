@@ -74,6 +74,7 @@ export async function findAllShared(userId: string) {
               image: true,
             },
           },
+          isArchived: true,
           products: {
             orderBy: {
               product: {
