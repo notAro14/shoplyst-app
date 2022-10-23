@@ -1,4 +1,4 @@
-import { FC } from "react"
+import { FC, useCallback } from "react"
 import produce from "immer"
 import toast from "react-hot-toast"
 import type {
@@ -14,6 +14,8 @@ import {
   Pencil1Icon,
   Share1Icon,
   TrashIcon,
+  ExclamationTriangleIcon,
+  CheckIcon,
 } from "@radix-ui/react-icons"
 
 import useAutoanimate from "src/hooks/use-autoanimate"
@@ -33,6 +35,7 @@ import { TextEllipsed } from "src/components/common/ellipsed"
 import IconButton from "src/components/common/icon-button"
 
 import AddRemoveDialog from "../add-remove-dialog"
+import Box from "src/components/common/box"
 
 type Products = {
   product: Product
@@ -43,6 +46,47 @@ interface Props {
   list: IList & {
     products: Products
   }
+}
+
+const ArchiveList: FC<{ listId: string }> = ({ listId }) => {
+  const utils = trpc.useContext()
+  const { mutate: archiveList, isLoading } = trpc.list.archive.useMutation({
+    async onMutate() {
+      await utils.list.find.cancel(listId)
+      const previous = utils.list.find.getData(listId)
+      utils.list.find.setData((prev) => {
+        return produce(prev, (draft) => {
+          if (!draft || !prev) return
+          prev.isArchived = true
+        })
+      })
+      return { previous }
+    },
+    onError(_error, _updated, ctx) {
+      utils.list.find.setData(ctx?.previous, listId)
+      toast.error("Une erreur s'est produite")
+    },
+    onSettled() {
+      utils.list.find.invalidate(listId)
+      toast.success("Liste archivée 🎇")
+    },
+  })
+  const onClick = useCallback(() => {
+    archiveList(listId)
+  }, [listId, archiveList])
+
+  return (
+    <Button
+      fullWidth
+      size="small"
+      onClick={onClick}
+      colorScheme="accent"
+      variant="filled"
+      disabled={isLoading}
+    >
+      Terminer la course
+    </Button>
+  )
 }
 
 const ProductList: FC<{ products: Products; listId: string }> = ({
@@ -75,7 +119,9 @@ const ProductList: FC<{ products: Products; listId: string }> = ({
   )
 }
 
-const List: FC<Props> = ({ list: { name, products, id, description } }) => {
+const List: FC<Props> = ({
+  list: { name, products, id, description, isArchived },
+}) => {
   const { isOpen, onClose, onOpen } = useDisclosure()
   const {
     data: categories,
@@ -83,6 +129,10 @@ const List: FC<Props> = ({ list: { name, products, id, description } }) => {
     isFetching,
   } = trpc.category.all.useQuery()
   const isRestoring = useIsRestoring()
+  const isShoppingDone =
+    products?.length && products.every((p) => p.status === "PURCHASED")
+  const isListEmpty = products?.length === 0
+  const isThereSomeProduct = products?.length !== 0
 
   return (
     <>
@@ -106,6 +156,23 @@ const List: FC<Props> = ({ list: { name, products, id, description } }) => {
         </Link>
       </NextLink>
       <Spacer size="lg" />
+      {isArchived && (
+        <Text
+          fontSize="sm"
+          as="em"
+          color="warning-low"
+          css={{
+            userSelect: "none",
+            display: "flex",
+            alignItems: "center",
+            gap: theme.space.xs,
+          }}
+        >
+          <ExclamationTriangleIcon />
+          Archivée
+        </Text>
+      )}
+      <Spacer />
       <Heading
         css={{
           textOverflow: "ellipsis",
@@ -130,9 +197,16 @@ const List: FC<Props> = ({ list: { name, products, id, description } }) => {
       </TextEllipsed>
       <Spacer />
       <Flex gap="xs">
-        <IconButton title="Bientôt disponible" disabled rounded variant="ghost">
-          <Share1Icon />
-        </IconButton>
+        {isArchived === false && (
+          <IconButton
+            title="Bientôt disponible"
+            disabled
+            rounded
+            variant="ghost"
+          >
+            <Share1Icon />
+          </IconButton>
+        )}
         <IconButton title="Bientôt disponible" disabled rounded variant="ghost">
           <Pencil1Icon />
         </IconButton>
@@ -141,7 +215,7 @@ const List: FC<Props> = ({ list: { name, products, id, description } }) => {
         </IconButton>
       </Flex>
       <Spacer />
-      {products?.length !== 0 && (
+      {isThereSomeProduct && isArchived === false && (
         <Text
           fontSize="sm"
           as="em"
@@ -156,8 +230,44 @@ const List: FC<Props> = ({ list: { name, products, id, description } }) => {
           Clique sur un produit pour le mettre dans ton caddie
         </Text>
       )}
+
+      {isShoppingDone && isArchived === false ? (
+        <>
+          <Spacer />
+          <ArchiveList listId={id} />
+        </>
+      ) : null}
       <Spacer />
-      {products?.length ? (
+      {isThereSomeProduct && isArchived && (
+        <Flex
+          as="ul"
+          direction="column"
+          gap="sm"
+          css={{
+            listStyleType: "none",
+          }}
+        >
+          {products.map(({ product: p, status }) => {
+            return (
+              <Box as="li" key={p.id}>
+                <Text
+                  css={{
+                    color: theme.colors["text-functional-low"],
+                    fontSize: theme.fontSizes.sm,
+                    display: "flex",
+                    gap: theme.space.sm,
+                    alignItems: "center",
+                  }}
+                >
+                  {status === "PURCHASED" && <CheckIcon />}
+                  {p.name}
+                </Text>
+              </Box>
+            )
+          })}
+        </Flex>
+      )}
+      {isThereSomeProduct && isArchived === false ? (
         <>
           <ProductList listId={id} products={products} />
           <Spacer size="xl" />
@@ -173,7 +283,7 @@ const List: FC<Props> = ({ list: { name, products, id, description } }) => {
           </Button>
         </>
       ) : null}
-      {products?.length === 0 ? (
+      {isListEmpty && isArchived === false ? (
         <>
           <Text fontSize="sm" as="em">
             Ta liste est vide

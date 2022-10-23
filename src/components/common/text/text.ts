@@ -69,6 +69,12 @@ const Text = styled("p", {
       "danger-low": {
         color: theme.colors["text-danger-low"],
       },
+      warning: {
+        color: theme.colors["text-warning"],
+      },
+      "warning-low": {
+        color: theme.colors["text-warning-low"],
+      },
     },
     fontWeight: {
       regular: {

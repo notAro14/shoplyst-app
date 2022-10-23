@@ -28,10 +28,11 @@ export const addRemoveProductInputSchema = z.object({
 
 // FUNCTIONS
 
-export async function findAll(ownerId: string) {
+export async function findAll(ownerId: string, isArchived: boolean) {
   return db.list.findMany({
     where: {
       ownerId,
+      isArchived,
     },
     select: {
       name: true,
@@ -100,6 +101,7 @@ export async function findById(ownerId: string, id: string) {
       id: true,
       description: true,
       ownerId: true,
+      isArchived: true,
 
       products: {
         orderBy: {
@@ -204,6 +206,16 @@ export async function shareList(userId: string, listId: string) {
     select: {
       userId: true,
       list: true,
+    },
+  })
+}
+export async function archiveList(listId: string) {
+  return db.list.update({
+    where: {
+      id: listId,
+    },
+    data: {
+      isArchived: true,
     },
   })
 }

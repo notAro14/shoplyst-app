@@ -1,4 +1,9 @@
-import { InfoCircledIcon, Share1Icon } from "@radix-ui/react-icons"
+import {
+  InfoCircledIcon,
+  Share1Icon,
+  ArchiveIcon,
+  FileTextIcon,
+} from "@radix-ui/react-icons"
 import { useIsRestoring } from "@tanstack/react-query"
 import { FC } from "react"
 import NextLink from "next/link"
@@ -7,7 +12,6 @@ import Box from "src/components/common/box"
 import Loader from "src/components/common/loader"
 import type { NextPageWithLayout } from "src/types/next"
 import { trpc } from "src/utils/trpc"
-import { ListIcon } from "src/components/common/icons"
 import SEO from "src/components/common/seo"
 import PublicLayout from "src/layout/public.layout"
 import AppShell from "src/components/app-shell"
@@ -122,24 +126,26 @@ const SharedList = () => {
           })}
         </Flex>
       ) : null}
-      <Spacer size="xl" />
     </>
   )
 }
 
-const MyLists = () => {
+const MyLists: FC<{ isArchived?: boolean }> = ({ isArchived = false }) => {
   const isRestoring = useIsRestoring()
   const {
     data: lists,
     isLoading,
     isFetching,
     isError,
-  } = trpc.list.all.useQuery()
+  } = trpc.list.all.useQuery({ isArchived })
 
   if (lists?.length)
     return (
       <>
-        <PageHeading icon={<ListIcon />} heading="Mes listes" />
+        <PageHeading
+          icon={isArchived ? <ArchiveIcon /> : <FileTextIcon />}
+          heading={isArchived ? "Archivées" : "Mes listes"}
+        />
         <Spacer />
         <StyledUList>
           {lists?.map(({ id, name, products, description }) => {
@@ -170,26 +176,44 @@ const MyLists = () => {
           })}
         </StyledUList>
         <Spacer size="lg" />
-        <CreateList title="Créer une nouvelle liste" />
+        {isArchived === false && (
+          <CreateList title="Créer une nouvelle liste" />
+        )}
       </>
     )
 
   if ((isLoading && isFetching) || isRestoring) return <Loading />
   if (isError) return <Failure />
+  // there are no archived lists
+  if (isArchived) return null
   return <Empty />
 }
 
 const MyListsPage: NextPageWithLayout = () => {
   return (
     <>
-      <SharedList />
       <MyLists />
+      <Spacer size="2xl" />
+      <SharedList />
+      <Spacer size="2xl" />
+      <MyLists isArchived />
     </>
   )
 }
 
 const Loading: FC = () => {
-  return <Loader />
+  return (
+    <Box
+      css={{
+        width: "100%",
+        height: 150,
+        display: "grid",
+        placeItems: "center",
+      }}
+    >
+      <Loader />
+    </Box>
+  )
 }
 
 const Failure: FC = () => {
@@ -203,7 +227,7 @@ const Failure: FC = () => {
 const Empty: FC = () => {
   return (
     <Box>
-      <PageHeading icon={<Share1Icon />} heading="Mes listes" />
+      <PageHeading icon={<FileTextIcon />} heading="Mes listes" />
       <Text fontSize="md">Commence par créer une liste</Text>
       <Spacer />
       <CreateList title="Créer" />

@@ -15,6 +15,7 @@ import PublicLayout from "src/layout/public.layout"
 import AppShell from "src/components/app-shell"
 
 import ViewList from "./components/view-list"
+import Box from "src/components/common/box"
 
 const ListIdPage: NextPageWithLayout = () => {
   const { query, isReady } = useRouter()
@@ -40,7 +41,16 @@ const ListIdPage: NextPageWithLayout = () => {
     return (
       <>
         <SEO title="Liste | Chargement..." />
-        <Loader />
+        <Box
+          css={{
+            width: "100%",
+            height: 150,
+            display: "grid",
+            placeItems: "center",
+          }}
+        >
+          <Loader />
+        </Box>
       </>
     )
 

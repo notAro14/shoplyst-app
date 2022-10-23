@@ -63,6 +63,7 @@ model List {
   owner       User              @relation(fields: [ownerId], references: [id])
   products    ProductsOnLists[]
   sharedWith  ListOnUser[]
+  isArchived  Boolean           @default(false)
 }
 
 model ListOnUser {

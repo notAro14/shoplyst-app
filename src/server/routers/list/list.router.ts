@@ -15,15 +15,33 @@ import {
   addRemoveProductInputSchema,
   updateProductStatusSchema,
   shareList,
+  archiveList,
 } from "src/server/routers/list/list.helpers"
 
 export const listRouter = t.router({
-  all: protectedProcedure.query(async function ({ ctx }) {
-    return findAll(ctx.user.id)
-  }),
+  all: protectedProcedure
+    .input(
+      z.object({
+        isArchived: z.boolean(),
+      })
+    )
+    .query(async function ({ ctx, input }) {
+      return findAll(ctx.user.id, input.isArchived)
+    }),
   allShared: protectedProcedure.query(async function ({ ctx }) {
     return findAllShared(ctx.user.id)
   }),
+  archive: protectedProcedure
+    .input(z.string())
+    .use(async ({ next, input, ctx }) => {
+      const yes = await doesListBelongToUser(ctx.user.id, input)
+      if (yes) return next()
+
+      throw new TRPCError({ code: "UNAUTHORIZED" })
+    })
+    .mutation(async function ({ input }) {
+      return archiveList(input)
+    }),
   find: protectedProcedure
     .input(z.string())
     .query(async function ({ input: id, ctx }) {

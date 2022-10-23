@@ -7,6 +7,8 @@ import {
   redDark,
   blue,
   blueDark,
+  amber,
+  amberDark,
 } from "@radix-ui/colors"
 
 type SEMANTIC =
@@ -14,6 +16,7 @@ type SEMANTIC =
   | "gray"
   | "accent"
   | "danger"
+  | "warning"
   | "black"
   | "white"
   | "accent"
@@ -32,6 +35,8 @@ const whiteColor = renameColors(whiteA, "white")
 const blackColor = renameColors(blackA, "black")
 const redColor = renameColors(red, "danger")
 const redDarkColor = renameColors(redDark, "danger")
+const yellowColor = renameColors(amber, "warning")
+const yellowDarkColor = renameColors(amberDark, "warning")
 const accentColor = renameColors(blue, "accent")
 const accentDarkColor = renameColors(blueDark, "accent")
 
@@ -44,6 +49,8 @@ export const coreColors = {
   white: whiteColor,
   danger: redColor,
   dangerDark: redDarkColor,
+  warning: yellowColor,
+  warningDark: yellowDarkColor,
   accent: accentColor,
   accentDark: accentDarkColor,
 }

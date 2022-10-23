@@ -1,5 +1,6 @@
 import { signIn, useSession } from "next-auth/react"
 import { FC, ReactNode, useEffect } from "react"
+import Box from "./common/box"
 
 import Loader from "./common/loader"
 
@@ -18,7 +19,18 @@ const AppShell: FC<Props> = ({ children }) => {
     case "authenticated":
       return <>{children}</>
     default:
-      return <Loader type="ping" />
+      return (
+        <Box
+          css={{
+            width: "100%",
+            height: 300,
+            display: "grid",
+            placeItems: "center",
+          }}
+        >
+          <Loader type="ping" />
+        </Box>
+      )
   }
 }
 
