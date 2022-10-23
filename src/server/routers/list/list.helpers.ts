@@ -66,6 +66,11 @@ export async function findAllShared(userId: string) {
           name: true,
           description: true,
           id: true,
+          owner: {
+            select: {
+              name: true,
+            },
+          },
           products: {
             orderBy: {
               product: {

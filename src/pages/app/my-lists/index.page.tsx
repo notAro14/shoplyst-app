@@ -64,6 +64,13 @@ const SharedList = () => {
                   padding: theme.space.md,
                 }}
               >
+                <Text fontSize="sm">
+                  Par{" "}
+                  <Text as="em" fontSize="sm" color="accent-low">
+                    {l.owner.name}
+                  </Text>
+                </Text>
+                <Spacer size="xxs" />
                 <TextEllipsed as="p" fontSize="lg">
                   {l.name}
                 </TextEllipsed>
@@ -80,7 +87,13 @@ const SharedList = () => {
                 <Flex
                   direction="column"
                   as="ul"
-                  css={{ listStyleType: "none" }}
+                  css={{
+                    listStyleType: "none",
+                    maxHeight: 250,
+                    overflow: "auto",
+                    scrollbarGutter: "stable",
+                    overscrollBehaviorY: "contain",
+                  }}
                   gap="xxs"
                 >
                   {l.products.map(({ product: p, status }) => {
