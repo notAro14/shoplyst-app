@@ -16,6 +16,7 @@ import {
   updateProductStatusSchema,
   shareList,
   archiveList,
+  deleteList,
 } from "src/server/routers/list/list.helpers"
 
 export const listRouter = t.router({
@@ -64,6 +65,17 @@ export const listRouter = t.router({
     })
     .mutation(async function ({ input: { userId, listId } }) {
       return shareList(userId, listId)
+    }),
+  delete: protectedProcedure
+    .input(z.string())
+    .use(async ({ next, input, ctx }) => {
+      const yes = await doesListBelongToUser(ctx.user.id, input)
+      if (yes) return next()
+
+      throw new TRPCError({ code: "UNAUTHORIZED" })
+    })
+    .mutation(async function ({ input }) {
+      return deleteList(input)
     }),
   create: protectedProcedure
     .input(createListSchema)

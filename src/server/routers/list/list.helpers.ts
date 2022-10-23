@@ -220,3 +220,10 @@ export async function archiveList(listId: string) {
     },
   })
 }
+export async function deleteList(listId: string) {
+  return db.list.delete({
+    where: {
+      id: listId,
+    },
+  })
+}

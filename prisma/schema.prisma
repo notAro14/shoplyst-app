@@ -67,7 +67,7 @@ model List {
 }
 
 model ListOnUser {
-  list   List   @relation(fields: [listId], references: [id])
+  list   List   @relation(fields: [listId], references: [id], onDelete: Cascade)
   listId String
   user   User   @relation(fields: [userId], references: [id])
   userId String
@@ -98,7 +98,7 @@ model ProductsOnLists {
   productId Int
   product   Product       @relation(fields: [productId], references: [id])
   listId    String
-  list      List          @relation(fields: [listId], references: [id])
+  list      List          @relation(fields: [listId], references: [id], onDelete: Cascade)
   status    ArticleStatus @default(READY)
   detail    String?
 

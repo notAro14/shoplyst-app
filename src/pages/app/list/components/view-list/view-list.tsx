@@ -36,6 +36,7 @@ import IconButton from "src/components/common/icon-button"
 
 import AddRemoveDialog from "../add-remove-dialog"
 import Box from "src/components/common/box"
+import { useRouter } from "next/router"
 
 type Products = {
   product: Product
@@ -46,6 +47,60 @@ interface Props {
   list: IList & {
     products: Products
   }
+}
+
+const DeleteList: FC<{ listId: string }> = ({ listId }) => {
+  const utils = trpc.useContext()
+  const { push } = useRouter()
+  const { mutate: deleteList, isLoading } = trpc.list.delete.useMutation({
+    async onMutate(updated) {
+      await utils.list.all.cancel()
+      //await utils.list.allShared.cancel()
+      const all = utils.list.all.getData({ isArchived: false })
+      const archived = utils.list.all.getData({ isArchived: true })
+      const shared = utils.list.allShared.getData()
+      utils.list.all.setData((prev) => prev?.filter((l) => l.id !== updated), {
+        isArchived: false,
+      })
+      utils.list.all.setData((prev) => prev?.filter((l) => l.id !== updated), {
+        isArchived: true,
+      })
+      utils.list.allShared.setData((prev) =>
+        prev?.filter((l) => l.list.id !== listId)
+      )
+      toast.success("Liste supprimée")
+      push("/app/my-lists")
+      return { all, archived, shared }
+    },
+    onError(_error, _variables, ctx) {
+      utils.list.all.setData(ctx?.all, { isArchived: false })
+      utils.list.all.setData(ctx?.archived, { isArchived: true })
+      utils.list.allShared.setData(ctx?.shared)
+      toast.error("Une erreur s'est produite")
+    },
+    onSettled() {
+      utils.list.all.invalidate({ isArchived: false })
+      utils.list.all.invalidate({ isArchived: true })
+      utils.list.allShared.invalidate()
+    },
+  })
+  const onClick = useCallback(() => {
+    deleteList(listId)
+  }, [deleteList, listId])
+  return (
+    <IconButton
+      title="Supprimer la liste"
+      rounded
+      variant="ghost"
+      onClick={() => {
+        const yes = confirm("La liste va être supprimée")
+        if (yes) onClick()
+      }}
+      disabled={isLoading}
+    >
+      <TrashIcon />
+    </IconButton>
+  )
 }
 
 const ArchiveList: FC<{ listId: string }> = ({ listId }) => {
@@ -68,7 +123,7 @@ const ArchiveList: FC<{ listId: string }> = ({ listId }) => {
     },
     onSettled() {
       utils.list.find.invalidate(listId)
-      toast.success("Liste archivée 🎇")
+      toast.success("Liste archivée")
     },
   })
   const onClick = useCallback(() => {
@@ -210,9 +265,7 @@ const List: FC<Props> = ({
         <IconButton title="Bientôt disponible" disabled rounded variant="ghost">
           <Pencil1Icon />
         </IconButton>
-        <IconButton title="Bientôt disponible" disabled rounded variant="ghost">
-          <TrashIcon />
-        </IconButton>
+        <DeleteList listId={id} />
       </Flex>
       <Spacer />
       {isThereSomeProduct && isArchived === false && (

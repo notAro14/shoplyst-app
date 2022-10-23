@@ -33,6 +33,10 @@ const CreateListDialog: FC<{ isOpen: boolean; onClose(): void }> = ({
         css={{
           height: "fit-content",
         }}
+        onOpenAutoFocus={(evt) => {
+          evt.preventDefault()
+          listNameRef.current?.focus()
+        }}
       >
         <CloseBtn />
         <StyledDialogTitle asChild>
