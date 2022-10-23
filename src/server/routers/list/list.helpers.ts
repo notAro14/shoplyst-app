@@ -69,6 +69,8 @@ export async function findAllShared(userId: string) {
           owner: {
             select: {
               name: true,
+              email: true,
+              image: true,
             },
           },
           products: {

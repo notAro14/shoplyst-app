@@ -67,7 +67,7 @@ const SharedList = () => {
                 <Text fontSize="sm">
                   Par{" "}
                   <Text as="em" fontSize="sm" color="accent-low">
-                    {l.owner.name}
+                    {l.owner?.name ?? l.owner?.email}
                   </Text>
                 </Text>
                 <Spacer size="xxs" />
