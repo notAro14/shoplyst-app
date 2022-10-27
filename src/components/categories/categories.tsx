@@ -1,12 +1,12 @@
 import type { FC } from "react"
 
 import type { Category, Product } from "@prisma/client"
-import { theme } from "src/styles/theme/stitches.config"
+import { theme } from "src/stitches.config"
 import {
   Accordion,
   AccordionContent,
-  AccordionTrigger,
   AccordionItem,
+  AccordionTrigger,
 } from "src/components/common/accordion"
 import Flex from "src/components/common/flex"
 import ProductInsideCategory from "./product-inside-category"

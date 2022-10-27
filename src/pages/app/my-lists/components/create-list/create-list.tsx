@@ -3,10 +3,10 @@ import { FC, useRef } from "react"
 import { trpc } from "src/utils/trpc"
 import useDisclosure from "src/hooks/use-disclosure"
 import {
+  CloseBtn,
   Dialog,
   StyledDialogContent,
   StyledDialogTitle,
-  CloseBtn,
 } from "src/components/common/dialog"
 import Button from "src/components/common/button"
 import Flex from "src/components/common/flex"

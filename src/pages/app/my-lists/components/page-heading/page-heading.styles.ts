@@ -1,4 +1,4 @@
-import { styled, theme } from "src/styles/theme/stitches.config"
+import { styled, theme } from "src/stitches.config"
 import Box from "src/components/common/box"
 import Heading from "src/components/common/heading/heading"
 

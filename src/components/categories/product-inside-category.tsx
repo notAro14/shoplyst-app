@@ -2,7 +2,7 @@ import type { Product } from "@prisma/client"
 import type { FC } from "react"
 import produce from "immer"
 
-import { css, theme } from "src/styles/theme/stitches.config"
+import { css, theme } from "src/stitches.config"
 import Box from "src/components/common/box"
 import { CartIcon } from "src/components/common/icons"
 import Paper from "src/components/common/paper"

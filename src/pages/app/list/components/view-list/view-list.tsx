@@ -2,20 +2,20 @@ import { FC, useCallback } from "react"
 import produce from "immer"
 import toast from "react-hot-toast"
 import type {
+  ArticleStatus,
   List as IList,
   Product,
-  ArticleStatus,
   ProductsOnLists,
 } from "@prisma/client"
 import NextLink from "next/link"
 import {
   ArrowLeftIcon,
+  CheckIcon,
+  ExclamationTriangleIcon,
   InfoCircledIcon,
   Pencil1Icon,
   Share1Icon,
   TrashIcon,
-  ExclamationTriangleIcon,
-  CheckIcon,
 } from "@radix-ui/react-icons"
 
 import useAutoanimate from "src/hooks/use-autoanimate"
@@ -26,7 +26,7 @@ import Text from "src/components/common/text"
 import Paper from "src/components/common/paper"
 import Button from "src/components/common/button"
 import { useDisclosure } from "src/hooks/use-disclosure"
-import { theme, css } from "src/styles/theme/stitches.config"
+import { css, theme } from "src/stitches.config"
 import { trpc } from "src/utils/trpc"
 import { ShoppingBagIcon } from "src/components/common/icons"
 import { useIsRestoring } from "@tanstack/react-query"

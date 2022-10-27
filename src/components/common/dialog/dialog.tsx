@@ -1,7 +1,7 @@
 import * as RadixDialog from "@radix-ui/react-dialog"
 import { Cross1Icon } from "@radix-ui/react-icons"
 import { FC, ReactNode } from "react"
-import { styled, theme, keyframes } from "src/styles/theme/stitches.config"
+import { keyframes, styled, theme } from "src/stitches.config"
 
 const contentShow = keyframes({
   "0%": {

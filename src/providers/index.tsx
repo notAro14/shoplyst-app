@@ -7,7 +7,7 @@ import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister"
 import { httpBatchLink } from "@trpc/client"
 
-import { trpc, getBaseUrl } from "src/utils/trpc"
+import { getBaseUrl, trpc } from "src/utils/trpc"
 import { THEMES } from "src/styles/theme"
 
 const persister = createSyncStoragePersister({

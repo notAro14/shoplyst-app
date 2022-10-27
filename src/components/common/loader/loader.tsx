@@ -9,7 +9,7 @@ import { Ping } from "./ping"
 interface Props {
   type?: "dotpulse" | "dotspinner" | "ping"
 }
-export const Loader: FC<Props> = ({ type = "dotpulse" }) => {
+export const Loader: FC<Props> = ({ type = "ping" }) => {
   switch (type) {
     case "dotpulse":
       return (

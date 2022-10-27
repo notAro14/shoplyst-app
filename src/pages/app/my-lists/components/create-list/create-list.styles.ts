@@ -1,4 +1,4 @@
-import { styled, theme } from "src/styles/theme/stitches.config"
+import { styled, theme } from "src/stitches.config"
 
 export const StyledLabel = styled("label", {
   fontFamily: theme.fonts.sans,

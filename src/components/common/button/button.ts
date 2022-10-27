@@ -1,6 +1,6 @@
 import type * as Stitches from "@stitches/react"
 
-import { styled, theme } from "src/styles/theme/stitches.config"
+import { styled, theme } from "src/stitches.config"
 
 const Button = styled("button", {
   borderRadius: theme.radii.sm,

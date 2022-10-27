@@ -2,9 +2,9 @@ import { createStitches } from "@stitches/react"
 
 import {
   colors,
-  fonts,
   fontSizes,
   fontWeights,
+  fonts,
   radii,
   shadows,
   space,

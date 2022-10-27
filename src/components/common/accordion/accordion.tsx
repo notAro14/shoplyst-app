@@ -1,13 +1,13 @@
 import { CSS } from "@stitches/react"
-import { forwardRef, ReactNode } from "react"
+import { ReactNode, forwardRef } from "react"
 
 import {
   StyledAccordion,
-  StyledHeader,
-  StyledTrigger,
-  StyledContent,
-  StyledItem,
   StyledChevron,
+  StyledContent,
+  StyledHeader,
+  StyledItem,
+  StyledTrigger,
 } from "./accordion.styles"
 
 export const Accordion = StyledAccordion

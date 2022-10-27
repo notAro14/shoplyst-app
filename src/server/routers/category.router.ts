@@ -1,4 +1,4 @@
-import { t, protectedProcedure } from "../trpc"
+import { protectedProcedure, t } from "../trpc"
 import { prisma } from "src/utils/db/prisma-client"
 
 export const categoryRouter = t.router({

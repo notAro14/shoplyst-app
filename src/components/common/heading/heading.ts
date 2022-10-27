@@ -1,4 +1,4 @@
-import { styled, theme } from "src/styles/theme/stitches.config"
+import { styled, theme } from "src/stitches.config"
 
 const Heading = styled("h1", {
   color: theme.colors["text-functional"],

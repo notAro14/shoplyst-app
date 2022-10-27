@@ -1,6 +1,6 @@
-import { Trigger, Item, Header, Root, Content } from "@radix-ui/react-accordion"
+import { Content, Header, Item, Root, Trigger } from "@radix-ui/react-accordion"
 import { ChevronDownIcon } from "@radix-ui/react-icons"
-import { styled, theme, keyframes } from "src/styles/theme/stitches.config"
+import { keyframes, styled, theme } from "src/stitches.config"
 
 const slideDown = keyframes({
   from: { height: 0 },

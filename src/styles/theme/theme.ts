@@ -1,5 +1,5 @@
-import { createTheme } from "src/styles/theme/stitches.config"
-import { lightColors, darkColors } from "src/styles/theme/tokens/colors"
+import { createTheme } from "src/stitches.config"
+import { darkColors, lightColors } from "src/styles/theme/tokens/colors"
 
 const lightTheme = createTheme("light", {
   colors: { ...lightColors, bg: "var(--colors-white1)" },

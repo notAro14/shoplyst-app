@@ -1,14 +1,14 @@
 import {
+  amber,
+  amberDark,
+  blackA,
+  blue,
+  blueDark,
+  red,
+  redDark,
   slate,
   slateDark,
   whiteA,
-  blackA,
-  red,
-  redDark,
-  blue,
-  blueDark,
-  amber,
-  amberDark,
 } from "@radix-ui/colors"
 
 type SEMANTIC =

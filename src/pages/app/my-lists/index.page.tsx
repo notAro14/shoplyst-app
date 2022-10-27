@@ -1,9 +1,9 @@
 import {
+  ArchiveIcon,
+  ExclamationTriangleIcon,
+  FileTextIcon,
   InfoCircledIcon,
   Share1Icon,
-  ArchiveIcon,
-  FileTextIcon,
-  ExclamationTriangleIcon,
 } from "@radix-ui/react-icons"
 import { useIsRestoring } from "@tanstack/react-query"
 import { FC } from "react"
@@ -23,13 +23,13 @@ import Text from "src/components/common/text"
 import Link from "src/components/common/link"
 import Spacer from "src/components/common/spacer"
 import {
-  StyledPaper,
   StyledDescription,
+  StyledPaper,
   StyledQuantityIndication,
   StyledUList,
 } from "./index.styles"
 import Flex from "src/components/common/flex"
-import { theme } from "src/styles/theme/stitches.config"
+import { theme } from "src/stitches.config"
 
 const SharedList = () => {
   const { data: sharedLists } = trpc.list.allShared.useQuery()

@@ -1,10 +1,8 @@
 import type { FC, ReactNode } from "react"
-
-import { styled, theme } from "src/styles/theme/stitches.config"
-
+import { styled, theme } from "src/stitches.config"
 import Footer from "src/layout/footer"
-import Header from "src/layout/header"
 import { GlobalLazyLoader } from "src/components/common/loader"
+import Header from "src/layout/header"
 import Spacer from "src/components/common/spacer"
 
 const StyledSection = styled("section", {

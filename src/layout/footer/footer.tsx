@@ -2,7 +2,7 @@ import type { FC } from "react"
 
 import Link from "src/components/common/link"
 import Text from "src/components/common/text"
-import { theme } from "src/styles/theme/stitches.config"
+import { theme } from "src/stitches.config"
 
 import { Container } from "./footer.styles"
 

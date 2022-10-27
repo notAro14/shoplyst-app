@@ -1,24 +1,24 @@
 import { useTheme } from "next-themes"
-import { Fragment, FC } from "react"
+import { FC, Fragment } from "react"
 
 import { useIsBrowser } from "src/hooks/use-is-browser"
 
 import Select, {
-  SelectItem,
-  SelectItemText,
-  SelectItemIndicator,
-  SelectContent,
-  SelectTrigger,
-  SelectValue,
-  SelectIcon,
   SelectCheckIcon,
   SelectChevronDownIcon,
   SelectChevronUpIcon,
-  SelectViewport,
+  SelectContent,
+  SelectGroup,
+  SelectIcon,
+  SelectItem,
+  SelectItemIndicator,
+  SelectItemText,
+  SelectLabel,
   SelectScrollDownButton,
   SelectScrollUpButton,
-  SelectLabel,
-  SelectGroup,
+  SelectTrigger,
+  SelectValue,
+  SelectViewport,
 } from "src/components/common/select"
 
 const ThemeSelect: FC<{ className?: string }> = ({ className }) => {

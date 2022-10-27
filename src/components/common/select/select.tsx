@@ -6,7 +6,7 @@ import {
   ChevronUpIcon,
 } from "@radix-ui/react-icons"
 
-import { styled, theme } from "src/styles/theme/stitches.config"
+import { styled, theme } from "src/stitches.config"
 
 const StyledContent = styled(SelectPrimitive.SelectContent, {
   overflow: "hidden",

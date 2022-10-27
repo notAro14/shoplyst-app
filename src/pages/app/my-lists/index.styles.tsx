@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react"
 
-import { theme, css } from "src/styles/theme/stitches.config"
+import { css, theme } from "src/stitches.config"
 import Paper from "src/components/common/paper"
 import Flex from "src/components/common/flex"
 import useAutoanimate from "src/hooks/use-autoanimate"

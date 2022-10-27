@@ -1,6 +1,6 @@
 import * as AvatarPrimitive from "@radix-ui/react-avatar"
 
-import { styled, theme } from "src/styles/theme/stitches.config"
+import { styled, theme } from "src/stitches.config"
 import { THEMES } from "src/styles/theme"
 
 const StyledAvatar = styled(AvatarPrimitive.Root, {

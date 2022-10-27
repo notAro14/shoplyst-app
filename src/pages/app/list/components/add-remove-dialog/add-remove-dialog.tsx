@@ -6,7 +6,7 @@ import {
   StyledDialogTitle,
 } from "src/components/common/dialog"
 import Categories from "src/components/categories"
-import type { ArticleStatus, Product, Category } from "@prisma/client"
+import type { ArticleStatus, Category, Product } from "@prisma/client"
 import Spacer from "src/components/common/spacer"
 import Heading from "src/components/common/heading"
 import Button from "src/components/common/button"

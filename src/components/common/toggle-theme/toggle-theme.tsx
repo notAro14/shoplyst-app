@@ -1,5 +1,5 @@
 import { FC } from "react"
-import { SunIcon, MoonIcon } from "@radix-ui/react-icons"
+import { MoonIcon, SunIcon } from "@radix-ui/react-icons"
 import type { CSS } from "@stitches/react"
 
 import IconButton from "src/components/common/icon-button"

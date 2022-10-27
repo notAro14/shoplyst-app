@@ -1,4 +1,4 @@
-import { styled } from "src/styles/theme/stitches.config"
+import { styled } from "src/stitches.config"
 import Text from "src/components/common/text"
 
 export const TextEllipsed = styled(Text, {

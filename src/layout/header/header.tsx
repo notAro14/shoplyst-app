@@ -1,4 +1,4 @@
-import { useSession, signOut } from "next-auth/react"
+import { signOut, useSession } from "next-auth/react"
 import NextLink from "next/link"
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu"
 
@@ -10,7 +10,7 @@ import * as Avatar from "src/components/common/avatar"
 import Link from "src/components/common/link"
 import Text from "src/components/common/text/text"
 import ToggleTheme from "src/components/common/toggle-theme"
-import { styled, theme } from "src/styles/theme/stitches.config"
+import { styled, theme } from "src/stitches.config"
 import { useThemeSwitcherShortcut } from "src/hooks/use-theme-switcher-shortcut"
 
 const itemStyles = {

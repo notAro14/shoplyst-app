@@ -1,4 +1,4 @@
-import { styled, theme, keyframes } from "src/styles/theme/stitches.config"
+import { keyframes, styled, theme } from "src/stitches.config"
 
 const DOTPULSE_SIZE_KEY = "$$dot-pulse-size"
 const DOTPULSE_SPEED_KEY = "$$dot-pulse-speed"

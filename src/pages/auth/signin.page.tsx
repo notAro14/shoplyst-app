@@ -7,7 +7,7 @@ import Flex from "src/components/common/flex"
 import Heading from "src/components/common/heading"
 import SEO from "src/components/common/seo"
 import ToggleTheme from "src/components/common/toggle-theme"
-import { styled, theme } from "src/styles/theme/stitches.config"
+import { styled, theme } from "src/stitches.config"
 import type { NextPageWithLayout } from "src/types/next"
 
 const SignIn: NextPageWithLayout = () => {

@@ -28,7 +28,7 @@ const AppShell: FC<Props> = ({ children }) => {
             placeItems: "center",
           }}
         >
-          <Loader type="ping" />
+          <Loader />
         </Box>
       )
   }
