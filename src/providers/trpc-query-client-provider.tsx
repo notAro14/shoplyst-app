@@ -1,14 +1,11 @@
 import { FC, ReactNode, useState } from "react"
-import { ThemeProvider } from "next-themes"
-import { SessionProvider } from "next-auth/react"
-import { Session } from "next-auth"
 import { QueryClient } from "@tanstack/react-query"
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client"
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister"
 import { httpBatchLink } from "@trpc/client"
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 
 import { getBaseUrl, trpc } from "src/utils/trpc"
-import { THEMES } from "src/styles/theme"
 
 const persister = createSyncStoragePersister({
   storage: typeof window === "undefined" ? undefined : window.localStorage,
@@ -16,9 +13,8 @@ const persister = createSyncStoragePersister({
 
 interface Props {
   children: ReactNode
-  session: Session
 }
-const Providers: FC<Props> = ({ children, session }) => {
+const TrpcQueryClientProvider: FC<Props> = ({ children }) => {
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -54,14 +50,11 @@ const Providers: FC<Props> = ({ children, session }) => {
           })
         }}
       >
-        <SessionProvider session={session}>
-          <ThemeProvider attribute="class" defaultTheme="system" value={THEMES}>
-            {children}
-          </ThemeProvider>
-        </SessionProvider>
+        {children}
+        <ReactQueryDevtools initialIsOpen={false} />
       </PersistQueryClientProvider>
     </trpc.Provider>
   )
 }
 
-export default Providers
+export default TrpcQueryClientProvider
