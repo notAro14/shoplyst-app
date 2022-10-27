@@ -11,5 +11,5 @@ export const fonts = {
   "system-mono": systemMono,
   sans: `${metropolis}, ${systemSans}`,
   mono: systemMono,
-  fun: '"Luckiest Guy"',
+  fun: `"Luckiest Guy", ${systemSans}`,
 }
