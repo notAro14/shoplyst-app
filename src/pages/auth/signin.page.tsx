@@ -9,6 +9,7 @@ import SEO from "src/components/common/seo"
 import ToggleTheme from "src/components/common/toggle-theme"
 import { styled, theme } from "src/stitches.config"
 import type { NextPageWithLayout } from "src/types/next"
+import { Fragment } from "react"
 
 const SignIn: NextPageWithLayout = () => {
   const { callbackUrl } = useRouter().query as {
@@ -16,7 +17,7 @@ const SignIn: NextPageWithLayout = () => {
   }
 
   return (
-    <>
+    <Fragment>
       <SEO title="Shoplyst | Se connecter" />
       <Flex direction="column" gap="2xl">
         <Heading
@@ -40,7 +41,7 @@ const SignIn: NextPageWithLayout = () => {
           <GoogleButton onClick={() => signIn("google", { callbackUrl })} />
         </Flex>
       </Flex>
-    </>
+    </Fragment>
   )
 }
 

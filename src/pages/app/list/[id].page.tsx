@@ -1,10 +1,11 @@
+import { Fragment } from "react"
 import { useRouter } from "next/router"
 import NextLink from "next/link"
 import { ArrowLeftIcon } from "@radix-ui/react-icons"
 import { useIsRestoring } from "@tanstack/react-query"
 
 import Link from "src/components/common/link"
-import Loader from "src/components/common/loader"
+import { LazyLoader } from "src/components/common/loader"
 import Text from "src/components/common/text"
 import { NextPageWithLayout } from "src/types/next"
 import { trpc } from "src/utils/trpc"
@@ -15,7 +16,6 @@ import PublicLayout from "src/layout/public.layout"
 import AppShell from "src/components/app-shell"
 
 import ViewList from "./components/view-list"
-import Box from "src/components/common/box"
 
 const ListIdPage: NextPageWithLayout = () => {
   const { query, isReady } = useRouter()
@@ -31,32 +31,23 @@ const ListIdPage: NextPageWithLayout = () => {
 
   if (list && isReady)
     return (
-      <>
+      <Fragment>
         <SEO title={`Shoplyst | ${list.name}`} />
         <ViewList list={list} />
-      </>
+      </Fragment>
     )
 
   if ((isLoading && isFetching) || isReady === false || isRestoring)
     return (
-      <>
+      <Fragment>
         <SEO title="Liste | Chargement..." />
-        <Box
-          css={{
-            width: "100%",
-            height: 150,
-            display: "grid",
-            placeItems: "center",
-          }}
-        >
-          <Loader />
-        </Box>
-      </>
+        <LazyLoader />
+      </Fragment>
     )
 
   if (isError && error.data?.code === "NOT_FOUND")
     return (
-      <>
+      <Fragment>
         <SEO title="Cette liste n'existe pas" />
         <NextLink passHref href="/app/my-lists">
           <Link
@@ -73,16 +64,16 @@ const ListIdPage: NextPageWithLayout = () => {
         <Text role="alert" color="danger-low">
           Oups cette liste n&apos;existe pas
         </Text>
-      </>
+      </Fragment>
     )
 
   return (
-    <>
+    <Fragment>
       <SEO title="Liste | Erreur de chargement" />
       <Text role="alert" color="danger-low">
         Oups ta liste ne s&apos;est pas chargée correctement
       </Text>
-    </>
+    </Fragment>
   )
 }
 

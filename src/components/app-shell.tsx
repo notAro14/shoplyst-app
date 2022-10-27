@@ -1,11 +1,11 @@
 import { signIn, useSession } from "next-auth/react"
-import { FC, ReactNode, useEffect } from "react"
-import Box from "./common/box"
+import { FC, Fragment, ReactElement, useEffect } from "react"
+import { NextPageWithLayout } from "src/types/next"
 
-import Loader from "./common/loader"
+import { LazyLoader } from "./common/loader"
 
 interface Props {
-  children: ReactNode
+  children: ReactElement
 }
 
 const AppShell: FC<Props> = ({ children }) => {
@@ -16,22 +16,27 @@ const AppShell: FC<Props> = ({ children }) => {
   }, [status])
 
   switch (status) {
+    case "loading":
+      return <LazyLoader />
+    case "unauthenticated":
+      return null
     case "authenticated":
-      return <>{children}</>
+      return <Fragment>{children}</Fragment>
     default:
-      return (
-        <Box
-          css={{
-            width: "100%",
-            height: 300,
-            display: "grid",
-            placeItems: "center",
-          }}
-        >
-          <Loader />
-        </Box>
-      )
+      throw new Error("Unknown status for useSession")
   }
+}
+
+export const withAppShell = (Component: NextPageWithLayout) => {
+  const Inner: FC = () => {
+    return (
+      <AppShell>
+        <Component />
+      </AppShell>
+    )
+  }
+  Inner.displayName = `${Component.displayName}Outter`
+  return Inner
 }
 
 export default AppShell

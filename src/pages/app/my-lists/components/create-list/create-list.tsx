@@ -1,4 +1,4 @@
-import { FC, useRef } from "react"
+import { FC, Fragment, useRef } from "react"
 
 import { trpc } from "src/utils/trpc"
 import useDisclosure from "src/hooks/use-disclosure"
@@ -102,12 +102,12 @@ const CreateListDialog: FC<{ isOpen: boolean; onClose(): void }> = ({
 const CreateList: FC<{ title: string }> = ({ title }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
-    <>
+    <Fragment>
       <CreateListDialog isOpen={isOpen} onClose={onClose} />
       <Button onClick={onOpen} size="small" colorScheme="accent" fullWidth>
         {title}
       </Button>
-    </>
+    </Fragment>
   )
 }
 

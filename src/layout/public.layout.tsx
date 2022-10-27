@@ -1,4 +1,4 @@
-import type { FC, ReactNode } from "react"
+import { FC, Fragment, ReactNode } from "react"
 import { styled, theme } from "src/stitches.config"
 import Footer from "src/layout/footer"
 import { GlobalLazyLoader } from "src/components/common/loader"
@@ -26,7 +26,7 @@ interface Props {
 }
 export const PublicLayout: FC<Props> = ({ children }) => {
   return (
-    <>
+    <Fragment>
       <GlobalLazyLoader />
       <StyledSection>
         <Header />
@@ -34,7 +34,7 @@ export const PublicLayout: FC<Props> = ({ children }) => {
         <StyledMain>{children}</StyledMain>
         <Footer />
       </StyledSection>
-    </>
+    </Fragment>
   )
 }
 

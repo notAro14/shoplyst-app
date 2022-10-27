@@ -1,7 +1,7 @@
 import { useIsFetching } from "@tanstack/react-query"
 
 import Box from "src/components/common/box"
-import Loader, { useLazyLoader } from "src/components/common/loader"
+import { useLazyLoader, InlineLoader } from "src/components/common/loader"
 
 export const GlobalLazyLoader = () => {
   const isFetching = useIsFetching()
@@ -15,7 +15,7 @@ export const GlobalLazyLoader = () => {
         zIndex: 1,
       }}
     >
-      <Loader />
+      <InlineLoader type="dotspinner" />
     </Box>
   ) : null
 }

@@ -7,6 +7,13 @@ import useAutoanimate from "src/hooks/use-autoanimate"
 import Text from "src/components/common/text"
 import { TextEllipsed } from "src/components/common/ellipsed"
 
+export const loadingContainer = css({
+  width: "100%",
+  height: 150,
+  display: "grid",
+  placeItems: "center",
+})()
+
 const styledPaper = css({
   padding: `${theme.space.sm} ${theme.space.sm}`,
   width: "100%",

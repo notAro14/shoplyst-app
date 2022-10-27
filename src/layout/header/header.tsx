@@ -80,7 +80,7 @@ const Auth = () => {
 
   switch (status) {
     case "loading":
-      return <LazyLoader show />
+      return <LazyLoader inline />
 
     case "unauthenticated":
       return <ToggleTheme />

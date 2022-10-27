@@ -1,8 +1,8 @@
+import { Fragment } from "react"
 import * as styles from "./styles"
-import Box from "src/components/common/box"
 import { CtaLink } from "src/components/common/cta"
 import Heading from "src/components/common/heading"
-import Loader from "src/components/common/loader"
+import { LazyLoader } from "src/components/common/loader"
 import type { NextPageWithLayout } from "src/types/next"
 import SEO from "src/components/common/seo/seo"
 import Spacer from "src/components/common/spacer"
@@ -11,14 +11,10 @@ import { useSession } from "next-auth/react"
 
 const IndexPage: NextPageWithLayout = () => {
   const { status } = useSession()
-  if (status === "loading")
-    return (
-      <Box className={styles.loaderContainer}>
-        <Loader />
-      </Box>
-    )
+  if (status === "loading") return <LazyLoader />
+
   return (
-    <>
+    <Fragment>
       <SEO title="Shoplyst | Application de listes de courses" />
       <Heading className={styles.heading} as="h1" variant="h1">
         Hello World
@@ -36,7 +32,7 @@ const IndexPage: NextPageWithLayout = () => {
         {status === "authenticated" && "Accéder à mes listes"}
         {status === "unauthenticated" && "Commencer"}
       </CtaLink>
-    </>
+    </Fragment>
   )
 }
 

@@ -1,4 +1,4 @@
-import { FC, useCallback } from "react"
+import { FC, Fragment, useCallback } from "react"
 import produce from "immer"
 import toast from "react-hot-toast"
 import type {
@@ -190,7 +190,7 @@ const List: FC<Props> = ({
   const isThereSomeProduct = products?.length !== 0
 
   return (
-    <>
+    <Fragment>
       <AddRemoveDialog
         categories={categories}
         isOpen={isOpen}
@@ -285,10 +285,10 @@ const List: FC<Props> = ({
       )}
 
       {isShoppingDone && isArchived === false ? (
-        <>
+        <Fragment>
           <Spacer />
           <ArchiveList listId={id} />
-        </>
+        </Fragment>
       ) : null}
       <Spacer />
       {isThereSomeProduct && isArchived && (
@@ -321,7 +321,7 @@ const List: FC<Props> = ({
         </Flex>
       )}
       {isThereSomeProduct && isArchived === false ? (
-        <>
+        <Fragment>
           <ProductList listId={id} products={products} />
           <Spacer size="xl" />
           <Button
@@ -334,10 +334,10 @@ const List: FC<Props> = ({
           >
             Ajouter / Retirer
           </Button>
-        </>
+        </Fragment>
       ) : null}
       {isListEmpty && isArchived === false ? (
-        <>
+        <Fragment>
           <Text fontSize="sm" as="em">
             Ta liste est vide
           </Text>
@@ -351,10 +351,10 @@ const List: FC<Props> = ({
           >
             Ajouter des produits
           </Button>
-        </>
+        </Fragment>
       ) : null}
       <Spacer />
-    </>
+    </Fragment>
   )
 }
 
