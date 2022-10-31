@@ -23,7 +23,7 @@ const ListForm: FC<{
     register,
     setFocus,
   } = useForm<ListFields>({
-    mode: "onBlur",
+    mode: "onChange",
   })
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const ListForm: FC<{
         <input
           {...register(LIST_NAME, {
             required: "Le titre est requis",
-            maxLength: 45,
+            maxLength: 30,
           })}
           placeholder="ex : Aujourd'hui"
           autoComplete="off"
@@ -51,7 +51,7 @@ const ListForm: FC<{
             Ce titre est trop long
           </Text>
         )}
-        {errors[LIST_NAME] && (
+        {errors[LIST_NAME] && errors[LIST_NAME].type === "required" && (
           <Text role="alert" color="danger-low" fontSize="sm">
             {errors[LIST_NAME]?.message}
           </Text>
@@ -64,11 +64,16 @@ const ListForm: FC<{
           Description (optionnelle)
         </label>
         <input
-          {...register(LIST_DESC)}
+          {...register(LIST_DESC, { maxLength: 30 })}
           placeholder="ex : Les courses hebdomadaires"
           id="list.description"
           className={field}
         />
+        {errors[LIST_DESC] && errors[LIST_DESC].type === "maxLength" && (
+          <Text role="alert" color="danger-low" fontSize="sm">
+            La description est trop longue
+          </Text>
+        )}
       </Flex>
       <Spacer size="xl" />
       <Button

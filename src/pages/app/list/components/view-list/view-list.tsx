@@ -103,7 +103,10 @@ const DeleteList: FC<{ listId: string }> = ({ listId }) => {
   )
 }
 
-const ArchiveList: FC<{ listId: string }> = ({ listId }) => {
+const ArchiveList: FC<{ listId: string; disabled: boolean }> = ({
+  listId,
+  disabled,
+}) => {
   const utils = trpc.useContext()
   const { mutate: archiveList, isLoading } = trpc.list.archive.useMutation({
     async onMutate() {
@@ -137,7 +140,7 @@ const ArchiveList: FC<{ listId: string }> = ({ listId }) => {
       onClick={onClick}
       colorScheme="accent"
       variant="filled"
-      disabled={isLoading}
+      disabled={isLoading || disabled}
     >
       Terminer la course
     </Button>
@@ -283,14 +286,6 @@ const List: FC<Props> = ({
           Clique sur un produit pour le mettre dans ton caddie
         </Text>
       )}
-
-      {isShoppingDone && isArchived === false ? (
-        <Fragment>
-          <Spacer />
-          <ArchiveList listId={id} />
-        </Fragment>
-      ) : null}
-      <Spacer />
       {isThereSomeProduct && isArchived && (
         <Flex
           as="ul"
@@ -322,6 +317,12 @@ const List: FC<Props> = ({
       )}
       {isThereSomeProduct && isArchived === false ? (
         <Fragment>
+          <Spacer />
+          <ArchiveList
+            disabled={!(isShoppingDone && isArchived === false)}
+            listId={id}
+          />
+          <Spacer />
           <ProductList listId={id} products={products} />
           <Spacer size="xl" />
           <Button
