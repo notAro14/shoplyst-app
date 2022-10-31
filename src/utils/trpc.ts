@@ -6,6 +6,9 @@ export function getBaseUrl() {
     // browser should use relative path
     return ""
 
+  if (process.env.VERCEL_URL)
+    return `https://${process.env.VERCEL_URL}/api/trpc`
+
   if (process.env.RAILWAY_STATIC_URL)
     return `https://${process.env.RAILWAY_STATIC_URL}`
 
