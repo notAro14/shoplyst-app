@@ -50,6 +50,7 @@ specifiers:
   react: 18.2.0
   react-dom: 18.2.0
   react-error-boundary: ^3.1.4
+  react-hook-form: ^7.38.0
   react-hot-toast: ^2.4.0
   react-icons: ^4.4.0
   sass: ^1.55.0
@@ -89,6 +90,7 @@ dependencies:
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-error-boundary: 3.1.4_react@18.2.0
+  react-hook-form: 7.38.0_react@18.2.0
   react-hot-toast: 2.4.0_owo25xnefcwdq3zjgtohz6dbju
   react-icons: 4.4.0_react@18.2.0
   tinycolor2: 1.4.2
@@ -4997,6 +4999,15 @@ packages:
       react: '>=16.13.1'
     dependencies:
       '@babel/runtime': 7.16.7
+      react: 18.2.0
+    dev: false
+
+  /react-hook-form/7.38.0_react@18.2.0:
+    resolution: {integrity: sha512-gxWW1kMeru9xR1GoR+Iw4hA+JBOM3SHfr4DWCUKY0xc7Vv1MLsF109oHtBeWl9shcyPFx67KHru44DheN0XY5A==}
+    engines: {node: '>=12.22.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18
+    dependencies:
       react: 18.2.0
     dev: false
 

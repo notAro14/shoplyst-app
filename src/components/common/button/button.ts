@@ -35,6 +35,10 @@ const Button = styled("button", {
           borderColor: theme.colors["solid-hovered"],
           cursor: "pointer",
         },
+        "&:disabled": {
+          opacity: 0.5,
+          cursor: "not-allowed",
+        },
       },
     },
     {
@@ -48,6 +52,10 @@ const Button = styled("button", {
           backgroundColor: theme.colors["solid-hovered-danger"],
           borderColor: theme.colors["solid-hovered-danger"],
           cursor: "pointer",
+        },
+        "&:disabled": {
+          opacity: 0.5,
+          cursor: "not-allowed",
         },
       },
     },
@@ -63,6 +71,10 @@ const Button = styled("button", {
           borderColor: theme.colors["solid-hovered-accent"],
           cursor: "pointer",
         },
+        "&:disabled": {
+          opacity: 0.5,
+          cursor: "not-allowed",
+        },
       },
     },
     {
@@ -76,6 +88,10 @@ const Button = styled("button", {
         "&:hover": {
           borderColor: theme.colors["border-hovered"],
           cursor: "pointer",
+        },
+        "&:disabled": {
+          opacity: 0.5,
+          cursor: "not-allowed",
         },
       },
     },
@@ -91,6 +107,10 @@ const Button = styled("button", {
           borderColor: theme.colors["border-hovered-danger"],
           cursor: "pointer",
         },
+        "&:disabled": {
+          opacity: 0.5,
+          cursor: "not-allowed",
+        },
       },
     },
     {
@@ -104,6 +124,10 @@ const Button = styled("button", {
         "&:hover": {
           borderColor: theme.colors["border-hovered-accent"],
           cursor: "pointer",
+        },
+        "&:disabled": {
+          opacity: 0.5,
+          cursor: "not-allowed",
         },
       },
     },
