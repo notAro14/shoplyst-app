@@ -15,7 +15,7 @@ export const GlobalLazyLoader = () => {
         zIndex: 1,
       }}
     >
-      <InlineLoader type="dotspinner" />
+      <InlineLoader />
     </Box>
   ) : null
 }
