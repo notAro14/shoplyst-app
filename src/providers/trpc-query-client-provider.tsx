@@ -23,7 +23,7 @@ const TrpcQueryClientProvider: FC<Props> = ({ children }) => {
             cacheTime: 1000 * 60 * 60 * 24, // 24 hours,
             staleTime: 2000,
             retry: 0,
-            networkMode: "offlineFirst",
+            networkMode: "online",
           },
         },
       })
