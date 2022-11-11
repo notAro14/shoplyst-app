@@ -76,7 +76,7 @@ model ListOnUser {
 }
 
 model Category {
-  id       Int       @unique @default(autoincrement())
+  id       Int       @id @default(autoincrement())
   name     String
   products Product[]
 }
@@ -86,7 +86,7 @@ model Product {
   name       String
   lists      ProductsOnLists[]
   categoryId Int?
-  category   Category?         @relation(fields: [categoryId], references: [id])
+  category   Category?         @relation(fields: [categoryId], references: [id], onDelete: SetNull)
 }
 
 enum ArticleStatus {
