@@ -56,7 +56,7 @@ model VerificationToken {
 }
 
 model List {
-  id          String            @unique @default(cuid())
+  id          String            @id @default(cuid())
   name        String
   description String?
   ownerId     String
