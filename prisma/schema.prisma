@@ -96,7 +96,7 @@ enum ArticleStatus {
 
 model ProductsOnLists {
   productId Int
-  product   Product       @relation(fields: [productId], references: [id])
+  product   Product       @relation(fields: [productId], references: [id], onDelete: Cascade)
   listId    String
   list      List          @relation(fields: [listId], references: [id], onDelete: Cascade)
   status    ArticleStatus @default(READY)

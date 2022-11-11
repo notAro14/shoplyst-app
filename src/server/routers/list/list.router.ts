@@ -19,7 +19,7 @@ import {
   updateProductStatusSchema,
 } from "src/server/routers/list/list.helpers"
 
-export const listRouter = t.router({
+export default t.router({
   all: protectedProcedure
     .input(
       z.object({

@@ -1,11 +1,13 @@
-//import { Context } from "../context"
 import { t } from "../trpc"
-import { categoryRouter } from "src/server/routers/category.router"
-import { listRouter } from "src/server/routers/list"
+import category from "src/server/routers/category.router"
+import list from "src/server/routers/list"
+import product from "src/server/routers/product"
 
-export const appRouter = t.router({
-  category: categoryRouter,
-  list: listRouter,
+const appRouter = t.router({
+  category,
+  list,
+  product,
 })
 
+export default appRouter
 export type AppRouter = typeof appRouter

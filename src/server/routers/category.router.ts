@@ -1,7 +1,7 @@
 import { protectedProcedure, t } from "../trpc"
 import { prisma } from "src/utils/db/prisma-client"
 
-export const categoryRouter = t.router({
+export default t.router({
   all: protectedProcedure.query(async function () {
     const categories = await prisma.category.findMany({
       orderBy: {

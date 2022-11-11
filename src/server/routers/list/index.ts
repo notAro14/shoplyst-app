@@ -1,1 +1,1 @@
-export * from "./list.router"
+export { default } from "./list.router"

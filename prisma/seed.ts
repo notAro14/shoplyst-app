@@ -1,39 +1,22 @@
-import { Prisma, PrismaClient } from "@prisma/client"
+import { PrismaClient } from "@prisma/client"
+import { categoriesAndProducts } from "./fixtures"
 
 const prisma = new PrismaClient()
-const data: Prisma.CategoryCreateInput[] = [
-  {
-    name: "Pâtes, Riz & Céréales",
-    products: {
-      create: [{ name: "Riz" }, { name: "Pâtes" }],
-    },
-  },
-  {
-    name: "Fruits",
-    products: {
-      create: [{ name: "Banane" }, { name: "Pêche" }, { name: "Pomme" }],
-    },
-  },
-  {
-    name: "Hygiène",
-    products: {
-      create: [{ name: "Papier toilette" }, { name: "Dentifrice" }],
-    },
-  },
-]
-
-async function main() {
+async function seed() {
   await prisma.product.deleteMany()
   await prisma.category.deleteMany()
 
-  data.forEach(async (d) => {
-    await prisma.category.create({ data: d })
-  })
+  const promises = categoriesAndProducts.map(async (d) =>
+    prisma.category.create({ data: d })
+  )
+  return Promise.all(promises)
 }
 
-main()
-  .then(async function () {
+seed()
+  .then(async function (createdData) {
     await prisma.$disconnect()
+    // eslint-disable-next-line no-console
+    console.log("Newly created data : ", createdData)
   })
   .catch(async function (e) {
     console.error(e)

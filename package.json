@@ -19,12 +19,14 @@
     "prepare": "husky install",
     "test": "jest",
     "test:watch": "jest --watch",
-    "db:push": "prisma db push",
-    "db:migrate": "prisma migrate dev",
-    "db:migrate:deploy": "prisma migrate deploy",
-    "db:seed": "prisma db seed",
-    "studio": "prisma studio",
-    "generate": "prisma generate"
+    "db.push": "prisma db push",
+    "db.seed": "prisma db seed",
+    "generate": "prisma generate",
+    "migrate.deploy": "prisma migrate deploy",
+    "migrate.dev": "prisma migrate dev",
+    "migrate.dev.create": "prisma migrate dev --create-only",
+    "migrate.reset": "prisma migrate reset",
+    "studio": "prisma studio"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
