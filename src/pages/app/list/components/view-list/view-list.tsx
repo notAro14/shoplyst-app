@@ -1,3 +1,4 @@
+import { useRouter } from "next/router"
 import { FC, Fragment, useCallback } from "react"
 import produce from "immer"
 import toast from "react-hot-toast"
@@ -18,6 +19,7 @@ import {
   TrashIcon,
 } from "@radix-ui/react-icons"
 
+import { Dialog } from "src/components/common/dialog"
 import useAutoanimate from "src/hooks/use-autoanimate"
 import Flex from "src/components/common/flex"
 import Heading from "src/components/common/heading"
@@ -33,10 +35,15 @@ import { useIsRestoring } from "@tanstack/react-query"
 import Link from "src/components/common/link"
 import { TextEllipsed } from "src/components/common/ellipsed"
 import IconButton from "src/components/common/icon-button"
-
-import AddRemoveDialog from "../add-remove-dialog"
 import Box from "src/components/common/box"
-import { useRouter } from "next/router"
+import ListProductManager from "../list-product-manager"
+
+const dialogContent = css({
+  height: 500,
+  overflow: "auto",
+  overscrollBehaviorY: "contain",
+  scrollbarGutter: "stable",
+})()
 
 type Products = {
   product: Product
@@ -194,13 +201,23 @@ const List: FC<Props> = ({
 
   return (
     <Fragment>
-      <AddRemoveDialog
-        categories={categories}
+      <Dialog
+        title={name}
+        description="Tu peux ajouter ou retirer des produits de la liste"
         isOpen={isOpen}
-        onClose={onClose}
-        listId={id}
-        products={products}
-      />
+        onDismiss={onClose}
+        className={dialogContent}
+      >
+        <ListProductManager
+          categories={categories}
+          listId={id}
+          products={products}
+        />
+        <Spacer size="xl" />
+        <Button fullWidth size="small" onClick={onClose} colorScheme="accent">
+          Fermer
+        </Button>
+      </Dialog>
 
       <NextLink passHref href="/app/my-lists">
         <Link

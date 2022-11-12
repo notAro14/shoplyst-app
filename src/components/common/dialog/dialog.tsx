@@ -1,83 +1,55 @@
-import * as RadixDialog from "@radix-ui/react-dialog"
-import { Cross1Icon } from "@radix-ui/react-icons"
 import { FC, ReactNode } from "react"
-import { keyframes, styled, theme } from "src/stitches.config"
+import {
+  Close,
+  Root,
+  Portal,
+  Overlay,
+  Title,
+  Description,
+} from "@radix-ui/react-dialog"
+import { Cross1Icon } from "@radix-ui/react-icons"
 
-const contentShow = keyframes({
-  "0%": {
-    opacity: 0,
-    transform: "translateY(5%) scale(0.96)",
-  },
-  "100%": {
-    opacity: 1,
-    transform: "translateY(0) scale(1)",
-  },
-})
+import * as styles from "./dialog.styles"
+import Spacer from "src/components/common/spacer"
+import Heading from "src/components/common/heading"
+import Text from "src/components/common/text"
 
-const overlayShow = keyframes({
-  "0%": {
-    opacity: 0,
-  },
-  "100%": {
-    opacity: 1,
-  },
-})
-
-export const StyledDialogTitle = styled(RadixDialog.Title, {})
-export const StyledDialogDesc = styled(RadixDialog.Description, {})
-export const StyledDialogContent = styled(RadixDialog.Content, {
-  backgroundColor: theme.colors["bg-alt"],
-  animation: `${contentShow} 150ms ease-in-out forwards`,
-  borderRadius: theme.radii.md,
-  padding: `${theme.space.xl} ${theme.space.xl}`,
-  width: "90%",
-  position: "relative",
-
-  "@sm": {
-    maxWidth: 400,
-  },
-})
-const StyledOverlay = styled(RadixDialog.Overlay, {
-  backgroundColor: theme.colors.overlay,
-  position: "fixed",
-  inset: 0,
-  display: "grid",
-  placeItems: "center",
-  animation: `${overlayShow} 150ms ease-in-out forwards`,
-})
-export const StyledCloseBtn = styled(RadixDialog.DialogClose, {
-  borderRadius: "50%",
-  border: "none",
-  padding: theme.space.xxs,
-  boxShadow: theme.shadows.low,
-  backgroundColor: theme.colors.ui,
-  position: "fixed",
-  top: 10,
-  right: 10,
-  "&:hover": {
-    cursor: "pointer",
-    backgroundColor: theme.colors["ui-hovered"],
-  },
-})
-export const CloseBtn = () => {
-  return (
-    <StyledCloseBtn aria-label="Fermer">
-      <Cross1Icon />
-    </StyledCloseBtn>
-  )
-}
+const { StyledContent } = styles
 
 export const Dialog: FC<{
   children: ReactNode
   isOpen?: boolean
   onDismiss?: () => void
-}> = ({ children, isOpen, onDismiss }) => {
+  title?: string
+  description?: string
+  className?: string
+}> = ({ children, isOpen, onDismiss, title, description, className }) => {
   return (
-    <RadixDialog.Root open={isOpen} onOpenChange={onDismiss}>
-      <RadixDialog.Portal>
-        <StyledOverlay>{children}</StyledOverlay>
-      </RadixDialog.Portal>
-    </RadixDialog.Root>
+    <Root open={isOpen} onOpenChange={onDismiss}>
+      <Portal>
+        <Overlay className={styles.overlay}>
+          <StyledContent className={className}>
+            <Close className={styles.close} aria-label="Fermer">
+              <Cross1Icon />
+            </Close>
+            {title && (
+              <Title asChild className={styles.title}>
+                <Heading variant="h2" as="h2">
+                  {title}
+                </Heading>
+              </Title>
+            )}
+            {description && (
+              <Description asChild className={styles.description}>
+                <Text>{description}</Text>
+              </Description>
+            )}
+            <Spacer />
+            {children}
+          </StyledContent>
+        </Overlay>
+      </Portal>
+    </Root>
   )
 }
 

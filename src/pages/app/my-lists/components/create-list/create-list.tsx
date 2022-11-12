@@ -4,8 +4,11 @@ import { trpc } from "src/utils/trpc"
 import useDisclosure from "src/hooks/use-disclosure"
 import Button from "src/components/common/button"
 import ListForm from "src/components/list/list-form"
-import ListDialog from "src/components/list/list-dialog"
 import type { ListFields } from "src/components/list/list-form"
+import { Dialog } from "src/components/common/dialog"
+import { css } from "src/stitches.config"
+
+const dialog = css({ height: "fit-content" })()
 
 const CreateList: FC<{ title: string }> = ({ title }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -28,9 +31,14 @@ const CreateList: FC<{ title: string }> = ({ title }) => {
   )
   return (
     <Fragment>
-      <ListDialog isOpen={isOpen} onClose={onClose}>
+      <Dialog
+        isOpen={isOpen}
+        onDismiss={onClose}
+        title="Nouvelle liste"
+        className={dialog}
+      >
         <ListForm isSubmitting={isLoading} onSubmit={onSubmit} />
-      </ListDialog>
+      </Dialog>
       <Button onClick={onOpen} size="small" colorScheme="accent" fullWidth>
         {title}
       </Button>
