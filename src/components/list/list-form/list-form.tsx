@@ -16,14 +16,21 @@ export interface ListFields {
 const ListForm: FC<{
   onSubmit(data: ListFields): void
   isSubmitting: boolean
-}> = ({ onSubmit, isSubmitting }) => {
+  defaultValues?: {
+    name: string
+    description: string
+  }
+  mode?: "UPDATE" | "CREATE"
+}> = ({ onSubmit, isSubmitting, defaultValues, mode = "CREATE" }) => {
   const {
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isDirty },
     register,
     setFocus,
+    reset,
   } = useForm<ListFields>({
-    mode: "onChange",
+    mode: "all",
+    defaultValues,
   })
 
   useEffect(() => {
@@ -39,21 +46,19 @@ const ListForm: FC<{
         <input
           {...register(LIST_NAME, {
             required: "Le titre est requis",
-            maxLength: 30,
+            maxLength: {
+              value: 30,
+              message: "Ce titre est trop long",
+            },
           })}
           placeholder="ex : Aujourd'hui"
           autoComplete="off"
           id={LIST_NAME}
           className={field}
         />
-        {errors[LIST_NAME] && errors[LIST_NAME].type === "maxLength" && (
+        {errors[LIST_NAME] && (
           <Text role="alert" color="danger-low" fontSize="sm">
-            Ce titre est trop long
-          </Text>
-        )}
-        {errors[LIST_NAME] && errors[LIST_NAME].type === "required" && (
-          <Text role="alert" color="danger-low" fontSize="sm">
-            {errors[LIST_NAME]?.message}
+            {errors[LIST_NAME].message}
           </Text>
         )}
       </Flex>
@@ -64,14 +69,19 @@ const ListForm: FC<{
           Description (optionnelle)
         </label>
         <input
-          {...register(LIST_DESC, { maxLength: 30 })}
+          {...register(LIST_DESC, {
+            maxLength: {
+              value: 30,
+              message: "La description est trop longue",
+            },
+          })}
           placeholder="ex : Les courses hebdomadaires"
           id="list.description"
           className={field}
         />
-        {errors[LIST_DESC] && errors[LIST_DESC].type === "maxLength" && (
+        {errors[LIST_DESC] && (
           <Text role="alert" color="danger-low" fontSize="sm">
-            La description est trop longue
+            {errors[LIST_DESC].message}
           </Text>
         )}
       </Flex>
@@ -81,9 +91,22 @@ const ListForm: FC<{
         size="small"
         fullWidth
         type="submit"
-        disabled={isValid === false || isSubmitting}
+        disabled={isValid === false || isSubmitting || isDirty === false}
       >
-        Créer
+        {mode === "CREATE" && "Créer"}
+        {mode === "UPDATE" && "Enregistrer"}
+      </Button>
+      <Spacer />
+      <Button
+        colorScheme="danger"
+        size="small"
+        variant="outlined"
+        fullWidth
+        type="button"
+        disabled={isDirty === false}
+        onClick={() => reset()}
+      >
+        Annuler
       </Button>
     </form>
   )

@@ -37,6 +37,7 @@ import { TextEllipsed } from "src/components/common/ellipsed"
 import IconButton from "src/components/common/icon-button"
 import Box from "src/components/common/box"
 import ListProductManager from "../list-product-manager"
+import ListForm from "src/components/list/list-form"
 
 const dialogContent = css({
   height: 500,
@@ -189,6 +190,11 @@ const List: FC<Props> = ({
 }) => {
   const { isOpen, onClose, onOpen } = useDisclosure()
   const {
+    isOpen: isEditOpen,
+    onClose: onEditClose,
+    onOpen: onEditOpen,
+  } = useDisclosure()
+  const {
     data: categories,
     isLoading,
     isFetching,
@@ -201,6 +207,19 @@ const List: FC<Props> = ({
 
   return (
     <Fragment>
+      <Dialog
+        title="Modifier la liste"
+        isOpen={isEditOpen}
+        onDismiss={onEditClose}
+      >
+        <ListForm
+          defaultValues={{ name: name || "", description: description || "" }}
+          isSubmitting={false}
+          onSubmit={console.log}
+          mode="UPDATE"
+        />
+      </Dialog>
+
       <Dialog
         title={name}
         description="Tu peux ajouter ou retirer des produits de la liste"
@@ -282,7 +301,12 @@ const List: FC<Props> = ({
             <Share1Icon />
           </IconButton>
         )}
-        <IconButton title="Bientôt disponible" disabled rounded variant="ghost">
+        <IconButton
+          onClick={onEditOpen}
+          title="Modifier la liste"
+          rounded
+          variant="ghost"
+        >
           <Pencil1Icon />
         </IconButton>
         <DeleteList listId={id} />
