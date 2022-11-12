@@ -59,7 +59,7 @@ const ProductInsideCategory: FC<Props> = ({ product: p, inList, listId }) => {
       utils.list.find.setData(
         (prev) =>
           produce(prev, (draft) => {
-            if (!draft || !previous === null) return
+            if (!draft) return
             draft.products = draft.products.filter(
               (p) => p.product.id !== variables.productId
             )

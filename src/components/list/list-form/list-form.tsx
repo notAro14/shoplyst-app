@@ -18,7 +18,7 @@ const ListForm: FC<{
   isSubmitting: boolean
   defaultValues?: {
     name: string
-    description: string
+    description: string | null
   }
   mode?: "UPDATE" | "CREATE"
 }> = ({ onSubmit, isSubmitting, defaultValues, mode = "CREATE" }) => {
@@ -30,7 +30,10 @@ const ListForm: FC<{
     reset,
   } = useForm<ListFields>({
     mode: "all",
-    defaultValues,
+    defaultValues: {
+      name: defaultValues?.name ?? "",
+      description: defaultValues?.description ?? "",
+    },
   })
 
   useEffect(() => {

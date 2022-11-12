@@ -1,7 +1,8 @@
-import type { Prisma } from "@prisma/client"
+import type { List, Prisma } from "@prisma/client"
 import { z } from "zod"
 
 import { prisma as db } from "src/utils/db/prisma-client"
+import { handleException } from "../product/product.service"
 
 // SCHEMAS
 
@@ -197,6 +198,34 @@ export async function createList(
       },
     },
   })
+}
+export const UpdateInputSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  description: z.string().optional(),
+})
+export async function updateList({
+  id,
+  name,
+  description,
+}: z.infer<typeof UpdateInputSchema>): Promise<
+  | { ok: true; data: List }
+  | { ok: false; error: ReturnType<typeof handleException> }
+> {
+  try {
+    const list = await db.list.update({
+      where: {
+        id,
+      },
+      data: {
+        name,
+        description,
+      },
+    })
+    return { ok: true, data: list }
+  } catch (exception) {
+    return { ok: false, error: handleException(exception) }
+  }
 }
 export async function shareList(userId: string, listId: string) {
   return db.listOnUser.create({

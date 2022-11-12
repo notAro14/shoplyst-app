@@ -207,18 +207,13 @@ const List: FC<Props> = ({
 
   return (
     <Fragment>
-      <Dialog
-        title="Modifier la liste"
+      <EditListDialog
+        listId={id}
         isOpen={isEditOpen}
         onDismiss={onEditClose}
-      >
-        <ListForm
-          defaultValues={{ name: name || "", description: description || "" }}
-          isSubmitting={false}
-          onSubmit={console.log}
-          mode="UPDATE"
-        />
-      </Dialog>
+        listName={name}
+        listDescription={description}
+      />
 
       <Dialog
         title={name}
@@ -502,6 +497,59 @@ const ProductInsideList: FC<{
         </Paper>
       </button>
     </li>
+  )
+}
+
+const EditListDialog: FC<{
+  isOpen: boolean
+  onDismiss(): void
+  listName: string
+  listDescription: string | null
+  listId: string
+}> = ({
+  isOpen,
+  onDismiss,
+  listDescription: description,
+  listName: name,
+  listId,
+}) => {
+  const utils = trpc.useContext()
+  const { mutate } = trpc.list.update.useMutation({
+    async onSuccess() {
+      await utils.list.find.invalidate(listId)
+    },
+    async onMutate(variables) {
+      await utils.list.find.cancel(variables.id)
+      const previous = utils.list.find.getData(variables.id)
+      utils.list.find.setData((prev) => {
+        return produce(prev, (draft) => {
+          if (!draft) return
+          draft.name = variables.name
+          draft.description = variables.description ?? draft.description
+        })
+      }, variables.id)
+      onDismiss()
+      toast.success("Liste mise à jour")
+      return { previous }
+    },
+    onError(_error, variables, context) {
+      utils.list.find.setData(context?.previous, variables.id)
+    },
+    onSettled(_data, _error, variables) {
+      utils.list.find.invalidate(variables.id)
+    },
+  })
+  return (
+    <Dialog title="Modifier la liste" isOpen={isOpen} onDismiss={onDismiss}>
+      <ListForm
+        defaultValues={{ name, description }}
+        isSubmitting={false}
+        onSubmit={(data) => {
+          mutate({ id: listId, name: data.name, description: data.description })
+        }}
+        mode="UPDATE"
+      />
+    </Dialog>
   )
 }
 

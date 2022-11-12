@@ -11,7 +11,7 @@ type ServiceReturn<T> =
   | { ok: false; error: ShoppingListError }
   | { ok: true; data: T }
 
-function handleException(exception: unknown): ShoppingListError {
+export function handleException(exception: unknown): ShoppingListError {
   const type = "PRISMA_ERROR"
   if (exception instanceof Prisma.PrismaClientKnownRequestError)
     switch (exception.code) {

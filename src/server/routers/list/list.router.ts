@@ -17,6 +17,8 @@ import {
   shareList,
   updateProductStatus,
   updateProductStatusSchema,
+  updateList,
+  UpdateInputSchema,
 } from "src/server/routers/list/list.helpers"
 
 export default t.router({
@@ -81,6 +83,22 @@ export default t.router({
     .input(createListSchema)
     .mutation(async function ({ input, ctx }) {
       return createList(ctx.user.id, input)
+    }),
+  update: protectedProcedure
+    .input(UpdateInputSchema)
+    .use(async ({ next, input, ctx }) => {
+      const yes = await doesListBelongToUser(ctx.user.id, input.id)
+      if (yes) return next()
+
+      throw new TRPCError({ code: "UNAUTHORIZED" })
+    })
+    .mutation(async function ({ input }) {
+      const meta = await updateList(input)
+      if (meta.ok) return meta.data
+      throw new TRPCError({
+        code: "BAD_REQUEST",
+        message: meta.error.message,
+      })
     }),
   addProduct: protectedProcedure
     .input(addRemoveProductInputSchema)
