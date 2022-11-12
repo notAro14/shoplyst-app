@@ -13,7 +13,12 @@ interface Props {
 const Providers: FC<Props> = ({ children, session }) => {
   return (
     <ThemeProvider attribute="class" defaultTheme="system" value={THEMES}>
-      <SessionProvider session={session}>
+      <SessionProvider
+        session={session}
+        refetchOnWindowFocus={false}
+        refetchWhenOffline={false}
+        refetchInterval={3600}
+      >
         <TrpcQueryClientProvider>{children}</TrpcQueryClientProvider>
       </SessionProvider>
     </ThemeProvider>
