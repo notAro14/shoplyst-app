@@ -4,7 +4,7 @@ import {
   CheckIcon,
   ChevronDownIcon,
   ChevronUpIcon,
-} from "@radix-ui/react-icons"
+} from "src/components/common/icons"
 
 import { styled, theme } from "src/stitches.config"
 

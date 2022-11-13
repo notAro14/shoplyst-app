@@ -1,14 +1,14 @@
 import "src/styles/reset.css"
 import "src/styles/fonts.css"
 import type { AppPropsWithLayout } from "src/types/next"
-import { PublicLayout } from "src/layout/public.layout"
+import DefaultLayout from "src/layout/default"
 import Providers from "src/providers"
 import { Session } from "next-auth"
 import { ToastPortal } from "src/components/feedback/toast"
 import { Fragment } from "react"
 
 const getPublicLayout = (page: JSX.Element) => (
-  <PublicLayout>{page}</PublicLayout>
+  <DefaultLayout>{page}</DefaultLayout>
 )
 
 const MyApp = ({

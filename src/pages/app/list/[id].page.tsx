@@ -1,7 +1,7 @@
 import { Fragment } from "react"
 import { useRouter } from "next/router"
 import NextLink from "next/link"
-import { ArrowLeftIcon } from "@radix-ui/react-icons"
+import { ArrowLeftIcon } from "src/components/common/icons"
 import { useIsRestoring } from "@tanstack/react-query"
 
 import Link from "src/components/common/link"
@@ -12,7 +12,7 @@ import { trpc } from "src/utils/trpc"
 import SEO from "src/components/common/seo"
 import { theme } from "src/stitches.config"
 import Spacer from "src/components/common/spacer"
-import PublicLayout from "src/layout/public.layout"
+import DefaultLayout from "src/layout/default"
 import AppShell from "src/components/app-shell"
 
 import ViewList from "./components/view-list"
@@ -78,9 +78,9 @@ const ListIdPage: NextPageWithLayout = () => {
 }
 
 ListIdPage.getLayout = (page) => (
-  <PublicLayout>
+  <DefaultLayout>
     <AppShell>{page}</AppShell>
-  </PublicLayout>
+  </DefaultLayout>
 )
 
 export default ListIdPage

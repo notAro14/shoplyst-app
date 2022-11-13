@@ -7,7 +7,7 @@ import {
   Title,
   Description,
 } from "@radix-ui/react-dialog"
-import { Cross1Icon } from "@radix-ui/react-icons"
+import { Cross1Icon } from "src/components/common/icons"
 
 import * as styles from "./dialog.styles"
 import Spacer from "src/components/common/spacer"
@@ -34,9 +34,7 @@ export const Dialog: FC<{
             </Close>
             {title && (
               <Title asChild className={styles.title}>
-                <Heading variant="h2" as="h2">
-                  {title}
-                </Heading>
+                <Heading.H2>{title}</Heading.H2>
               </Title>
             )}
             {description && (

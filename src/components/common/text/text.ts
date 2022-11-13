@@ -1,9 +1,6 @@
 import { styled, theme } from "src/stitches.config"
 
 const Text = styled("p", {
-  color: theme.colors["text-functional"],
-  fontFamily: theme.fonts.sans,
-  fontWeight: theme.fontWeights["extra-light"],
   variants: {
     fontSize: {
       xxs: {
@@ -34,14 +31,12 @@ const Text = styled("p", {
         fontSize: theme.fontSizes["4xl"],
       },
     },
-    paragraph: {
-      true: {
-        lineHeight: 1.65,
-      },
-    },
-    noLineHeight: {
-      true: {
+    variant: {
+      text: {
         lineHeight: 1,
+      },
+      paragraph: {
+        lineHeight: 1.65,
       },
     },
     color: {
@@ -71,14 +66,49 @@ const Text = styled("p", {
       },
     },
     fontWeight: {
+      thin: {
+        fontWeight: theme.fontWeights.thin,
+      },
+      "extra-light": {
+        fontWeight: theme.fontWeights["extra-light"],
+      },
+      light: {
+        fontWeight: theme.fontWeights.light,
+      },
       regular: {
         fontWeight: theme.fontWeights.regular,
+      },
+      medium: {
+        fontWeight: theme.fontWeights.medium,
+      },
+      "semi-bold": {
+        fontWeight: theme.fontWeights["semi-bold"],
+      },
+      bold: {
+        fontWeight: theme.fontWeights.bold,
+      },
+      "extra-bold": {
+        fontWeight: theme.fontWeights["extra-bold"],
+      },
+      black: {
+        fontWeight: theme.fontWeights.black,
+      },
+    },
+    family: {
+      primary: {
+        fontFamily: theme.fonts.primary,
+      },
+      secondary: {
+        fontFamily: theme.fonts.secondary,
       },
     },
   },
   defaultVariants: {
-    fontSize: "md",
     color: "functional",
+    family: "primary",
+    fontSize: "md",
+    fontWeight: "extra-light",
+    variant: "paragraph",
   },
 })
 

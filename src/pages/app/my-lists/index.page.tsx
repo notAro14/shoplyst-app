@@ -1,4 +1,4 @@
-import { ArchiveIcon, FileTextIcon } from "@radix-ui/react-icons"
+import { ArchiveIcon, FileTextIcon } from "src/components/common/icons"
 import { useIsRestoring } from "@tanstack/react-query"
 import { FC, Fragment } from "react"
 import NextLink from "next/link"

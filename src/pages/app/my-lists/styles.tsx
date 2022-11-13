@@ -58,7 +58,7 @@ export const StyledQuantityIndication: FC<{ children: ReactNode }> = ({
   children,
 }) => {
   return (
-    <Text as="small" noLineHeight fontSize="xs" color="functional-low">
+    <Text as="small" variant="text" fontSize="xs" color="functional-low">
       {children}
     </Text>
   )

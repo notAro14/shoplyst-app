@@ -6,7 +6,7 @@ export const StyledIconContainer = styled(Box, {
   // to have pixel perfect alignment with text
   transform: "translateY(-2px)",
 })
-export const StyledHeading = styled(Heading, {
+export const StyledHeading = styled(Heading.H2, {
   display: "flex",
   alignItems: "center",
   gap: theme.space.xs,

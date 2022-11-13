@@ -2,7 +2,7 @@ import { ReactNode, forwardRef } from "react"
 import type { CSS, VariantProps } from "@stitches/react"
 
 import { styled, theme } from "src/stitches.config"
-import { ExternalLinkIcon } from "@radix-ui/react-icons"
+import { ExternalLinkIcon } from "src/components/common/icons"
 
 const StyledLink = styled("a", {
   color: theme.colors["text-vibrant-low"],

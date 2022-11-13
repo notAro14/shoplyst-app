@@ -20,15 +20,13 @@ const SignIn: NextPageWithLayout = () => {
     <Fragment>
       <SEO title="Shoplyst | Se connecter" />
       <Flex direction="column" gap="2xl">
-        <Heading
-          variant="h1"
-          vibrant
+        <Heading.H1
           css={{
             textAlign: "center",
           }}
         >
           Shoplyst
-        </Heading>
+        </Heading.H1>
         <ToggleTheme
           css={{
             position: "absolute",

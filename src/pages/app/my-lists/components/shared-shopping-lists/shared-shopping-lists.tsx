@@ -3,7 +3,7 @@ import {
   ExclamationTriangleIcon,
   InfoCircledIcon,
   Share1Icon,
-} from "@radix-ui/react-icons"
+} from "src/components/common/icons"
 import Box from "src/components/common/box"
 import PageHeading from "../../components/page-heading"
 import { trpc } from "src/utils/trpc"

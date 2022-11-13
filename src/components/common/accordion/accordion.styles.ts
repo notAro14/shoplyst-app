@@ -1,5 +1,5 @@
 import { Content, Header, Item, Root, Trigger } from "@radix-ui/react-accordion"
-import { ChevronDownIcon } from "@radix-ui/react-icons"
+import { ChevronDownIcon } from "src/components/common/icons"
 import { keyframes, styled, theme } from "src/stitches.config"
 
 const slideDown = keyframes({

@@ -17,7 +17,7 @@ import {
   Pencil1Icon,
   Share1Icon,
   TrashIcon,
-} from "@radix-ui/react-icons"
+} from "src/components/common/icons"
 
 import { Dialog } from "src/components/common/dialog"
 import useAutoanimate from "src/hooks/use-autoanimate"
@@ -261,7 +261,7 @@ const List: FC<Props> = ({
         </Text>
       )}
       <Spacer />
-      <Heading
+      <Heading.H2
         css={{
           textOverflow: "ellipsis",
           overflow: "hidden",
@@ -269,11 +269,9 @@ const List: FC<Props> = ({
           userSelect: "none",
         }}
         title={name}
-        as="h2"
-        variant="h2"
       >
         {name}
-      </Heading>
+      </Heading.H2>
       <Spacer size="xxs" />
       <TextEllipsed
         title={description || undefined}
@@ -483,7 +481,7 @@ const ProductInsideList: FC<{
         >
           {status === "PURCHASED" && <ShoppingBagIcon />}
           <Text
-            noLineHeight
+            variant="text"
             as="span"
             color="functional"
             fontSize="lg"

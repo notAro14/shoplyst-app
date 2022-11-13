@@ -16,12 +16,12 @@ const IndexPage: NextPageWithLayout = () => {
   return (
     <Fragment>
       <SEO title="Shoplyst | Application de listes de courses" />
-      <Heading className={styles.heading} as="h1" variant="h1">
+      <Heading.H1 className={styles.heading}>
         Hello World
         <span role="img" aria-label="Hand symbol for victory">
           &#9996;
         </span>
-      </Heading>
+      </Heading.H1>
       <Spacer size="xxs" />
       <Text>
         Crée ta liste de course, ajoute des produits, partage ta liste et
