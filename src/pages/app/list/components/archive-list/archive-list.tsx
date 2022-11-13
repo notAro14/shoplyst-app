@@ -42,6 +42,7 @@ const ArchiveList: FC<{ listId: string; disabled: boolean }> = ({
       onClick={onClick}
       variant="filled"
       disabled={isLoading || disabled}
+      type="submit"
     >
       Terminer la course
     </Button>

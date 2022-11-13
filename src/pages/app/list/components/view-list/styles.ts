@@ -34,7 +34,7 @@ export const listDescription = css({
 })()
 
 export const productsContainer = css({
-  listStyleType: "none",
+  border: "none",
 })()
 
 export const product = css({
@@ -48,6 +48,6 @@ export const product = css({
 export const animatedList = css({
   display: "flex",
   flexDirection: "column",
-  gap: theme.space.sm,
-  listStyleType: "none",
+  gap: theme.space.md,
+  border: "none",
 })()

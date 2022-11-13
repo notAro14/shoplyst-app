@@ -3,9 +3,7 @@ import type { ArticleStatus, List as IList, Product } from "@prisma/client"
 import NextLink from "next/link"
 import {
   ArrowLeftIcon,
-  CheckIcon,
   ExclamationTriangleIcon,
-  InfoCircledIcon,
   Pencil1Icon,
   Share1Icon,
 } from "src/components/common/icons"
@@ -21,7 +19,6 @@ import { useIsRestoring } from "@tanstack/react-query"
 import Link from "src/components/common/link"
 import { TextEllipsed } from "src/components/common/ellipsed"
 import IconButton from "src/components/common/icon-button"
-import Box from "src/components/common/box"
 import DeleteList from "../delete-list"
 import ArchiveList from "../archive-list"
 import EditListDialog from "../edit-list-dialog"
@@ -29,6 +26,7 @@ import ProductToggle from "../product-toggle"
 import AddRemoveProductDialog from "../add-remove-product-dialog"
 import * as styles from "./styles"
 import AnimatedList from "src/components/common/animated-list"
+import Checkbox from "src/components/common/checkbox"
 
 type Products = {
   product: Product
@@ -134,52 +132,63 @@ const List: FC<Props> = ({
       </Flex>
       <Spacer />
       {isThereSomeProduct && isArchived === true && (
-        <Flex
-          as="ul"
-          direction="column"
-          gap="sm"
-          className={styles.productsContainer}
-        >
-          {products.map(({ product: p, status }) => {
-            return (
-              <Box as="li" key={p.id}>
-                <Text className={styles.product}>
-                  {status === "PURCHASED" && <CheckIcon />}
-                  {p.name}
-                </Text>
-              </Box>
-            )
-          })}
-        </Flex>
+        <form>
+          <Flex
+            as="fieldset"
+            direction="column"
+            gap="sm"
+            className={styles.productsContainer}
+          >
+            {products.map(({ product: p, status }) => {
+              return (
+                <Checkbox
+                  key={p.id}
+                  name={p.name}
+                  label={p.name}
+                  id={String(p.id)}
+                  checked={status === "PURCHASED"}
+                  readOnly
+                />
+              )
+            })}
+          </Flex>
+        </form>
       )}
       {isThereSomeProduct && isArchived === false ? (
         <Fragment>
-          <Text fontSize="sm" as="em" className={styles.infoCaption}>
-            <InfoCircledIcon />
-            Clique sur un produit pour le mettre dans ton caddie
-          </Text>
-          <Spacer />
-          <ArchiveList
-            disabled={!(isShoppingDone && isArchived === false)}
-            listId={id}
-          />
-          <Spacer />
-          <AnimatedList className={styles.animatedList}>
-            {products
-              .filter(({ status }) => status === "READY")
-              .map(({ product: p, status }) => {
-                return (
-                  <ProductToggle p={p} status={status} key={p.id} listId={id} />
-                )
-              })}
-            {products
-              .filter(({ status }) => status === "PURCHASED")
-              .map(({ product: p, status }) => {
-                return (
-                  <ProductToggle p={p} status={status} key={p.id} listId={id} />
-                )
-              })}
-          </AnimatedList>
+          <form onSubmit={(evt) => evt.preventDefault()}>
+            <ArchiveList
+              disabled={!(isShoppingDone && isArchived === false)}
+              listId={id}
+            />
+            <Spacer size="lg" />
+            <AnimatedList as="fieldset" className={styles.animatedList}>
+              {products
+                .filter(({ status }) => status === "READY")
+                .map(({ product: p, status }) => {
+                  return (
+                    <ProductToggle
+                      key={p.id}
+                      p={p}
+                      status={status}
+                      listId={id}
+                    />
+                  )
+                })}
+              {products
+                .filter(({ status }) => status === "PURCHASED")
+                .map(({ product: p, status }) => {
+                  return (
+                    <ProductToggle
+                      key={p.id}
+                      p={p}
+                      status={status}
+                      listId={id}
+                    />
+                  )
+                })}
+            </AnimatedList>
+          </form>
           <Spacer size="xl" />
           <Button
             fullWidth

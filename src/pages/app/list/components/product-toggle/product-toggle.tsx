@@ -1,13 +1,10 @@
-import { FC } from "react"
+import { FC, useCallback } from "react"
 import type { Product, ProductsOnLists } from "@prisma/client"
 import produce from "immer"
 
 import { trpc } from "src/utils/trpc"
 import { toast } from "src/components/feedback/toast"
-import Paper from "src/components/common/paper"
-import Text from "src/components/common/text"
-import { css, theme } from "src/stitches.config"
-import { ShoppingBagIcon } from "src/components/common/icons"
+import Checkbox from "src/components/common/checkbox"
 
 const ProductToggle: FC<{
   p: Product
@@ -42,71 +39,24 @@ const ProductToggle: FC<{
       utils.list.find.invalidate(listId)
     },
   })
-  const onClick = async () => {
-    return mutate({
-      listId,
-      productId: p.id,
-      status: status === "PURCHASED" ? "READY" : "PURCHASED",
-    })
-  }
+  const onChange = useCallback(
+    async (checkedState: boolean) => {
+      return mutate({
+        listId,
+        productId: p.id,
+        status: checkedState ? "PURCHASED" : "READY",
+      })
+    },
+    [mutate, listId, p.id]
+  )
   return (
-    <li>
-      <button
-        className={css({
-          all: "unset",
-          borderRadius: theme.radii.sm,
-          width: "100%",
-          "&:focus": {
-            outline: "1px solid",
-            outlineColor: theme.colors.solid,
-          },
-        })()}
-        onClick={onClick}
-      >
-        <Paper
-          borderRadius="sm"
-          as="span"
-          css={{
-            padding: theme.space.md,
-            backgroundColor: theme.colors.ui,
-            display: "flex",
-            alignItems: "center",
-            border: "none",
-            minHeight: 50,
-            gap: theme.space.sm,
-            boxShadow: theme.shadows.low,
-            transition: "box-shadow 200ms ease-in-out",
-            "&:hover": {
-              boxShadow: theme.shadows.medium,
-              cursor: "pointer",
-            },
-            ...(status === "PURCHASED"
-              ? {
-                  boxShadow: "unset",
-                  backgroundColor: theme.colors["bg-alt"],
-                  color: theme.colors["text-functional-low"],
-                  fontSize: theme.fontSizes.sm,
-                  "&:hover": {
-                    boxShadow: theme.shadows.low,
-                    cursor: "pointer",
-                  },
-                }
-              : undefined),
-          }}
-        >
-          {status === "PURCHASED" && <ShoppingBagIcon />}
-          <Text
-            variant="text"
-            as="span"
-            color="functional"
-            fontSize="lg"
-            css={{ color: "inherit", fontSize: "inherit" }}
-          >
-            {p.name}
-          </Text>
-        </Paper>
-      </button>
-    </li>
+    <Checkbox
+      checked={status === "PURCHASED"}
+      label={p.name}
+      name={p.name}
+      id={String(p.id)}
+      onChange={onChange}
+    />
   )
 }
 

@@ -1,3 +1,6 @@
+import { Fragment } from "react"
+import { useIsRestoring } from "@tanstack/react-query"
+
 import Flex from "src/components/common/flex"
 import {
   ExclamationTriangleIcon,
@@ -12,8 +15,7 @@ import Spacer from "src/components/common/spacer"
 import { TextEllipsed } from "src/components/common/ellipsed"
 import * as styles from "./styles"
 import { LazyLoader } from "src/components/common/loader"
-import { useIsRestoring } from "@tanstack/react-query"
-import { Fragment } from "react"
+import Checkbox from "src/components/common/checkbox"
 
 const SharedShoppingLists = () => {
   const {
@@ -87,23 +89,20 @@ const SharedShoppingLists = () => {
                     direction="column"
                     as="ul"
                     className={styles.productsContainer}
-                    gap="xxs"
+                    gap="md"
                   >
                     {products.map(({ product: p, status }) => {
                       const { id: productId, name: productName } = p
                       return (
-                        <Flex key={productId} as="li" align="center" gap="xs">
-                          <Text
-                            fontSize="md"
-                            className={
-                              status === "PURCHASED"
-                                ? styles.purchased
-                                : undefined
-                            }
-                          >
-                            {productName}
-                          </Text>
-                        </Flex>
+                        <li key={productId}>
+                          <Checkbox
+                            name={productName}
+                            label={productName}
+                            id={String(productId)}
+                            checked={status === "PURCHASED"}
+                            readOnly
+                          />
+                        </li>
                       )
                     })}
                   </Flex>
