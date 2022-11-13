@@ -94,7 +94,7 @@ const List: FC<Props> = ({
           className={styles.archivedCaption}
         >
           <ExclamationTriangleIcon />
-          Archivée
+          Course terminée
         </Text>
       )}
       <Spacer />
