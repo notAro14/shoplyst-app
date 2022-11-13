@@ -18,7 +18,7 @@ import { trpc } from "src/utils/trpc"
 import { useIsRestoring } from "@tanstack/react-query"
 import Link from "src/components/common/link"
 import { TextEllipsed } from "src/components/common/ellipsed"
-import IconButton from "src/components/common/icon-button"
+import { IconButtonV2 } from "src/components/common/icon-button"
 import DeleteList from "../delete-list"
 import ArchiveList from "../archive-list"
 import EditListDialog from "../edit-list-dialog"
@@ -111,23 +111,19 @@ const List: FC<Props> = ({
       <Spacer />
       <Flex gap="xs">
         {isArchived === false && (
-          <IconButton
-            title="Bientôt disponible"
+          <IconButtonV2
+            label="Bientôt disponible"
             disabled
-            rounded
             variant="ghost"
-          >
-            <Share1Icon />
-          </IconButton>
+            icon={<Share1Icon />}
+          />
         )}
-        <IconButton
+        <IconButtonV2
           onClick={onEditOpen}
-          title="Modifier la liste"
-          rounded
+          label="Modifier la liste"
           variant="ghost"
-        >
-          <Pencil1Icon />
-        </IconButton>
+          icon={<Pencil1Icon />}
+        />
         <DeleteList listId={id} />
       </Flex>
       <Spacer />

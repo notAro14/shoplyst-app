@@ -4,6 +4,8 @@ import { styled, theme } from "src/stitches.config"
 
 const OPACITY_DISABLED = 0.5
 
+export type ButtonProps = Parameters<typeof Button>
+
 const Button = styled("button", {
   border: "1px solid",
   borderRadius: theme.radii.sm,
@@ -49,6 +51,12 @@ const Button = styled("button", {
     fullWidth: {
       true: {
         width: "100%",
+      },
+    },
+    rounded: {
+      true: {
+        borderRadius: "100%",
+        padding: theme.space.xs,
       },
     },
   },
@@ -128,7 +136,6 @@ const Button = styled("button", {
   defaultVariants: {
     variant: "filled",
     colorScheme: "brand",
-    size: "small",
   },
 })
 

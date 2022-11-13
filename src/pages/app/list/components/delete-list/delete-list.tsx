@@ -2,7 +2,7 @@ import { useRouter } from "next/router"
 import { FC, useCallback } from "react"
 
 import { trpc } from "src/utils/trpc"
-import IconButton from "src/components/common/icon-button"
+import { IconButtonV2 } from "src/components/common/icon-button"
 import { toast } from "src/components/feedback/toast"
 import { TrashIcon } from "src/components/common/icons"
 
@@ -45,18 +45,17 @@ const DeleteList: FC<{ listId: string }> = ({ listId }) => {
     deleteList(listId)
   }, [deleteList, listId])
   return (
-    <IconButton
-      title="Supprimer la liste"
-      rounded
+    <IconButtonV2
+      label="Supprimer la liste"
       variant="ghost"
+      colorScheme="danger"
       onClick={() => {
         const yes = confirm("La liste va être supprimée")
         if (yes) onClick()
       }}
       disabled={isLoading}
-    >
-      <TrashIcon />
-    </IconButton>
+      icon={<TrashIcon />}
+    />
   )
 }
 
