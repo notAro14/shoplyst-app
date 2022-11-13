@@ -149,7 +149,6 @@ const Header = () => {
           <Text
             as="small"
             color="functional-low"
-            paragraph
             fontSize="sm"
             css={{
               fontWeight: theme.fontWeights["extra-light"],

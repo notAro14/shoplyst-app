@@ -40,12 +40,14 @@ interface Props extends VariantProps<typeof StyledLink> {
   children: ReactNode
   isExternal?: boolean
   href?: string
+  className?: string
 }
 
 const Link = forwardRef<HTMLAnchorElement, Props>(
-  ({ children, isExternal, css, ...rest }, ref) => {
+  ({ children, isExternal, css, className, ...rest }, ref) => {
     return (
       <StyledLink
+        className={className}
         css={{
           ...css,
           display: "flex",
