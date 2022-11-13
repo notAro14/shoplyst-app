@@ -39,7 +39,7 @@ const ShoppingLists: FC<{ isArchived?: boolean }> = ({
       <Fragment>
         <PageHeading
           icon={isArchived ? <ArchiveIcon /> : <FileTextIcon />}
-          heading={isArchived ? "Archivées" : "Mes listes"}
+          heading={isArchived ? "Courses terminées" : "Listes de courses"}
         />
         <Spacer />
         <StyledUList>
@@ -105,7 +105,7 @@ const MyListsPage: NextPageWithLayout = () => {
 const Empty: FC = () => {
   return (
     <Box>
-      <PageHeading icon={<FileTextIcon />} heading="Mes listes" />
+      <PageHeading icon={<FileTextIcon />} heading="Listes de courses" />
       <Text fontSize="md">Commence par créer une liste</Text>
       <Spacer />
       <CreateList title="Créer" />

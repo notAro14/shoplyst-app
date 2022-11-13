@@ -57,7 +57,7 @@ const ListIdPage: NextPageWithLayout = () => {
               gap: theme.space.sm,
             }}
           >
-            <ArrowLeftIcon /> Mes listes de courses
+            <ArrowLeftIcon /> Toutes mes listes
           </Link>
         </NextLink>
         <Spacer />
