@@ -2,150 +2,43 @@ import type * as Stitches from "@stitches/react"
 
 import { styled, theme } from "src/stitches.config"
 
+const OPACITY_DISABLED = 0.5
+
 const Button = styled("button", {
+  border: "1px solid",
   borderRadius: theme.radii.sm,
+  boxShadow: theme.shadows.low,
   fontFamily: theme.fonts.sans,
   fontSize: theme.fontSizes.md,
-  padding: `${theme.space.xs} ${theme.space.lg}`,
   fontWeight: theme.fontWeights.light,
-  border: "1px solid",
-  boxShadow: theme.shadows.low,
+  padding: `${theme.space.xs} ${theme.space.lg}`,
   textTransform: "uppercase",
-
-  transition: "box-shadow 200ms ease-in-out",
+  transition: "all 200ms ease-in-out",
   "&:hover": {
-    boxShadow: theme.shadows.medium,
+    cursor: "pointer",
   },
-
-  "&:disabled": {
-    opacity: 0.5,
+  "&:disabled, &:hover:disabled": {
     cursor: "not-allowed",
+    opacity: OPACITY_DISABLED,
   },
 
-  compoundVariants: [
-    {
-      colorScheme: "brand",
-      variant: "filled",
-      css: {
-        backgroundColor: theme.colors.solid,
-        borderColor: theme.colors.solid,
-        color: theme.colors["text-fg-black"],
-        "&:hover": {
-          backgroundColor: theme.colors["solid-hovered"],
-          borderColor: theme.colors["solid-hovered"],
-          cursor: "pointer",
-        },
-        "&:disabled": {
-          opacity: 0.5,
-          cursor: "not-allowed",
-        },
-      },
-    },
-    {
-      colorScheme: "danger",
-      variant: "filled",
-      css: {
-        backgroundColor: theme.colors["solid-danger"],
-        borderColor: theme.colors["solid-danger"],
-        color: theme.colors["text-fg-white"],
-        "&:hover": {
-          backgroundColor: theme.colors["solid-hovered-danger"],
-          borderColor: theme.colors["solid-hovered-danger"],
-          cursor: "pointer",
-        },
-        "&:disabled": {
-          opacity: 0.5,
-          cursor: "not-allowed",
-        },
-      },
-    },
-    {
-      colorScheme: "accent",
-      variant: "filled",
-      css: {
-        backgroundColor: theme.colors["solid-accent"],
-        borderColor: theme.colors["solid-accent"],
-        color: theme.colors["text-fg-white"],
-        "&:hover": {
-          backgroundColor: theme.colors["solid-hovered-accent"],
-          borderColor: theme.colors["solid-hovered-accent"],
-          cursor: "pointer",
-        },
-        "&:disabled": {
-          opacity: 0.5,
-          cursor: "not-allowed",
-        },
-      },
-    },
-    {
-      colorScheme: "brand",
-      variant: "outlined",
-      css: {
-        backgroundColor: "transparent",
-        borderColor: theme.colors.border,
-        color: theme.colors["text-vibrant-low"],
-        fontWeight: theme.fontWeights.medium,
-        "&:hover": {
-          borderColor: theme.colors["border-hovered"],
-          cursor: "pointer",
-        },
-        "&:disabled": {
-          opacity: 0.5,
-          cursor: "not-allowed",
-        },
-      },
-    },
-    {
-      colorScheme: "danger",
-      variant: "outlined",
-      css: {
-        backgroundColor: "transparent",
-        borderColor: theme.colors["border-danger"],
-        color: theme.colors["text-danger-low"],
-        fontWeight: theme.fontWeights.medium,
-        "&:hover": {
-          borderColor: theme.colors["border-hovered-danger"],
-          cursor: "pointer",
-        },
-        "&:disabled": {
-          opacity: 0.5,
-          cursor: "not-allowed",
-        },
-      },
-    },
-    {
-      colorScheme: "accent",
-      variant: "outlined",
-      css: {
-        backgroundColor: "transparent",
-        borderColor: theme.colors["border-accent"],
-        color: theme.colors["text-accent-low"],
-        fontWeight: theme.fontWeights.medium,
-        "&:hover": {
-          borderColor: theme.colors["border-hovered-accent"],
-          cursor: "pointer",
-        },
-        "&:disabled": {
-          opacity: 0.5,
-          cursor: "not-allowed",
-        },
-      },
-    },
-  ],
   variants: {
-    unstyled: {
-      true: {
-        all: "unset",
-      },
-    },
     colorScheme: {
       danger: {},
       brand: {},
-      accent: {},
     },
     variant: {
-      filled: {},
-      outlined: {},
+      filled: {
+        color: theme.colors["text-fg-white"],
+      },
+      outlined: {
+        backgroundColor: "transparent",
+        fontWeight: theme.fontWeights.medium,
+      },
+      ghost: {
+        borderColor: "transparent",
+        boxShadow: "unset",
+      },
     },
     size: {
       small: {
@@ -159,9 +52,83 @@ const Button = styled("button", {
       },
     },
   },
+  compoundVariants: [
+    {
+      colorScheme: "brand",
+      variant: "filled",
+      css: {
+        backgroundColor: theme.colors.solid,
+        borderColor: theme.colors.solid,
+        "&:hover": {
+          backgroundColor: theme.colors["solid-hovered"],
+          borderColor: theme.colors["solid-hovered"],
+        },
+      },
+    },
+    {
+      colorScheme: "danger",
+      variant: "filled",
+      css: {
+        backgroundColor: theme.colors["solid-danger"],
+        borderColor: theme.colors["solid-danger"],
+        "&:hover": {
+          backgroundColor: theme.colors["solid-hovered-danger"],
+          borderColor: theme.colors["solid-hovered-danger"],
+        },
+      },
+    },
+
+    {
+      colorScheme: "brand",
+      variant: "outlined",
+      css: {
+        borderColor: theme.colors.border,
+        color: theme.colors["text-vibrant-low"],
+        "&:hover": {
+          borderColor: theme.colors["border-hovered"],
+        },
+      },
+    },
+    {
+      colorScheme: "danger",
+      variant: "outlined",
+      css: {
+        borderColor: theme.colors["border-danger"],
+        color: theme.colors["text-danger-low"],
+        "&:hover": {
+          borderColor: theme.colors["border-hovered-danger"],
+        },
+      },
+    },
+
+    {
+      colorScheme: "danger",
+      variant: "ghost",
+      css: {
+        color: theme.colors["text-danger-low"],
+        backgroundColor: theme.colors["ui-danger"],
+        "&:hover": {
+          backgroundColor: theme.colors["ui-hovered-danger"],
+        },
+      },
+    },
+    {
+      colorScheme: "brand",
+      variant: "ghost",
+      css: {
+        color: theme.colors["text-vibrant-low"],
+        backgroundColor: theme.colors.ui,
+        "&:hover": {
+          backgroundColor: theme.colors["ui-hovered"],
+        },
+      },
+    },
+  ],
+
   defaultVariants: {
     variant: "filled",
     colorScheme: "brand",
+    size: "small",
   },
 })
 

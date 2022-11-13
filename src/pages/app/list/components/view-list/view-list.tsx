@@ -146,7 +146,6 @@ const ArchiveList: FC<{ listId: string; disabled: boolean }> = ({
       fullWidth
       size="small"
       onClick={onClick}
-      colorScheme="accent"
       variant="filled"
       disabled={isLoading || disabled}
     >
@@ -228,7 +227,7 @@ const List: FC<Props> = ({
           products={products}
         />
         <Spacer size="xl" />
-        <Button fullWidth size="small" onClick={onClose} colorScheme="accent">
+        <Button fullWidth size="small" onClick={onClose}>
           Fermer
         </Button>
       </Dialog>
@@ -365,7 +364,6 @@ const List: FC<Props> = ({
             fullWidth
             size="small"
             onClick={onOpen}
-            colorScheme="accent"
             variant="outlined"
             disabled={(isLoading && isFetching) || isRestoring}
           >
@@ -383,7 +381,6 @@ const List: FC<Props> = ({
             fullWidth
             size="small"
             onClick={onOpen}
-            colorScheme="accent"
             disabled={(isLoading && isFetching) || isRestoring}
           >
             Ajouter des produits

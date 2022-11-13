@@ -31,7 +31,6 @@ const StyledAvatar = styled(AvatarPrimitive.Root, {
     borderColorScheme: {
       brand: {},
       gray: {},
-      accent: {},
     },
     bordered: {
       true: {},
@@ -82,17 +81,7 @@ const StyledAvatar = styled(AvatarPrimitive.Root, {
         },
       },
     },
-    {
-      bordered: true,
-      borderColorScheme: "accent",
-      css: {
-        border: "2px solid",
-        borderColor: theme.colors["border-accent"],
-        "&:hover": {
-          borderColor: theme.colors["border-hovered-accent"],
-        },
-      },
-    },
+
     {
       bordered: true,
       borderColorScheme: "gray",

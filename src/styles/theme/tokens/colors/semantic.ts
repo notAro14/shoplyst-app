@@ -47,20 +47,6 @@ export const semanticColors = {
   "text-lo-warning": "var(--colors-warning11)",
   "text-hi-warning": "var(--colors-warning12)",
 
-  "bg-accent": "var(--colors-accent1)",
-  "bg-transparent-accent": "var(--colors-accentA1)",
-  "bg-subtle-accent": "var(--colors-accent2)",
-  "ui-accent": "var(--colors-accent3)",
-  "ui-hovered-accent": "var(--colors-accent4)",
-  "ui-selected-accent": "var(--colors-accent5)",
-  "line-accent": "var(--colors-accent6)",
-  "border-accent": "var(--colors-accent7)",
-  "border-hovered-accent": "var(--colors-accent8)",
-  "solid-accent": "var(--colors-accent9)",
-  "solid-hovered-accent": "var(--colors-accent10)",
-  "text-lo-accent": "var(--colors-accent11)",
-  "text-hi-accent": "var(--colors-accent12)",
-
   overlay: "var(--colors-black11)",
   "text-fg-white": "var(--colors-white12)",
   "text-fg-black": "var(--colors-black12)",
@@ -77,6 +63,4 @@ export const colors = {
   "text-danger": semanticColors["text-hi-danger"],
   "text-warning-low": semanticColors["text-lo-warning"],
   "text-warning": semanticColors["text-hi-warning"],
-  "text-accent-low": semanticColors["text-lo-accent"],
-  "text-accent": semanticColors["text-hi-accent"],
 }

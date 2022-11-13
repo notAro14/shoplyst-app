@@ -42,7 +42,7 @@ const ListProductManager: FC<{
             <AccordionTrigger
               css={{
                 borderColor: areSomeProductsEnlisted
-                  ? theme.colors["solid-accent"]
+                  ? theme.colors.solid
                   : undefined,
               }}
             >

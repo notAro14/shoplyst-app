@@ -135,7 +135,7 @@ const Header = () => {
             <Link
               css={{
                 textTransform: "uppercase",
-                color: theme.colors["solid-accent"],
+                color: theme.colors.solid,
                 fontSize: theme.fontSizes.lg,
                 fontWeight: theme.fontWeights.medium,
                 fontFamily: theme.fonts.fun,

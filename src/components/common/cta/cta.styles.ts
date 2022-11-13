@@ -5,7 +5,7 @@ export const StyledCTA = styled("a", {
   display: "grid",
   placeItems: "center",
   fontFamily: theme.fonts.sans,
-  backgroundColor: theme.colors["solid-accent"],
+  backgroundColor: theme.colors.solid,
   padding: theme.space.sm,
   borderRadius: theme.radii.sm,
   boxShadow: theme.shadows.low,

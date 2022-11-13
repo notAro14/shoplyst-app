@@ -90,7 +90,8 @@ const ListForm: FC<{
       </Flex>
       <Spacer size="xl" />
       <Button
-        colorScheme="accent"
+        colorScheme="brand"
+        variant="filled"
         size="small"
         fullWidth
         type="submit"
@@ -103,7 +104,7 @@ const ListForm: FC<{
       <Button
         colorScheme="danger"
         size="small"
-        variant="outlined"
+        variant="ghost"
         fullWidth
         type="button"
         disabled={isDirty === false}

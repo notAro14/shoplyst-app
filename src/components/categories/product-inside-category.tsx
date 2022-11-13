@@ -117,12 +117,12 @@ const ProductInsideCategory: FC<Props> = ({ product: p, inList, listId }) => {
               position: "absolute",
               top: -5,
               right: -10,
-              backgroundColor: theme.colors["ui-accent"],
+              backgroundColor: theme.colors.ui,
               padding: theme.space.xxs,
               borderRadius: "50%",
               border: "1px solid",
               borderColor: theme.colors["bg-alt"],
-              color: theme.colors["text-accent-low"],
+              color: theme.colors["text-vibrant-low"],
               fontSize: theme.fontSizes.xs,
             }}
           >

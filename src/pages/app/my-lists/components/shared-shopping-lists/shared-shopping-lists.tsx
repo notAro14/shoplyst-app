@@ -54,7 +54,7 @@ const SharedShoppingLists = () => {
                 <Box key={id} className={styles.sharedShoppingListContainer}>
                   <Text fontSize="sm">
                     Par{" "}
-                    <Text as="em" fontSize="sm" color="accent-low">
+                    <Text as="em" fontSize="sm" color="functional-low">
                       {owner.name || owner.email}
                     </Text>
                   </Text>

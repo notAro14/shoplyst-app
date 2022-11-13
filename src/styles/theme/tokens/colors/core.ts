@@ -11,15 +11,7 @@ import {
   whiteA,
 } from "@radix-ui/colors"
 
-type SEMANTIC =
-  | "brand"
-  | "gray"
-  | "accent"
-  | "danger"
-  | "warning"
-  | "black"
-  | "white"
-  | "accent"
+type SEMANTIC = "brand" | "gray" | "danger" | "warning" | "black" | "white"
 
 const renameColors = (colors: Record<string, string>, key: SEMANTIC) =>
   Object.keys(colors).reduce((acc, k, idx) => {
@@ -37,8 +29,6 @@ const redColor = renameColors(red, "danger")
 const redDarkColor = renameColors(redDark, "danger")
 const yellowColor = renameColors(amber, "warning")
 const yellowDarkColor = renameColors(amberDark, "warning")
-const accentColor = renameColors(blue, "accent")
-const accentDarkColor = renameColors(blueDark, "accent")
 
 export const coreColors = {
   brand: brandColor,
@@ -51,6 +41,4 @@ export const coreColors = {
   dangerDark: redDarkColor,
   warning: yellowColor,
   warningDark: yellowDarkColor,
-  accent: accentColor,
-  accentDark: accentDarkColor,
 }
