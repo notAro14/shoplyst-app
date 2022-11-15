@@ -131,7 +131,7 @@ const Header = () => {
     <StyledHeader>
       <StyledNav>
         <Flex align="baseline" direction="column">
-          <NextLink href="/" passHref>
+          <NextLink href="/" passHref legacyBehavior>
             <Link
               css={{
                 textTransform: "uppercase",

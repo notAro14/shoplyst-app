@@ -10,7 +10,7 @@ interface Props {
 
 export const CtaLink: FC<Props> = ({ children, href }) => {
   return (
-    <NextLink passHref href={href}>
+    <NextLink passHref href={href} legacyBehavior>
       <StyledCTA as="a">{children}</StyledCTA>
     </NextLink>
   )
