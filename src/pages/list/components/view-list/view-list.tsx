@@ -78,7 +78,7 @@ const List: FC<Props> = ({
         listId={id}
       />
 
-      <NextLink passHref href="/app/my-lists">
+      <NextLink passHref href="/my-lists">
         <Link className={styles.link}>
           <ArrowLeftIcon /> Toutes mes listes
         </Link>

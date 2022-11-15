@@ -26,7 +26,7 @@ const DeleteList: FC<{ listId: string }> = ({ listId }) => {
         prev?.filter((l) => l.list.id !== listId)
       )
       toast.success("Liste supprimée")
-      push("/app/my-lists")
+      push("/my-lists")
       return { all, archived, shared }
     },
     onError(_error, _variables, ctx) {

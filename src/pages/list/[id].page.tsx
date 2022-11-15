@@ -49,7 +49,7 @@ const ListIdPage: NextPageWithLayout = () => {
     return (
       <Fragment>
         <SEO title="Cette liste n'existe pas" />
-        <NextLink passHref href="/app/my-lists">
+        <NextLink passHref href="/my-lists">
           <Link
             css={{
               display: "flex",

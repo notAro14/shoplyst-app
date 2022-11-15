@@ -47,7 +47,7 @@ const ShoppingLists: FC<{ isArchived?: boolean }> = ({
             const { length } = products
             return (
               <li key={id}>
-                <NextLink href={`/app/list/${id}`} passHref>
+                <NextLink href={`/list/${id}`} passHref>
                   <Link>
                     <StyledPaper>
                       <StyledQuantityIndication>

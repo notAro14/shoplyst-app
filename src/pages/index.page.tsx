@@ -28,7 +28,7 @@ const IndexPage: NextPageWithLayout = () => {
         maîtrise ton caddie.
       </Text>
       <Spacer />
-      <CtaLink href="/app/my-lists">
+      <CtaLink href="/my-lists">
         {status === "authenticated" && "Accéder à mes listes"}
         {status === "unauthenticated" && "Commencer"}
       </CtaLink>
