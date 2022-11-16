@@ -1,6 +1,7 @@
 import { styled, theme } from "src/stitches.config"
 
 const commonStyles = {
+  letterSpacing: "2px",
   variants: {
     fontSize: {
       xxs: {

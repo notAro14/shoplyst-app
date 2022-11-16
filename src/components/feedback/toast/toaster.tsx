@@ -5,7 +5,7 @@ export const ToastPortal = () => (
     position="top-center"
     toastOptions={{
       style: {
-        fontFamily: "var(--fonts-sans)",
+        fontFamily: "var(--fonts-primary)",
       },
     }}
   />

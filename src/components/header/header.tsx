@@ -63,7 +63,7 @@ const StyledContent = styled(DropdownMenu.Content, {
   boxShadow: theme.shadows.medium,
   border: "1px solid",
   borderColor: theme.colors["border-gray"],
-  fontFamily: theme.fonts.sans,
+  fontFamily: theme.fonts.primary,
   minWidth: 110,
   "@sm": {
     minWidth: 150,
@@ -138,7 +138,7 @@ const Header = () => {
                 color: theme.colors.solid,
                 fontSize: theme.fontSizes.lg,
                 fontWeight: theme.fontWeights.medium,
-                fontFamily: theme.fonts.fun,
+                fontFamily: theme.fonts.secondary,
                 letterSpacing: 2,
               }}
               variant="navlink"

@@ -22,7 +22,7 @@ export const StyledTrigger = styled(Trigger, {
   alignItems: "center",
   flex: 1,
   lineHeight: 1,
-  fontFamily: theme.fonts.sans,
+  fontFamily: theme.fonts.primary,
   padding: `${theme.space.sm} ${theme.space.md}`,
   color: theme.colors["text-functional-low"],
   textTransform: "uppercase",

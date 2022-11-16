@@ -6,7 +6,7 @@ import { ExternalLinkIcon } from "src/components/common/icons"
 
 const StyledLink = styled("a", {
   color: theme.colors["text-vibrant-low"],
-  fontFamily: theme.fonts.sans,
+  fontFamily: theme.fonts.primary,
   textDecoration: "none",
   lineHeight: 1,
   variants: {

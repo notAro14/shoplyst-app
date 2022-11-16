@@ -12,12 +12,12 @@ const StyledContent = styled(SelectPrimitive.SelectContent, {
   overflow: "hidden",
   borderRadius: theme.radii.sm,
   backgroundColor: theme.colors.ui,
-  fontFamily: theme.fonts.sans,
+  fontFamily: theme.fonts.primary,
   color: theme.colors["text-functional"],
   boxShadow: theme.shadows.medium,
 })
 const StyledTrigger = styled(SelectPrimitive.SelectTrigger, {
-  fontFamily: theme.fonts.sans,
+  fontFamily: theme.fonts.primary,
   padding: `0 ${theme.space.md}`,
   lineHeight: 1,
   height: 35,

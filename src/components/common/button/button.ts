@@ -10,7 +10,7 @@ const Button = styled("button", {
   border: "1px solid",
   borderRadius: theme.radii.sm,
   boxShadow: theme.shadows.low,
-  fontFamily: theme.fonts.sans,
+  fontFamily: theme.fonts.primary,
   fontSize: theme.fontSizes.md,
   fontWeight: theme.fontWeights.light,
   padding: `${theme.space.xs} ${theme.space.lg}`,

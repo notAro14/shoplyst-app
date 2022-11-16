@@ -4,7 +4,7 @@ export const StyledCTA = styled("a", {
   textDecoration: "none",
   display: "grid",
   placeItems: "center",
-  fontFamily: theme.fonts.sans,
+  fontFamily: theme.fonts.primary,
   backgroundColor: theme.colors.solid,
   padding: theme.space.sm,
   borderRadius: theme.radii.sm,

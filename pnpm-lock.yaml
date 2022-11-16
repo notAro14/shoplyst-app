@@ -5,6 +5,7 @@ specifiers:
   '@heroicons/react': ^2.0.13
   '@mantine/hooks': ^5.8.0
   '@next-auth/prisma-adapter': ^1.0.5
+  '@next/font': ^13.0.3
   '@prisma/client': ^4.6.1
   '@radix-ui/colors': ^0.1.8
   '@radix-ui/react-accordion': ^1.0.1
@@ -64,6 +65,7 @@ dependencies:
   '@heroicons/react': 2.0.13_react@18.2.0
   '@mantine/hooks': 5.8.0_react@18.2.0
   '@next-auth/prisma-adapter': 1.0.5_2pl3b2nwmjya7el2zbe6cwkney
+  '@next/font': 13.0.3
   '@prisma/client': 4.6.1_prisma@4.6.1
   '@radix-ui/colors': 0.1.8
   '@radix-ui/react-accordion': 1.0.1_biqbaboplfbrettd7655fr4n2y
@@ -873,6 +875,10 @@ packages:
     dependencies:
       glob: 7.1.7
     dev: true
+
+  /@next/font/13.0.3:
+    resolution: {integrity: sha512-J3bZooNyhzhRshEJZlc4Kagfx6f8LQkPdCsP0nZm63dAUaoeMaQRidFFhbL68WZ3S5XleVfpGYypZuBSyJqYtw==}
+    dev: false
 
   /@next/swc-android-arm-eabi/13.0.3:
     resolution: {integrity: sha512-uxfUoj65CdFc1gX2q7GtBX3DhKv9Kn343LMqGNvXyuTpYTGMmIiVY7b9yF8oLWRV0gVKqhZBZifUmoPE8SJU6Q==}
