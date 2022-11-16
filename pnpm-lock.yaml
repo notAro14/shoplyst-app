@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@formkit/auto-animate': 1.0.0-beta.3
   '@heroicons/react': ^2.0.13
-  '@mantine/hooks': ^5.7.2
+  '@mantine/hooks': ^5.8.0
   '@next-auth/prisma-adapter': ^1.0.5
   '@prisma/client': ^4.6.1
   '@radix-ui/colors': ^0.1.8
@@ -62,7 +62,7 @@ specifiers:
 dependencies:
   '@formkit/auto-animate': 1.0.0-beta.3
   '@heroicons/react': 2.0.13_react@18.2.0
-  '@mantine/hooks': 5.7.2_react@18.2.0
+  '@mantine/hooks': 5.8.0_react@18.2.0
   '@next-auth/prisma-adapter': 1.0.5_2pl3b2nwmjya7el2zbe6cwkney
   '@prisma/client': 4.6.1_prisma@4.6.1
   '@radix-ui/colors': 0.1.8
@@ -846,8 +846,8 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
 
-  /@mantine/hooks/5.7.2_react@18.2.0:
-    resolution: {integrity: sha512-g+fxcnQwEeVM/5h+SAX/rDNL2s1652DGbP4xxfNg6yFqqhQzmtxQN7xsmkZ+ffx8wKhbsP5z13x6WZoxuJQh9Q==}
+  /@mantine/hooks/5.8.0_react@18.2.0:
+    resolution: {integrity: sha512-838TKK0jTvU9sy7OcbDYc2P9fXyyca4HQxKRP2kRJnsnL6ZAHWFlFosGIcN97FiWh+8uQA7jCoD8jyrUjrFDXg==}
     peerDependencies:
       react: '>=16.8.0'
     dependencies:
