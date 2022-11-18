@@ -8,6 +8,8 @@ export default class Document extends NextDocument {
     return (
       <Html lang="fr">
         <Head>
+          <link rel="manifest" href="/manifest.json" />
+          <meta name="theme-color" content="#0091ff" />
           <style
             id="stitches"
             dangerouslySetInnerHTML={{ __html: getCssText() }}
