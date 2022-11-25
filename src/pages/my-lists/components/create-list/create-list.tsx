@@ -39,7 +39,7 @@ const CreateList: FC<{ title: string }> = ({ title }) => {
       >
         <ListForm isSubmitting={isLoading} onSubmit={onSubmit} />
       </Dialog>
-      <Button onClick={onOpen} size="small" fullWidth>
+      <Button onClick={onOpen} fullWidth>
         {title}
       </Button>
     </Fragment>

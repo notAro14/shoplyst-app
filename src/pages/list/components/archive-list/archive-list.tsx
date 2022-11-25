@@ -38,7 +38,6 @@ const ArchiveList: FC<{ listId: string; disabled: boolean }> = ({
   return (
     <Button
       fullWidth
-      size="small"
       onClick={onClick}
       variant="filled"
       disabled={isLoading || disabled}

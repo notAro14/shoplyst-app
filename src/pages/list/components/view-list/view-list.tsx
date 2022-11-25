@@ -188,7 +188,6 @@ const List: FC<Props> = ({
           <Spacer size="xl" />
           <Button
             fullWidth
-            size="small"
             onClick={onOpen}
             variant="outlined"
             disabled={isRestoring}
@@ -203,12 +202,7 @@ const List: FC<Props> = ({
             Ta liste est vide
           </Text>
           <Spacer />
-          <Button
-            fullWidth
-            size="small"
-            onClick={onOpen}
-            disabled={isRestoring}
-          >
+          <Button fullWidth onClick={onOpen} disabled={isRestoring}>
             Ajouter des produits
           </Button>
         </Fragment>

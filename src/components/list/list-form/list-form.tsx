@@ -92,7 +92,6 @@ const ListForm: FC<{
       <Button
         colorScheme="brand"
         variant="filled"
-        size="small"
         fullWidth
         type="submit"
         disabled={isValid === false || isSubmitting || isDirty === false}
@@ -103,7 +102,6 @@ const ListForm: FC<{
       <Spacer />
       <Button
         colorScheme="danger"
-        size="small"
         variant="ghost"
         fullWidth
         type="button"

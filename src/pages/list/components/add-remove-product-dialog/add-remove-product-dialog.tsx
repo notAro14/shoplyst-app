@@ -80,7 +80,7 @@ const AddRemoveProductDialog: FC<{
         })}
       </Accordion>
       <Spacer size="xl" />
-      <Button fullWidth size="small" onClick={onDismiss}>
+      <Button fullWidth onClick={onDismiss}>
         Fermer
       </Button>
     </Dialog>
