@@ -6,6 +6,7 @@ import {
   Overlay,
   Title,
   Description,
+  Content,
 } from "@radix-ui/react-dialog"
 import { Cross1Icon } from "src/components/common/icons"
 
@@ -13,8 +14,20 @@ import * as styles from "./dialog.styles"
 import Spacer from "src/components/common/spacer"
 import Heading from "src/components/common/heading"
 import Text from "src/components/common/text"
+import { styled, theme } from "src/stitches.config"
 
-const { StyledContent } = styles
+export const StyledContent = styled(Content, {
+  backgroundColor: theme.colors["bg-alt"],
+  animation: `${styles.contentShow} 150ms ease-in-out forwards`,
+  borderRadius: theme.radii.md,
+  padding: `${theme.space.xl} ${theme.space.xl}`,
+  width: "90%",
+  position: "relative",
+
+  "@sm": {
+    maxWidth: 400,
+  },
+})
 
 export const Dialog: FC<{
   children: ReactNode

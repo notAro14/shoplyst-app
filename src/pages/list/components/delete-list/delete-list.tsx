@@ -5,8 +5,11 @@ import { trpc } from "src/utils/trpc"
 import { IconButtonV2 } from "src/components/common/icon-button"
 import { toast } from "src/components/feedback/toast"
 import { TrashIcon } from "src/components/common/icons"
+import { AlertDialog } from "src/components/common/dialog/alert-dialog"
+import useDisclosure from "src/hooks/use-disclosure"
 
 const DeleteList: FC<{ listId: string }> = ({ listId }) => {
+  const { onClose, isOpen, setIsOpen, onOpen } = useDisclosure()
   const utils = trpc.useContext()
   const { push } = useRouter()
   const { mutate: deleteList, isLoading } = trpc.list.delete.useMutation({
@@ -25,6 +28,7 @@ const DeleteList: FC<{ listId: string }> = ({ listId }) => {
       utils.list.allShared.setData((prev) =>
         prev?.filter((l) => l.list.id !== listId)
       )
+      onClose()
       toast.success("Liste supprimée")
       push("/my-lists")
       return { all, archived, shared }
@@ -41,21 +45,28 @@ const DeleteList: FC<{ listId: string }> = ({ listId }) => {
       utils.list.allShared.invalidate()
     },
   })
-  const onClick = useCallback(() => {
+  const onConfirm = useCallback(() => {
     deleteList(listId)
   }, [deleteList, listId])
   return (
-    <IconButtonV2
-      label="Supprimer la liste"
-      variant="ghost"
-      colorScheme="danger"
-      onClick={() => {
-        const yes = confirm("La liste va être supprimée")
-        if (yes) onClick()
-      }}
-      disabled={isLoading}
-      icon={<TrashIcon />}
-    />
+    <>
+      <AlertDialog
+        onOpenChange={setIsOpen}
+        onCancel={onClose}
+        onConfirm={onConfirm}
+        isOpen={isOpen}
+        title="Es-tu sûr(e) ?"
+        description="La liste va être supprimée"
+      />
+      <IconButtonV2
+        label="Supprimer la liste"
+        variant="ghost"
+        colorScheme="danger"
+        onClick={onOpen}
+        disabled={isLoading}
+        icon={<TrashIcon />}
+      />
+    </>
   )
 }
 

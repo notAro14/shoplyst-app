@@ -1,7 +1,6 @@
-import { Content } from "@radix-ui/react-dialog"
-import { css, keyframes, styled, theme } from "src/stitches.config"
+import { css, keyframes, theme } from "src/stitches.config"
 
-const contentShow = keyframes({
+export const contentShow = keyframes({
   "0%": {
     opacity: 0,
     transform: "translateY(5%) scale(0.96)",
@@ -11,19 +10,7 @@ const contentShow = keyframes({
     transform: "translateY(0) scale(1)",
   },
 })
-
-const overlayShow = keyframes({
-  "0%": {
-    opacity: 0,
-  },
-  "100%": {
-    opacity: 1,
-  },
-})
-
-export const title = css({})()
-export const description = css({})()
-export const StyledContent = styled(Content, {
+export const content = css({
   backgroundColor: theme.colors["bg-alt"],
   animation: `${contentShow} 150ms ease-in-out forwards`,
   borderRadius: theme.radii.md,
@@ -34,7 +21,19 @@ export const StyledContent = styled(Content, {
   "@sm": {
     maxWidth: 400,
   },
+})()
+export const overlayShow = keyframes({
+  "0%": {
+    opacity: 0,
+  },
+  "100%": {
+    opacity: 1,
+  },
 })
+
+export const title = css({})()
+export const description = css({})()
+
 export const overlay = css({
   backgroundColor: theme.colors.overlay,
   position: "fixed",
