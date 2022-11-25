@@ -8,7 +8,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { getBaseUrl, trpc } from "src/utils/trpc"
 
 const persister = createSyncStoragePersister({
-  storage: typeof window === "undefined" ? undefined : window.localStorage,
+  storage: typeof window === "undefined" ? undefined : window.sessionStorage,
 })
 
 interface Props {
@@ -44,7 +44,7 @@ const TrpcQueryClientProvider: FC<Props> = ({ children }) => {
         client={queryClient}
         persistOptions={{ persister }}
         onSuccess={() => {
-          // resume mutations after initial restore from localStorage was successful
+          // resume mutations after initial restore from persister was successful
           queryClient.resumePausedMutations().then(() => {
             queryClient.invalidateQueries()
           })
