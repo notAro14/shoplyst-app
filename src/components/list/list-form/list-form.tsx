@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react"
+import { FC } from "react"
 import { useForm } from "react-hook-form"
 import Flex from "src/components/common/flex"
 import Button from "src/components/common/button"
@@ -26,7 +26,6 @@ const ListForm: FC<{
     handleSubmit,
     formState: { errors, isValid, isDirty },
     register,
-    setFocus,
     reset,
   } = useForm<ListFields>({
     mode: "all",
@@ -35,10 +34,6 @@ const ListForm: FC<{
       description: defaultValues?.description ?? "",
     },
   })
-
-  useEffect(() => {
-    setFocus(LIST_NAME)
-  }, [setFocus])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
