@@ -12,7 +12,7 @@ export const field = css({
   borderColor: theme.colors["border-gray"],
   fontFamily: theme.fonts.primary,
   backgroundColor: "transparent",
-  fontSize: theme.fontSizes.sm,
+  fontSize: theme.fontSizes.md,
   "&:focus": {
     borderColor: theme.colors.solid,
     outline: "none",
