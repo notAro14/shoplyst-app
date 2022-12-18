@@ -227,16 +227,12 @@ export async function updateList({
     return { ok: false, error: handleException(exception) }
   }
 }
-export async function shareList(userId: string, listId: string) {
-  return db.listOnUser.create({
-    data: {
-      userId,
+export async function shareList(userIds: string[], listId: string) {
+  return db.listOnUser.createMany({
+    data: userIds.map((u) => ({
+      userId: u,
       listId,
-    },
-    select: {
-      userId: true,
-      list: true,
-    },
+    })),
   })
 }
 export async function archiveList(listId: string) {

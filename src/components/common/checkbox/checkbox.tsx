@@ -12,7 +12,7 @@ const Checkbox: FC<{
   checked?: boolean
   onChange?: (checkedState: boolean) => void
   readOnly?: boolean
-}> = ({ label, name, checked = false, onChange, id, readOnly = false }) => (
+}> = ({ label, name, checked, onChange, id, readOnly = false }) => (
   <Flex align="center" gap="md">
     <Root
       className={styles.root({ readOnly })}

@@ -53,20 +53,15 @@ export default t.router({
       return list
     }),
   share: protectedProcedure
-    .input(
-      z.object({
-        userId: z.string(),
-        listId: z.string(),
-      })
-    )
+    .input(z.object({ userIds: z.array(z.string()), listId: z.string() }))
     .use(async ({ next, input, ctx }) => {
       const yes = await doesListBelongToUser(ctx.user.id, input.listId)
       if (yes) return next()
 
       throw new TRPCError({ code: "UNAUTHORIZED" })
     })
-    .mutation(async function ({ input: { userId, listId } }) {
-      return shareList(userId, listId)
+    .mutation(async function ({ input: { userIds, listId } }) {
+      return shareList(userIds, listId)
     }),
   delete: protectedProcedure
     .input(z.string())

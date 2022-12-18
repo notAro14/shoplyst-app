@@ -48,6 +48,7 @@ const SharedShoppingLists = () => {
           <Spacer />
           <Flex
             direction="column"
+            gap="md"
             className={styles.sharedShoppingListsContainer}
           >
             {sharedLists.map(({ list: l }) => {

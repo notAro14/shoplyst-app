@@ -17,7 +17,7 @@ import AppShell from "src/components/app-shell"
 
 import ViewList from "./components/view-list"
 
-const ListIdPage: NextPageWithLayout = () => {
+const MyListPage: NextPageWithLayout = () => {
   const { query, isReady } = useRouter()
   const listId = query.id as string
   const {
@@ -77,10 +77,10 @@ const ListIdPage: NextPageWithLayout = () => {
   )
 }
 
-ListIdPage.getLayout = (page) => (
+MyListPage.getLayout = (page) => (
   <DefaultLayout>
     <AppShell>{page}</AppShell>
   </DefaultLayout>
 )
 
-export default ListIdPage
+export default MyListPage

@@ -27,6 +27,7 @@ import AddRemoveProductDialog from "../add-remove-product-dialog"
 import * as styles from "./styles"
 import AnimatedList from "src/components/common/animated-list"
 import Checkbox from "src/components/common/checkbox"
+import ShareDialog from "../Share/ShareDialog"
 
 type Products = {
   product: Product
@@ -43,6 +44,11 @@ const List: FC<Props> = ({
   list: { name, products, id, description, isArchived },
 }) => {
   const { isOpen, onClose, onOpen } = useDisclosure()
+  const {
+    isOpen: isShareDialogOpen,
+    onClose: onShareDialogClose,
+    onOpen: onShareDialogOpen,
+  } = useDisclosure()
   const {
     isOpen: isEditOpen,
     onClose: onEditClose,
@@ -62,6 +68,11 @@ const List: FC<Props> = ({
 
   return (
     <Fragment>
+      <ShareDialog
+        isOpen={isShareDialogOpen}
+        onDismiss={onShareDialogClose}
+        listId={id}
+      />
       <EditListDialog
         listId={id}
         isOpen={isEditOpen}
@@ -112,10 +123,10 @@ const List: FC<Props> = ({
       <Flex gap="xs">
         {isArchived === false && (
           <IconButtonV2
-            label="Bientôt disponible"
-            disabled
+            label="Partager la liste"
             variant="ghost"
             icon={<Share1Icon />}
+            onClick={onShareDialogOpen}
           />
         )}
         <IconButtonV2
