@@ -5,7 +5,7 @@ import { CheckIcon } from "src/components/common/icons"
 import Flex from "src/components/common/flex"
 import * as styles from "./styles"
 
-const Checkbox: FC<{
+export const Checkbox: FC<{
   label: string
   name: string
   id?: string

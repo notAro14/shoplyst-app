@@ -43,7 +43,7 @@ interface Props extends VariantProps<typeof StyledLink> {
   className?: string
 }
 
-const Link = forwardRef<HTMLAnchorElement, Props>(
+export const Link = forwardRef<HTMLAnchorElement, Props>(
   ({ children, isExternal, css, className, ...rest }, ref) => {
     return (
       <StyledLink

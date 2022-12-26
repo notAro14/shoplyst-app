@@ -1,6 +1,6 @@
 import { styled, theme } from "src/stitches.config"
 
-const Spacer = styled("div", {
+export const Spacer = styled("div", {
   display: "block",
   variants: {
     size: {

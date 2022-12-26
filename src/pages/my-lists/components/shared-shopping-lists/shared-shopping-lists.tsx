@@ -2,20 +2,14 @@ import { Fragment } from "react"
 import { useIsRestoring } from "@tanstack/react-query"
 
 import Flex from "src/components/common/flex"
-import {
-  ExclamationTriangleIcon,
-  InfoCircledIcon,
-  Share1Icon,
-} from "src/components/common/icons"
-import Box from "src/components/common/box"
+import { InfoCircledIcon, Share1Icon } from "src/components/common/icons"
 import PageHeading from "../../components/page-heading"
 import { trpc } from "src/utils/trpc"
 import Text from "src/components/common/text"
 import Spacer from "src/components/common/spacer"
-import { TextEllipsed } from "src/components/common/ellipsed"
-import * as styles from "./styles"
+import styles from "./styles"
 import { LazyLoader } from "src/components/common/loader"
-import Checkbox from "src/components/common/checkbox"
+import ListLinkCard from "src/components/list/ListLinkCard"
 
 const SharedShoppingLists = () => {
   const {
@@ -47,67 +41,22 @@ const SharedShoppingLists = () => {
           </Text>
           <Spacer />
           <Flex
+            as="ul"
             direction="column"
             gap="md"
             className={styles.sharedShoppingListsContainer}
           >
             {sharedLists.map(({ list: l }) => {
-              const { isArchived, id, owner, name, description, products } = l
+              const { id, name, description, owner } = l
               return (
-                <Box key={id} className={styles.sharedShoppingListContainer}>
-                  <Text fontSize="sm">
-                    Par{" "}
-                    <Text as="em" fontSize="sm" color="functional-low">
-                      {owner.name || owner.email}
-                    </Text>
-                  </Text>
-                  <Spacer size="xxs" />
-                  {isArchived && (
-                    <Text
-                      fontSize="sm"
-                      role="alert"
-                      color="warning-low"
-                      className={styles.isArchivedAlert}
-                    >
-                      <ExclamationTriangleIcon /> Archivée
-                    </Text>
-                  )}
-                  <Spacer size="xxs" />
-                  <TextEllipsed as="p" fontSize="lg">
-                    {name}
-                  </TextEllipsed>
-                  <TextEllipsed
-                    className={styles.description}
-                    as="em"
-                    fontSize="sm"
-                    color="functional-low"
-                  >
-                    {description || "Aucune description"}
-                  </TextEllipsed>
-                  <Spacer size="xxs" className={styles.spacerLine} />
-                  <Spacer />
-                  <Flex
-                    direction="column"
-                    as="ul"
-                    className={styles.productsContainer}
-                    gap="md"
-                  >
-                    {products.map(({ product: p, status }) => {
-                      const { id: productId, name: productName } = p
-                      return (
-                        <li key={productId}>
-                          <Checkbox
-                            name={productName}
-                            label={productName}
-                            id={String(productId)}
-                            checked={status === "PURCHASED"}
-                            readOnly
-                          />
-                        </li>
-                      )
-                    })}
-                  </Flex>
-                </Box>
+                <li key={id}>
+                  <ListLinkCard
+                    href={`/shared/${id}`}
+                    name={name}
+                    description={description}
+                    detail={`Par ${owner.name ?? "Utilisateur"}`}
+                  />
+                </li>
               )
             })}
           </Flex>

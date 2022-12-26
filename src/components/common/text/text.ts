@@ -1,6 +1,6 @@
 import { styled, theme } from "src/stitches.config"
 
-const Text = styled("p", {
+export const Text = styled("p", {
   variants: {
     fontSize: {
       xxs: {

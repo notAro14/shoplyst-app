@@ -92,6 +92,44 @@ export async function findAllShared(userId: string) {
     },
   })
 }
+export async function findSharedById(userId: string, listId: string) {
+  return db.listOnUser.findUnique({
+    where: {
+      listId_userId: {
+        listId,
+        userId,
+      },
+    },
+    select: {
+      list: {
+        select: {
+          name: true,
+          description: true,
+          id: true,
+          owner: {
+            select: {
+              name: true,
+              email: true,
+              image: true,
+            },
+          },
+          isArchived: true,
+          products: {
+            orderBy: {
+              product: {
+                name: "asc",
+              },
+            },
+            select: {
+              status: true,
+              product: true,
+            },
+          },
+        },
+      },
+    },
+  })
+}
 export async function findById(ownerId: string, id: string) {
   return db.list.findFirst({
     where: {

@@ -1,0 +1,1 @@
+export { useGetAllListsQuery } from "./useGetAllListsQuery"

@@ -13,6 +13,7 @@ import {
   findAll,
   findAllShared,
   findById,
+  findSharedById,
   removeProductFromList,
   shareList,
   updateProductStatus,
@@ -34,6 +35,11 @@ export default t.router({
   allShared: protectedProcedure.query(async function ({ ctx }) {
     return findAllShared(ctx.user.id)
   }),
+  findShared: protectedProcedure
+    .input(z.string())
+    .query(async function ({ ctx, input }) {
+      return findSharedById(ctx.user.id, input)
+    }),
   archive: protectedProcedure
     .input(z.string())
     .use(async ({ next, input, ctx }) => {

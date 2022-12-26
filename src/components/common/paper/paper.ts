@@ -1,6 +1,6 @@
 import { styled, theme } from "src/stitches.config"
 
-const Paper = styled("div", {
+export const Paper = styled("div", {
   variants: {
     elevation: {
       low: {
