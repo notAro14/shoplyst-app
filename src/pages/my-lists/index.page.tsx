@@ -20,7 +20,12 @@ const ShoppingLists: FC<{ isArchived?: boolean }> = ({
   isArchived = false,
 }) => {
   const isRestoring = useIsRestoring()
-  const { data: lists, isLoading, isFetching, isError } = useGetAllListsQuery()
+  const {
+    data: lists,
+    isLoading,
+    isFetching,
+    isError,
+  } = useGetAllListsQuery(isArchived)
 
   if (lists?.length)
     return (
