@@ -2,6 +2,8 @@ import produce from "immer"
 import { Fragment } from "react"
 import { withAppShell } from "src/components/app-shell"
 import { SEO } from "src/components/common"
+import { Link } from "src/components/common/link"
+import NextLink from "next/link"
 import { trpc } from "src/utils/trpc"
 
 function Page() {
@@ -30,6 +32,9 @@ function Page() {
   return (
     <Fragment>
       <SEO title="Shoplyst | Liste des produits" />
+      <NextLink href="/product/create" passHref legacyBehavior>
+        <Link>Ajouter des produits</Link>
+      </NextLink>
       <ul style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
         {data
           ? data.map((d) => {
@@ -40,7 +45,6 @@ function Page() {
                 >
                   <span style={{ display: "flex", gap: "1rem" }}>
                     <span>{d.name}</span>
-                    <span>{d.category?.name}</span>
                   </span>
                   <button onClick={makeOnDeleteProduct(d.id)}>Supprimer</button>
                 </li>

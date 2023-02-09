@@ -96,9 +96,6 @@ export async function listProducts() {
   try {
     const products = await db.product.findMany({
       orderBy: { name: "asc" },
-      include: {
-        category: true,
-      },
     })
     return { ok: true, data: products }
   } catch (exception) {

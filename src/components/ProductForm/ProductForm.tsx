@@ -1,12 +1,11 @@
 import { useForm } from "react-hook-form"
 import { trpc } from "src/utils/trpc"
-import { withAppShell } from "../app-shell"
 import { toast } from "src/components/feedback/toast"
 
 const PRODUCT = "product"
 const CATEGORY = "category"
 
-function ProductForm() {
+export default function ProductForm() {
   const { data: categories } = trpc.category.all.useQuery()
   const {
     register,
@@ -72,5 +71,3 @@ function ProductForm() {
     </form>
   )
 }
-
-export default withAppShell(ProductForm)

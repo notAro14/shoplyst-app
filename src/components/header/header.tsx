@@ -12,6 +12,7 @@ import Text from "src/components/common/text/text"
 import ToggleTheme from "src/components/common/toggle-theme"
 import { styled, theme } from "src/stitches.config"
 import { useThemeSwitcherShortcut } from "src/hooks/use-theme-switcher-shortcut"
+import { useRouter } from "next/router"
 
 const itemStyles = {
   all: "unset",
@@ -76,6 +77,7 @@ const StyledItem = styled(DropdownMenu.Item, {
 const Auth = () => {
   const { data: session, status } = useSession()
   const isBrowser = useIsBrowser()
+  const { push } = useRouter()
   if (isBrowser === false) return null
 
   switch (status) {
@@ -110,6 +112,9 @@ const Auth = () => {
                 <StyledLabel>
                   {session.user?.name ?? session.user?.email}
                 </StyledLabel>
+                <StyledItem onSelect={() => push("/products")}>
+                  Produits
+                </StyledItem>
                 <StyledSeparator />
                 <StyledItem
                   colorScheme="danger"
