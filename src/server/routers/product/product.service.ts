@@ -91,3 +91,17 @@ export async function removeProduct(payload: {
     return { ok: false, error: handleException(exception) }
   }
 }
+
+export async function listProducts() {
+  try {
+    const products = await db.product.findMany({
+      orderBy: { name: "asc" },
+      include: {
+        category: true,
+      },
+    })
+    return { ok: true, data: products }
+  } catch (exception) {
+    return { ok: false, error: handleException(exception) }
+  }
+}

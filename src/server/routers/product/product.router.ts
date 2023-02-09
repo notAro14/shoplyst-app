@@ -8,7 +8,18 @@ import {
   UpdateInputSchema,
   removeProduct,
   updateProduct,
+  listProducts,
 } from "./product.service"
+
+const list = protectedProcedure.query(async function () {
+  const meta = await listProducts()
+  if (meta.ok) return meta.data
+
+  throw new TRPCError({
+    code: "INTERNAL_SERVER_ERROR",
+    message: meta.error?.message ?? "Unknown error",
+  })
+})
 
 const create = protectedProcedure
   .input(CreateInputSchema)
@@ -50,4 +61,5 @@ export default t.router({
   create,
   update,
   remove,
+  list,
 })
