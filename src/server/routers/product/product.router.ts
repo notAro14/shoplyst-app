@@ -12,7 +12,7 @@ import {
 
 const create = protectedProcedure
   .input(CreateInputSchema)
-  .query(async function ({ input }) {
+  .mutation(async function ({ input }) {
     const meta = await createProduct(input)
     if (meta.ok) return meta.data
 
@@ -24,7 +24,7 @@ const create = protectedProcedure
 
 const update = protectedProcedure
   .input(UpdateInputSchema)
-  .query(async function ({ input }) {
+  .mutation(async function ({ input }) {
     const meta = await updateProduct(input)
     if (meta.ok) return meta.data
 
@@ -36,7 +36,7 @@ const update = protectedProcedure
 
 const remove = protectedProcedure
   .input(z.number())
-  .query(async function ({ input }) {
+  .mutation(async function ({ input }) {
     const meta = await removeProduct({ id: input })
     if (meta.ok) return meta.data
 
