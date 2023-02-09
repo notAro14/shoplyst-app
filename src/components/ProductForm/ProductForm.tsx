@@ -41,7 +41,7 @@ function ProductForm() {
         {...register(PRODUCT, {
           required: "Le nom est requis",
           maxLength: {
-            value: 10,
+            value: 30,
             message: "Le nom est trop long",
           },
         })}
