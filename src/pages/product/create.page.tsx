@@ -1,17 +1,22 @@
 import ProductForm from "src/components/ProductForm"
 import { SEO } from "src/components/common"
 import { Fragment } from "react"
-import NextLink from "next/link"
-import { Link } from "src/components/common/link"
+import Link from "next/link"
+import { Anchor } from "src/components/common"
 import { withAppShell } from "src/components/app-shell"
+import { ArrowLeftIcon } from "src/components/common/icons"
 
 function Page() {
   return (
     <Fragment>
       <SEO title="Shoplyst | Ajouter un produit" />
-      <NextLink legacyBehavior passHref href="/products">
-        <Link>Voir tous les produits</Link>
-      </NextLink>
+      <Link legacyBehavior passHref href="/products">
+        <Anchor>
+          <ArrowLeftIcon />
+          Voir tous les produits
+        </Anchor>
+      </Link>
+      <br />
       <ProductForm />
     </Fragment>
   )
